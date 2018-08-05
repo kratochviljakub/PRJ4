@@ -48,17 +48,39 @@
 \section{Úvod}
 Používaný termín SLAM je zkratka pro simultánní lokalizaci a mapování, což je jeden ze základních problémů autonomních robotů. Jeho řešením by měl být robot, schopný na neznámém místě v neznámém prostředí vytvořit mapu tohoto prostředí a zároveň se v ní sám během pohybu lokalizovat.
 
-Zrod problému SLAM nastal v roce 1986 na konferenci IEEE Robotics and Automation v San Francisku. To bylo období, kdy se teprve začali jak v robotice, tak v umělé inteligenci objevovat pravděpodobnostní metody. Výsledkem diskuzí bylo, že konzistentní pravděpodobnostní mapování se stalo základním problémem robotiky a během následujících let vzniklo několik klíčových prací, které založily statistický základ pro popis vztahů mezi landmarky (orientačními body) a manipulací s geometrickou nejistotou. Klíčové bylo zjištění, že mezi odhady polohy různých landmarků na mapě musí existovat vysoká míra korelace, která roste s následujícími pozorováními. Do té doby se většina výzkumníků snažila korelaci minimalizovat, jenže naopak čím více korelace roste, tím přesnějších výsledků můžeme dosáhnout.
+Do povědomí se SLAM dostal v roce 1986 na konferenci IEEE Robotics and Automation v San Francisku. To bylo období, kdy se teprve začali jak v robotice, tak v umělé inteligenci objevovat pravděpodobnostní metody. Výsledkem diskuzí bylo, že konzistentní pravděpodobnostní mapování se stalo základním problémem robotiky a během následujících let vzniklo několik klíčových prací, které založily statistický základ pro popis vztahů mezi landmarky (orientačními body) a manipulací s geometrickou nejistotou. Klíčové bylo zjištění, že mezi odhady polohy různých landmarků na mapě musí existovat vysoká míra korelace, která roste s následujícími pozorováními. Do té doby se většina výzkumníků snažila korelaci minimalizovat, jenže naopak čím více korelace roste, tím přesnějších výsledků můžeme dosáhnout.
 
 Aplikací SLAM můžeme najít mnoho, počínaje autonomním domácím vysavačem nebo sekačkou na trávu přes robotický průzkum opuštěných nebo člověku nebezpečných prostor, navigaci ponorek kolem podmořských přírodních překážek, řízení bezpilotních letounů a dronů až po v poslední době hodně diskutované samořídící automobily nebo dokonce planetární rovery brázdící povrch Marsu.
 
 \textbf{TODO: předpokládané výsledky této práce}
 
+
 \newpage
 \section{SLAM}
+SLAM není žádný konkrétní algoritmus nebo software, je to problém týkající se otázky, zda je možné najít polohu nějakého senzoru vzhledem k jeho okolí a současně mapovat strukturu prostředí. Odpověď, a tudíž i řešení konkrétních specifikací problému (parametry robota, typ prostředí, požadavky na funkčnost atd.), nám dávají již známé metody řešení.
+
+Landmarky nebo také majáky, což jsou pro robota nezaměnitelné a snadno rozpoznatelné orientační body v prostředí, můžou být v některých aplikacích již dopředu známy. Například autonomní vozík pohybující se ve výrobní hale může mít manuálně vystavenou mapu landmarků. Nebo robot pro práci pod širým nebem orientující se podle GPS (což jsou pro něj pohyblivé majáky na známých místech). V takových případech nemusí být SLAM vyžadován, pokud lze stroj lokalizovat vzhledem ke známým bodům. Ovšem při použití uvnitř nezmapovaných budov odpadá možnost použití GPS nebo manuálního nastavení majáků a přichází nutnost použití jiného řešení, kterým bývá nejčastěji právě SLAM. Navíc v mnoha vojenských i civilních aplikacích není cílem lokalizace, ale právě robotem vytvořená mapa, kterou poté dále zpracovává lidský operátor.
+
+Další z impulzů vývoje simultánní lokalizace a mapování byl špatný pohybový odhad získaný z odometrie kol, čímž se rozumí například počet otáček, úhel natočení apod. Tento odhad se navíc s ujetou vzdáleností zhoršuje a tím znemožňoval použití pro správnou a přesnou lokalizaci i tvorbu mapy. Nicméně dnešní algoritmy dokáží snížit chybu odometrie na méně než 0,5\%, je tedy SLAM stále potřebný? Na tuto otázku dává částečnou odpověď tzv. uzavírání smyček. Při použití dat pouze z odometrie robot vnímá svět jako "nekonečný koridor", ve kterém neustále zkoumá nové oblasti (obr.1 vlevo). SLAM ale dokáže robotem vytvořenou smyčku uzavřít, protože porovná aktuální landmarky s těmi dříve objevenými a tím dokáže správně porozumět topologii prostředí a v mapě určit, že tyto dvě chodby se protínají (obr.1 vpravo).
+
+\begin{figure}[H]
+\includegraphics[scale=1]{Obr1} 
+\caption{Levá mapa je vytvořená pomocí odometrie a znázorňuje jeden dlouhý koridor od bodu A do B. Body, které jsou ve skutečnosti blízko (B a C) mohou být podle této mapy libovolně daleko. Pravá mapa je vytvořená pomocí SLAM s využití uzavírání smyček, kde je znázorněná správná topologie prostředí, neboť robot správně našel "zkratku" mezi dvěma koridory.}
+\end{figure}
+
+
+\newpage
+SLAM je ze své podstaty problém typu slepice-vejce a je tedy do značné míry netriviální. Robot pro svoji lokalizaci potřebuje mapu terénu. Avšak k sestavení mapy musí znát svou vlastní polohu a pro povědomí o poloze potřebuje mapu. Ovšem existují algoritmy, které, i přes tento rozpor, uspokojivě fungují a nasnadě je tedy otázka "Je SLAM vyřešen?". Ano i ne, otázku je nutno položit pro konkrétní konfiguraci robota, prostředí a požadavků, kde může figurovat mnoho kombinací, např. z následujících možností.
+\begin{itemize}
+\item Robot: dynamika, maximální rychlost, dostupné senzory, výpočetní výkon
+\item Prostředí: 2D/3D, přírodní/umělé, přítomnost dynamických prvků, množství a typ landmarků, množství symetrie
+\item Požadavky: přesnost odhadu stavu robota, přesnost a typ mapy, míra úspěšnosti, latence odhadu, maximální velikost mapované oblasti...
+\end{itemize}
+Například mapování vnitřního 2D prostředí s robotem vybaveným snímačem kol a laserovým senzorem s dostatečnou přesností a robustností lze považovat z velké části za vyřešené. Na druhou stranu další kombinace robot/prostředí/požadavky si stále zaslouží velké množství výzkumu. Aktuální algoritmy mohou snadno selhat, jestliže je pohyb robota nebo prostředí příliš náročný.
+
+
 \textbf{TODO: \\
--problém slepice-vejce \\
--metody řešení \\
--je SLAM vyřešen?}
+-metody řešení} 
+
 
 \end{document}
