@@ -91,26 +91,26 @@ Uvažujme mobilního robota, který projíždí neznámým prostředím a pomoc�
 
 V okamžiku \textit{k} jsou definovány následující veličiny a soubory hodnot:
 \begin{itemize}
-\item x$_k$; \textbf{X}$_{0:k}=\lbrace \text{x}_0, \text{x}_1,\cdots, \text{x}_k\rbrace = \lbrace \textbf{X}_{0:k-1}, \text{x}_k \rbrace$:  
+\item \textbf{x}$_k$; \textbf{X}$_{0:k}=\lbrace \text{x}_0, \text{x}_1,\cdots, \text{x}_k\rbrace = \lbrace \textbf{X}_{0:k-1}, \textbf{x}_k \rbrace$:  
 Stavový vektor popisující polohu a orientaci robota, respektive  historii všech stavových vektorů.
-\item u$_k$; \textbf{U}$_{0:k}=\lbrace \text{u}_1, \text{u}_2,\cdots, \text{u}_k\rbrace = \lbrace \textbf{U}_{0:k-1}, \text{u}_k \rbrace$: 
+\item \textbf{u}$_k$; \textbf{U}$_{0:k}=\lbrace \text{u}_1, \text{u}_2,\cdots, \text{u}_k\rbrace = \lbrace \textbf{U}_{0:k-1}, \textbf{u}_k \rbrace$: 
 Vektor řízení použitý v čase \textit{k}-1 pro dosažení stavu x$_k$ v čase \textit{k}, resp. historie vektorů řízení.
-\item m$_i$; $\textbf{m}=\lbrace \text{m}_1, \text{m}_2,\cdots, \text{m}_n\rbrace$: 
+\item \textbf{m}$_i$; $\textbf{m}=\lbrace \text{m}_1, \text{m}_2,\cdots, \text{m}_n\rbrace$: 
 Vektor popisující polohu i-tého landmarku, resp. vektor popisující polohy všech landmarků.
-\item z$_{ik}$; \textbf{Z}$_{0:k}=\lbrace \text{z}_1, \text{z}_2,\cdots, \text{z}_k\rbrace = \lbrace \textbf{Z}_{0:k-1}, \text{z}_k \rbrace$: 
+\item \textbf{z}$_{ik}$; \textbf{Z}$_{0:k}=\lbrace \text{z}_1, \text{z}_2,\cdots, \text{z}_k\rbrace = \lbrace \textbf{Z}_{0:k-1}, \textbf{z}_k \rbrace$: 
 Pozorování o poloze i-tého landmarku získané z robota, resp. soubor všech pozorování.
 \end{itemize}
 
 Pro vyřešení problému musíme najít sdruženou posteriorní hustotu pravděpodobnosti landmarků \textbf{m} a stavů robota x$_k$ pro všechny časy $k$.
 
 \begin{eqnarray}
-P(\text{x}_k, \textbf{m} | \textbf{Z}_{0:k}, \textbf{U}_{0:k}, \text{x}_0)
+P(\textbf{x}_k, \textbf{m} \,|\, \textbf{Z}_{0:k}, \textbf{U}_{0:k}, \textbf{x}_0)
 \end{eqnarray}
 
 Vhodné řešení nabízí rekurzivní algoritmus, kdy hustotu pravděpodobnosti v čase $k$ vypočteme pomocí hustoty v čase $k-1$, řízení u$_k$ a pozorování z$_k$.
 
 \begin{eqnarray}
-P(\text{x}_{k-1}, \textbf{m} | \textbf{Z}_{0:k-1}, \textbf{U}_{0:k-1})
+P(\textbf{x}_{k-1}, \textbf{m} \,|\, \textbf{Z}_{0:k-1}, \textbf{U}_{0:k-1})
 \end{eqnarray}
 
 Tento výpočet vyžaduje definování modelu pozorování a pohybového modelu.
@@ -118,11 +118,11 @@ Tento výpočet vyžaduje definování modelu pozorování a pohybového modelu.
 \begin{enumerate}
 \item \textbf{Model pozorování} popisuje s jakou pravděpodobností získáme pozorování z$_k$, pokud známe polohu robota i landmarků.
 \begin{eqnarray}
-P(\text{z}_k | \text{x}_k, \textbf{m})
+P(\textbf{z}_k \,|\, \textbf{x}_k, \textbf{m})
 \end{eqnarray}
 \item \textbf{Pohybový model} popisuje s jakou pravděpodobností se robot nachází ve stavu x$_k$, pokud známe předchozí stav x$_{k-1}$ a aplikované řízení u$_k$.
 \begin{eqnarray}
-P(\text{x}_k | \text{x}_{k-1}, \text{u}_k)
+P(\textbf{x}_k \,|\, \textbf{x}_{k-1}, \textbf{u}_k)
 \end{eqnarray}
 \end{enumerate}
 
@@ -130,11 +130,33 @@ Stavový přechod pohybového modelu je Markovský proces, neboť stav x$_k$ zá
 
 \newpage
 
+\begin{enumerate}
+\item \textbf{Predikce} 
+\begin{eqnarray}
+P(\textbf{x}_k, \textbf{m} \,|\, \textbf{Z}_{0:k-1}, \textbf{U}_{0:k}, \textbf{x}_0) \: = \: \int P(\textbf{x}_k \,|\, \textbf{x}_{k-1}, \textbf{u}_k) \: \times \: P(\textbf{x}_{k-1}, \textbf{m} \,|\, \textbf{Z}_{0:k-1}, \textbf{U}_{0:k-1}, \textbf{x}_0) d\textbf{x}_{k-1}  
+\end{eqnarray}
+\item \textbf{Korekce}
+\begin{eqnarray}
+P(\textbf{x}_k, \textbf{m} \,|\, \textbf{Z}_{0:k}, \textbf{U}_{0:k}, \textbf{x}_0) \: = \: \frac{P(\textbf{z}_k \,|\, \textbf{x}_k, \textbf{m}) P(\textbf{x}_k, \textbf{m} \,|\, \textbf{Z}_{0:k-1, \textbf{U}_{0:k}, \textbf{x}_0})}{P(\textbf{z}_k \,|\, \textbf{Z}_{0:k-1}, \textbf{U}_{0:k})}
+\end{eqnarray}
+\end{enumerate}
+
+Rovnice (5) a (6) poskytují rekurzivní postup pro výpočet hustoty pravděpodobnosti $P$(\textbf{x}$_k$, \textbf{m} $\,|\,$ \textbf{Z}$_{0:k}$, \textbf{U}$_{0:k}$, \textbf{x}$_k$) stavu robota \textbf{x}$_k$ a mapy \textbf{m} v čase $k$ na základě všech pozorování \textbf{Z}$_{0:k}$ a všech řízení \textbf{U}$_{0:k}$.
+
+Problém budování mapy lze formulovat jako výpočet podmíněné hustoty pravděpodob\-nosti $P$(\textbf{m} $\,|\,$ \textbf{X}$_{0:k}$, \textbf{Z}$_{0:k}$, \textbf{U}$_{0:k}$). To předpokládá, že umístění vozidla \textbf{x}$_k$ je známo (nebo alespoň deterministické) po celou dobu, pod podmínkou znalosti počátečního umístění. Mapa \textbf{m} se potom vytvoří spojením pozorování z různých míst. Naopak problém lokalizace může být formulován jako výpočet pravděpodobnostní distribuce $P$(\textbf{x}$_k$ $\,|\,$ \textbf{Z$_{0:k}$, \textbf{U}$_{0:k}$, \textbf{m}}). To předpokládá, že je známo umístění landmarků a cílem je vzhledem k nim vypočítat odhad umístění vozidla.
+
+Pro zjednodušení zápisu v následujícím textu bude sdružená posteriorní hustota pravděpodobnosti landmarků a polohy robota definovanou v rovnici (1) psát jako $P$(\textbf{x}$_k$, \textbf{m} $\,|\,$ \textbf{z}$_k$). Model pozorování $P$(\textbf{z}$_k$ $\,|\,$ \textbf{x}$_k$, \textbf{m}) závisí jak na stavu vozidla, tak na umístění landmarků. Z toho vyplývá, že zmiňované rozdělení nelze takto aplikovat
+$$
+P(\textbf{x}_k, \textbf{m} \,|\, \textbf{z}_k) \: \ne \: P(\textbf{x}_k \,|\, \textbf{z}_k)P(\textbf{m} \,|\, \textbf{z}_k)
+$$
+a vedlo by k nekonzistentním odhadům.
+
 
 \textbf{TODO: \\
 -metody řešení \\
--EKF, FastSLAM? \\
 -GraphSLAM?, VisualSLAM?} 
+
+\section{Zdroje}
 
 
 \end{document}
