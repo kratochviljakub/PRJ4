@@ -64,6 +64,7 @@ Landmarky nebo také majáky, což jsou pro robota nezaměnitelné a snadno rozp
 Další z impulzů vývoje simultánní lokalizace a mapování byl špatný pohybový odhad získaný z odometrie kol, čímž se rozumí například počet otáček, úhel natočení apod. Tento odhad se navíc s ujetou vzdáleností zhoršuje a tím znemožňoval použití pro správnou a přesnou lokalizaci i tvorbu mapy. Nicméně dnešní algoritmy dokáží snížit chybu odometrie na méně než 0,5\%, je tedy SLAM stále potřebný? Na tuto otázku dává částečnou odpověď tzv. uzavírání smyček. Při použití dat pouze z odometrie robot vnímá svět jako "nekonečný koridor", ve kterém neustále zkoumá nové oblasti (obr.1 vlevo). SLAM ale dokáže robotem vytvořenou smyčku uzavřít, protože porovná aktuální landmarky s těmi dříve objevenými a tím dokáže správně porozumět topologii prostředí a v mapě určit, že tyto dvě chodby se protínají (obr.1 vpravo).
 
 \begin{figure}[H]
+\centering
 \includegraphics[scale=1]{Obr1} 
 \caption{Levá mapa je vytvořená pomocí odometrie a znázorňuje jeden dlouhý koridor od bodu A do B. Body, které jsou ve skutečnosti blízko (B a C) mohou být podle této mapy libovolně daleko. Pravá mapa je vytvořená pomocí SLAM s využití uzavírání smyček, kde je znázorněná správná topologie prostředí, neboť robot správně našel "zkratku" mezi dvěma koridory.}
 \end{figure}
@@ -79,10 +80,60 @@ SLAM je ze své podstaty problém typu slepice-vejce a je tedy do značné míry
 Například mapování vnitřního 2D prostředí s robotem vybaveným snímačem kol a laserovým senzorem s dostatečnou přesností a robustností lze považovat z velké části za vyřešené. Na druhou stranu další kombinace robot/prostředí/požadavky si stále zaslouží velké množství výzkumu. Aktuální algoritmy mohou snadno selhat, jestliže je pohyb robota nebo prostředí příliš náročný.
 
 
+\section{Pravděpodobnostní definice}
+Uvažujme mobilního robota, který projíždí neznámým prostředím a pomocí senzorů na sobě umístěných pořizuje relativní pozorování okolních landmarků (obr.2)
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{Obr2}
+\caption{Skutečné umístění landmarků ani robota není nikdy známo, jen jejich vzájemná poloha.}
+\end{figure}
+
+V okamžiku \textit{k} jsou definovány následující veličiny a soubory hodnot:
+\begin{itemize}
+\item x$_k$; \textbf{X}$_{0:k}=\lbrace \text{x}_0, \text{x}_1,\cdots, \text{x}_k\rbrace = \lbrace \textbf{X}_{0:k-1}, \text{x}_k \rbrace$:  
+Stavový vektor popisující polohu a orientaci robota, respektive  historii všech stavových vektorů.
+\item u$_k$; \textbf{U}$_{0:k}=\lbrace \text{u}_1, \text{u}_2,\cdots, \text{u}_k\rbrace = \lbrace \textbf{U}_{0:k-1}, \text{u}_k \rbrace$: 
+Vektor řízení použitý v čase \textit{k}-1 pro dosažení stavu x$_k$ v čase \textit{k}, resp. historie vektorů řízení.
+\item m$_i$; $\textbf{m}=\lbrace \text{m}_1, \text{m}_2,\cdots, \text{m}_n\rbrace$: 
+Vektor popisující polohu i-tého landmarku, resp. vektor popisující polohy všech landmarků.
+\item z$_{ik}$; \textbf{Z}$_{0:k}=\lbrace \text{z}_1, \text{z}_2,\cdots, \text{z}_k\rbrace = \lbrace \textbf{Z}_{0:k-1}, \text{z}_k \rbrace$: 
+Pozorování o poloze i-tého landmarku získané z robota, resp. soubor všech pozorování.
+\end{itemize}
+
+Pro vyřešení problému musíme najít sdruženou posteriorní hustotu pravděpodobnosti landmarků \textbf{m} a stavů robota x$_k$ pro všechny časy $k$.
+
+\begin{eqnarray}
+P(\text{x}_k, \textbf{m} | \textbf{Z}_{0:k}, \textbf{U}_{0:k}, \text{x}_0)
+\end{eqnarray}
+
+Vhodné řešení nabízí rekurzivní algoritmus, kdy hustotu pravděpodobnosti v čase $k$ vypočteme pomocí hustoty v čase $k-1$, řízení u$_k$ a pozorování z$_k$.
+
+\begin{eqnarray}
+P(\text{x}_{k-1}, \textbf{m} | \textbf{Z}_{0:k-1}, \textbf{U}_{0:k-1})
+\end{eqnarray}
+
+Tento výpočet vyžaduje definování modelu pozorování a pohybového modelu.
+
+\begin{enumerate}
+\item \textbf{Model pozorování} popisuje s jakou pravděpodobností získáme pozorování z$_k$, pokud známe polohu robota i landmarků.
+\begin{eqnarray}
+P(\text{z}_k | \text{x}_k, \textbf{m})
+\end{eqnarray}
+\item \textbf{Pohybový model} popisuje s jakou pravděpodobností se robot nachází ve stavu x$_k$, pokud známe předchozí stav x$_{k-1}$ a aplikované řízení u$_k$.
+\begin{eqnarray}
+P(\text{x}_k | \text{x}_{k-1}, \text{u}_k)
+\end{eqnarray}
+\end{enumerate}
+
+Stavový přechod pohybového modelu je Markovský proces, neboť stav x$_k$ závisí pouze na předchozím stavu x$_{k-1}$ a aplikovaném řízení u$_k$ a je nezávislý na pozorováních i mapě. SLAM algoritmus je nyní implementován ve standardní dvoustupňové (predikce-korekce) rekurzivní formě.
+
+\newpage
+
+
 \textbf{TODO: \\
 -metody řešení \\
--pravděpodobnostní definice \\
--EKF, FastSLAM \\
+-EKF, FastSLAM? \\
 -GraphSLAM?, VisualSLAM?} 
 
 
