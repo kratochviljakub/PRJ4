@@ -2,4 +2,6 @@
 \contentsline {section}{\numberline {1}\IeC {\'U}vod}{2}
 \contentsline {section}{\numberline {2}SLAM}{3}
 \contentsline {section}{\numberline {3}Pravd\IeC {\v e}podobnostn\IeC {\'\i } definice}{4}
-\contentsline {section}{\numberline {4}Zdroje}{6}
+\contentsline {section}{\numberline {4}Graph-Based SLAM}{6}
+\contentsline {subsection}{\numberline {4.1}Obecn\IeC {\v e}}{6}
+\contentsline {subsection}{\numberline {4.2}Definice}{7}

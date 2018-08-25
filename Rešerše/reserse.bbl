@@ -1,0 +1,38 @@
+\begin{thebibliography}{1}
+
+\bibitem{GraphSLAM}
+P.~Abbeel.
+\newblock Graph{SLAM}.
+\newblock
+  https://people.eecs.berkeley.edu/~pabbeel/cs287-fa13/slides/GraphSLAM.pdf, 11
+  2013.
+\newblock UC Berkeley EECS.
+
+\bibitem{16-graph-slam}
+W.~Burgard.
+\newblock Graph-based {SLAM}.
+\newblock
+  http://ais.informatik.uni-freiburg.de/teaching/ss18/robotics/slides/16-graph-slam.pdf,
+  07 2018.
+\newblock UNI Freiburg.
+
+\bibitem{Past_Present_and_Future_of_Simultaneous_Localization_And_Mapping}
+C.~Cadena, L.~Carlone, H.~Carrillo, Y.~Latif, D.~Scaramuzza, J.~Neira, I.~D.
+  Reid, and J.~J. Leonard.
+\newblock Simultaneous localization and mapping: Present, future, and the
+  robust-perception age.
+\newblock {\em CoRR}, abs/1606.05830, 2016.
+
+\bibitem{Durrant-Whyte}
+H.~Durrant-Whyte and T.~Bailey.
+\newblock Simultaneous localisation and mapping (slam): Part i the essential
+  algorithms.
+\newblock {\em IEEE ROBOTICS AND AUTOMATION MAGAZINE}, 2006.
+
+\bibitem{tutorialGraph}
+G.~Grisetti, R.~Kuemmerle, C.~Stachniss, and W.~Burgard.
+\newblock A tutorial on graph-based {SLAM}.
+\newblock {\em Intelligent Transportation Systems Magazine, IEEE}, 2(4):31--43,
+  2010.
+
+\end{thebibliography}
