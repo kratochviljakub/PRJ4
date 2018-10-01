@@ -184,7 +184,21 @@ Znázornění problému je v obrázku 4, kde $x_i$ je aktuální uzel, $x_j$ je 
 
 
 \item \textbf{Back-end}
+Druhá část se stará o optimalizaci rozložení uzlů v grafu.
 
+Definujme funkci 
+$$
+\textbf{e}_{ij}(\textbf{x}_i, \textbf{x}_j) \: = \: \textbf{z}_{ij}-\hat{\textbf{z}}_{ij}(\textbf{x}_i, \textbf{x}_j),
+$$
+která vyjadřuje chybu mezi predikcí měření $\hat{\textbf{z}}_{ij}$ a měřením $\textbf{z}_{ij}$ a je také znázorněna v obrázku 4. Optimalizace rozložení všech uzlů dosáhneme minimalizací funkce $\textbf{F}(\textbf{x})$ pro všechna virtuální měření
+$$
+\textbf{F}(\textbf{x}) \: = \: \sum\limits_{i,j} \textbf{F}_{ij} \: = \: \sum\limits_{i,j} \textbf{e}_{ij}^T \Omega_{ij} \textbf{e}_{ij}.
+$$
+Nejlepší odhad mapy tedy musí splňovat podmínku
+$$
+\textbf{x}^* \: = \: \text{argmin}\, \textbf{F}(\textbf{x}).
+$$
+Numericky lze tento problém řešit metodou nejmenších čtverců, konkrétně na odhad rozmístění uzlů z front-end aplikovat Gauss-Newtonův algoritmus, který minimalizuje chybovou funkci $\textbf{e}_{ij}(\textbf{x}_i, \textbf{x}_j)$.
 
 \end{itemize}
 
