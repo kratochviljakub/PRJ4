@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  1 OCT 2018 14:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  3 OCT 2018 23:01
 entering extended mode
 **./reserse.tex
 (reserse.tex
@@ -802,16 +802,16 @@ Package pdftex.def Info: Obr2.png used on input line 87.
 [5] <Obr3.png, id=34, 648.62325pt x 181.27725pt>
 File: Obr3.png Graphic file (type png)
  <use Obr3.png>
-Package pdftex.def Info: Obr3.png used on input line 167.
+Package pdftex.def Info: Obr3.png used on input line 166.
 (pdftex.def)             Requested size: 324.31082pt x 90.6384pt.
  [6]
 <Obr4.png, id=43, 407.121pt x 272.81924pt>
 File: Obr4.png Graphic file (type png)
  <use Obr4.png>
-Package pdftex.def Info: Obr4.png used on input line 180.
+Package pdftex.def Info: Obr4.png used on input line 178.
 (pdftex.def)             Requested size: 325.69725pt x 218.25568pt.
  [7 <./Obr3.png>]
-(reserse.bbl
+[8 <./Obr4.png>] (reserse.bbl
 Underfull \hbox (badness 3895) in paragraph at lines 4--10
 []\OT1/cmr/m/n/12 P. Abbeel.  Gra-phSLAM.  https://people.eecs.berkeley.edu/ pa
 bbeel/cs287-
@@ -822,7 +822,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--18
 []\OT1/cmr/m/n/12 W. Bur-gard.  Graph-based SLAM.  http://ais.informatik.uni-
  []
 
-[8 <./Obr4.png>]) [9] (reserse.aux) ) 
+) [9] (reserse.aux) ) 
 Here is how much of TeX's memory you used:
  8592 strings out of 493323
  123150 string characters out of 3139065
@@ -830,20 +830,19 @@ Here is how much of TeX's memory you used:
  11967 multiletter control sequences out of 15000+200000
  10771 words of font info for 40 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,10n,39p,1115b,411s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/p
-ublic/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmbx8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
-/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.
-pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmti12.pfb>
-Output written on reserse.pdf (10 pages, 242578 bytes).
+ 39i,10n,39p,1115b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8.
+pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/
+Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/f
+onts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on reserse.pdf (10 pages, 244332 bytes).
 PDF statistics:
  93 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

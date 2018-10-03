@@ -154,7 +154,6 @@ $$
 Takové rozdělení by vedlo k nekonzistentnosti odhadů a nepoužitelným výsledkům. 
 
 \section{Graph-Based SLAM}
-\subsection{Obecně}
 Při tomto přístupu se k ukládání dat používá graf. Uzel grafu reprezentuje stav robota a měření provedená z tohoto stavu. Hrany mezi uzly představují jejich vzájemnou polohu. Cílem algoritmu je najít takové rozložení uzlů, které minimalizuje čtvercovou chybu rozdílu pozorování a "virtuálního pozorování" \cite{GraphSLAM}. Tím se získá nejlepší odhad mapy. Optimalizace neprobíhá po každém novém pozorování, čímž se Graph SLAM řadí mezi offline metody řešení.
 
 Formulace SLAM pomocí grafu byla poprvé představena v roce 1997, avšak kvůli vysoké výpočetní náročnosti trvalo ještě několik let, než se začala používat v reálných aplikacích. V dnešní době patří Graph SLAM k nejmodernějším technikám, co se rychlosti a přesnosti týče.
@@ -168,8 +167,7 @@ Pro správný chod graph SLAMu musí fungovat souhra mezi jeho dvěma částmi f
 \caption{Schéma převzaté z \cite{16-graph-slam} znázorňuje průchod dat metodou Graph SLAM. Surová data (pozorování, odometrie) nejdříve zpracuje front-end a vytvoří graf. Ten po daném okamžiku putuje do back-end, kde se optimalizací získá nejlepší odhad mapy prostředí a poté předá opět do první části.}
 \end{figure}
 
-\begin{itemize}
-\item \textbf{Front-end}
+\subsubsection{Front-end}
 První část vytváří graf, kterým reprezentuje mapu prostředí. Každý uzel $x_i$ obsahuje informaci o stavu robota a o pozorování provedeném z tohoto stavu v čase $i$. Hrana mezi sousedními uzly $x_i$ a $x_{i+1}$ odpovídá zaznamenané odometrii při pohybu robota. Pokud je hrana mezi různými uzly $x_i$ a $x_j$, pak je to tzv. virtuální měření. To se zaznamená ve chvíli, kdy robot naměří podobná data (tzn. ocitne se ve stejné části prostředí) jako v některém z předešlých měření. 
 
 Využívá se scan matching, který porovnává dvě pozorování z uzlů $x_i$ a $x_j$ z různých časových okamžiků a v případě zjištění podobnosti je vypočítána relativní poloha uzlů $x_i$ a $x_j$. To je ve skutečnosti transformace pozorování z $x_i$ taková, aby se maximálně překrývalo s pozorováním uzlu $x_j$. Tuto transformaci nazýváme virtuálním pozorováním.
@@ -183,7 +181,7 @@ Znázornění problému je v obrázku 4, kde $x_i$ je aktuální uzel, $x_j$ je 
 
 
 
-\item \textbf{Back-end}
+\subsubsection{Back-end}
 Druhá část se stará o optimalizaci rozložení uzlů v grafu.
 
 Definujme funkci 
@@ -200,8 +198,15 @@ $$
 $$
 Numericky lze tento problém řešit metodou nejmenších čtverců, konkrétně na odhad rozmístění uzlů z front-end aplikovat Gauss-Newtonův algoritmus, který minimalizuje chybovou funkci $\textbf{e}_{ij}(\textbf{x}_i, \textbf{x}_j)$.
 
-\end{itemize}
 
+\section{Vizuální SLAM}
+Vizuální SLAM, Visual-based SLAM nebo také vSLAM je přístup k simultánní lokalizaci a mapování, při kterém jsou jako vstup algoritmu využívány obrazová data. Tato metoda se začala používat až po roce 2000, neboť zpracování obrazu z kamery je značně výpočetně náročné. 
+
+Na druhou stranu sebou přináší dodatečné informace o vzhledu, barvě, jasu a textuře prostředí. To umožňuje začlenění dalších úkolů jako například detekce a rozpoznávání obličeje, věcí nebo konkrétních míst. Pro vSLAM také nahrává cenová dostupnost kamer, jejich velikost a nižší spotřeba energie oproti často používaným laserovým skenerům. 
+
+Bohužel při použití snímačů obrazových dat mohou vzniknout chyby pokud kamera nemá dostatečné rozlišení, v prostředí je málo nebo moc landmarků, snímané povrchy nemají nedostatečnou texturu, málo osvětlení a jeho změny nebo pořízení rozmazaných snímků při pohybu. Navíc nezávisle na použitém algoritmu musí být provedena kalibrace kamer.
+
+\subsection{Základní rámec vSLAM}
 
 
 
