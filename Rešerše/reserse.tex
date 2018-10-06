@@ -206,7 +206,47 @@ Na druhou stranu sebou přináší dodatečné informace o vzhledu, barvě, jasu
 
 Bohužel při použití snímačů obrazových dat mohou vzniknout chyby pokud kamera nemá dostatečné rozlišení, v prostředí je málo nebo moc landmarků, snímané povrchy nemají nedostatečnou texturu, málo osvětlení a jeho změny nebo pořízení rozmazaných snímků při pohybu. Navíc nezávisle na použitém algoritmu musí být provedena kalibrace kamer.
 
-\subsection{Základní rámec vSLAM}
+\subsection{Základní struktura vSLAM}
+Většina vSLAM algoritmů používá stejnou obecnou strukturu, která se skládá ze tří hlavních částí:
+\begin{itemize}
+\item Kalibrace  
+\item Sledování
+\item Mapování
+\end{itemize}
+
+Nezávisle na přesném typu algoritmu musí proběhnout kalibrace kamer. Ta se dá rozdělit na vnitřní, která odpovídá geometrii kamery (ohnisková vzdálenost) a vnější, která záleží na pozici kamery v prostoru (rotace a translace s respektováním nějakého souřadnicového systému). Provádí se s použitím několika různých obrazů s motivem šachovnice. Jejich nasnímáním se vnitřní souřadnicový systém nastaví tak, aby odpovídal reálnému světu.
+
+V další části je sledovaný obraz zasazen do rekonstruované mapy k odhadu pozice robota. K tomu je potřeba nejdříve najít společné významné body obrazu s mapou a poté vypočítat odhad pozice kamery.
+
+Mapováním se rozumí rozšiřování existující mapy v případě, kdy kamera zachytí dosud neznámou oblast.
+
+\subsection{Dodatkové moduly vSLAM}
+Následující dvě části jsou často zahrnuty do algoritmu pro stabilnější a přesnější běh, avšak v závislosti na konkrétním použití je lze vynechat:
+\begin{itemize}
+\item Rekolalizace
+\item Globální optimalizace mapy
+\end{itemize}
+
+V případě, kdy robot ztratí přehled o své pozici, například kvůli rychlému pohybu kamery, je zapotřebí jej znovu lokalizovat. Pokud by vSLAM systém neobsahoval tuto funkci, nemohl by dále pokračovat po ztrátě informace o své pozici.
+
+Mapa zpravidla obsahuje kumulativní chybu odhadu, která se zvětšuje s ujetou \linebreak vzdáleností. Když robot navštíví již dříve objevenou oblast, použitím techniky zvané uzavírání smyček, dojde k porovnání aktuálního obrazu s dříve nasnímanými a v případě shody může být dopočítána a následně odstraněna chyba odhadu.
+
+\subsection{Metody řešení}
+Existují tři základní přístupy v získávání/zpracování obrazových dat. Použití RGB-D kamer jako je například Microsoft Kinect, kdy kromě obrazu prostředí dostáváme i informaci o jeho hloubce.
+
+
+
+\subsubsection{RGB-D}
+
+\subsubsection{feature-based}
+
+\subsubsection{direct}
+
+
+
+
+
+
 
 
 

@@ -7,4 +7,9 @@
 \contentsline {subsubsection}{\numberline {4.1.1}Front-end}{7}
 \contentsline {subsubsection}{\numberline {4.1.2}Back-end}{8}
 \contentsline {section}{\numberline {5}Vizu\IeC {\'a}ln\IeC {\'\i } SLAM}{8}
-\contentsline {subsection}{\numberline {5.1}Z\IeC {\'a}kladn\IeC {\'\i } r\IeC {\'a}mec vSLAM}{9}
+\contentsline {subsection}{\numberline {5.1}Z\IeC {\'a}kladn\IeC {\'\i } struktura vSLAM}{9}
+\contentsline {subsection}{\numberline {5.2}Dodatkov\IeC {\'e} moduly vSLAM}{9}
+\contentsline {subsection}{\numberline {5.3}Metody \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{10}
+\contentsline {subsubsection}{\numberline {5.3.1}RGB-D}{10}
+\contentsline {subsubsection}{\numberline {5.3.2}feature-based}{10}
+\contentsline {subsubsection}{\numberline {5.3.3}direct}{10}
