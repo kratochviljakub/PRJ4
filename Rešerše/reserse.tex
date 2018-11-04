@@ -223,7 +223,7 @@ Mapováním se rozumí rozšiřování existující mapy v případě, kdy kamer
 \subsection{Dodatkové moduly vSLAM}
 Následující dvě části jsou často zahrnuty do algoritmu pro stabilnější a přesnější běh, avšak v závislosti na konkrétním použití je lze vynechat:
 \begin{itemize}
-\item Rekolalizace
+\item Relokalizace
 \item Globální optimalizace mapy
 \end{itemize}
 
@@ -234,15 +234,16 @@ Mapa zpravidla obsahuje kumulativní chybu odhadu, která se zvětšuje s ujetou
 \subsection{Metody řešení}
 Existují tři základní přístupy v získávání a/nebo zpracování obrazových dat. První dva rozlišujeme podle práce s obrazovými daty, kdy jeden přístup je založen na detekci a zpracování významných bodů, zatímco druhý pracuje přímo se získaným obrazem. Třetí možností je použití RGB-D kamer jako je například Microsoft Kinect, který je výhodný v možnosti získávání nejen obrazu prostředí, ale i informaci o jeho hloubce. 
 
-\subsubsection{Významené body}
+\subsubsection{S použitím významných bodů}
 První monokulární SLAM nazvaný MonoSLAM byl vyvinutý v roce 2003. V tomto algoritmu probíhá lokalizace i mapování souběžně a k odhadu se používá Kalmanův filtr. Pohyb kamery a pozice významných bodů prostředí jsou reprezentovány stavovým vektorem. Při objevení nového významného bodu je tento přidán do stavového vektoru, v důsledku čehož se při použití ve velkém prostředí dimenze vektoru zvětší natolik, že výpočetní náročnost souběžné lokalizace a mapování přestává být únosná a je těžké dosáhnout potřebných odhadů v reálném čase.
 
-Řešením problému výpočetní náročnosti je lokalizaci a mapování spustit každé na svém vlastním procesorovém vlákně tak, jako v metodě zvané PTAM. Tyto vlákna běží paralelně, tím nedochází k omezování lokalizace výpočetní náročností odhadu mapy. Navíc je do mapování zahrnuta i průběžná optimalizace, takže je robot v reálném čase lokalizován a navíc vytvářena přesná mapa prostředí. PTAM je první metodou, která zahrnuje optimalizaci do algoritmu v reálném čase a většina novějších algoritmů následuje tento vícevláknový přístup (ZDROJ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
-PTAM, narozdíl od MonoSLAM, dokáže v réálném čase fungovat i v případě rozlehlého prostředí, kde stavový vektor představuje několik tisíc významných bodů.
+Řešením problému výpočetní náročnosti je lokalizaci a mapování spustit každé na svém vlastním procesorovém vlákně tak, jako v metodě zvané PTAM. Tyto vlákna běží paralelně, tím nedochází k omezování lokalizace výpočetní náročností odhadu mapy. Navíc je do mapování zahrnuta i průběžná optimalizace, takže je robot v reálném čase lokalizován a navíc vytvářena přesná mapa prostředí. PTAM je první metodou, která zahrnuje optimalizaci do algoritmu v reálném čase a většina novějších algoritmů následuje tento vícevláknový přístup \cite{Taketomi_visual}.
+
+PTAM, narozdíl od MonoSLAM, dokáže v réálném čase fungovat i v případě rozlehlého prostředí, kde stavový vektor obsahuje několik tisíc významných bodů.
 
 
-\subsubsection{Direct}
-Direct
+\subsubsection{Přímé metody}
+Přímé metody, oproti významným bodům, zpracovávají vstupní obraz bez použití doplňků extrahujících určité části obrazu. Rozdíl mezi těmito metodami spočívá v použití geometrické konzistence obrazu oproti fotometrické konzistenci u přímých metod.
 
 \subsubsection{RGB-D}
 
