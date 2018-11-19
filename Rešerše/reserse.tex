@@ -235,7 +235,9 @@ Mapa zpravidla obsahuje kumulativní chybu odhadu, která se zvětšuje s ujetou
 Existují tři základní přístupy v získávání a/nebo zpracování obrazových dat. První dva rozlišujeme podle práce s obrazovými daty, kdy jeden přístup je založen na detekci a zpracování významných bodů, zatímco druhý pracuje přímo se získaným obrazem. Třetí možností je použití RGB-D kamer jako je například Microsoft Kinect, který je výhodný v možnosti získávání nejen obrazu prostředí, ale i informaci o jeho hloubce. 
 
 \subsubsection{S použitím významných bodů}
-První monokulární SLAM nazvaný MonoSLAM byl vyvinutý v roce 2003. V tomto algoritmu probíhá lokalizace i mapování souběžně a k odhadu se používá Kalmanův filtr. Pohyb kamery a pozice významných bodů prostředí jsou reprezentovány stavovým vektorem. Při objevení nového významného bodu je tento přidán do stavového vektoru, v důsledku čehož se při použití ve velkém prostředí dimenze vektoru zvětší natolik, že výpočetní náročnost souběžné lokalizace a mapování přestává být únosná a je těžké dosáhnout potřebných odhadů v reálném čase.
+Metoda spočívá v zaznamenání vstupního obrazu a jeho převodu na významné body. Těmi jsou například různé hrany, snadno rozpoznatelné oblasti apod. Dále algoritmus pracuje pouze se získanými body a ne s celým obrazem. To zjednodušuje celkový problém, avšak je zde významné omezení v tom, že nedokážeme použít informaci z té části obrazu, která se nepřevede na nějaký významný bod a můžeme tím přijít o důležité data, která by se dala lépe využít k odhadu mapy.
+
+První monokulární SLAM nazvaný MonoSLAM byl vyvinutý v roce 2003. V tomto algoritmu probíhá lokalizace i mapování souběžně a k odhadu se používá Kalmanův filtr. Pohyb kamery a pozice významných bodů prostředí jsou reprezentovány stavovým vektorem. Při objevení nového významného bodu je tento přidán do stavového vektoru, v důsledku čehož se při použití ve velkém prostředí dimenze vektoru zvětší natolik, že výpočetní náročnost souběžné lokalizace a mapování přestává být únosná a je těžké dosáhnout potřebných odhadů v reálném čase. 
 
 Řešením problému výpočetní náročnosti je lokalizaci a mapování spustit každé na svém vlastním procesorovém vlákně tak, jako v metodě zvané PTAM (tj. Parallel Tracking and Mapping). Tyto vlákna běží paralelně, tím nedochází k omezování lokalizace výpočetní náročností odhadu mapy. Navíc je do mapování zahrnuta i průběžná optimalizace, takže je robot v reálném čase lokalizován a navíc vytvářena přesná mapa prostředí. PTAM je první metodou, která zahrnuje optimalizaci do algoritmu v reálném čase a většina novějších algoritmů následuje tento vícevláknový přístup \cite{Taketomi_visual}.
 
@@ -247,14 +249,11 @@ RGB-D SLAM se začal nejvíce používat po příchodu kamery Microsoft Kinect, 
 Pomocí RGB-D kamer lze získat přímo 3D strukturu prostředí, většina přístupů však mapu rekonstruuje z kombinací více hloubkových map. K odhadu pozice kamery je hojně využívaný iterativní algoritmus nejbližšího bodu (ICP). 
 
 \subsubsection{Přímé metody}
-Přímé metody zpracovávají vstupní obraz bez použití doplňků extrahujících určité části obrazu a používají tak jeho fotometrickou konzistenci. Metody s detekcí významných bodů využívají geometrické konzistence obrazu.
+Přímé metody zpracovávají vstupní obraz bez použití doplňků extrahujících určité části obrazu a používají tak jeho fotometrickou konzistenci. Metody s detekcí významných bodů využívají geometrické konzistence obrazu. Tímto přístupem získáme podstatně více informací o geometrii prostředí, které mohou být užitečné pro lokalizaci a mapování.
 
 Jedním příkladem je metoda DTAM, kde při lokalizaci porovnáváme vstupní obraz s uměle generovaným obrazem z rekonstruované 3D mapy. Tento algoritmus bývá implementován na grafické kartě, čímž dosáhneme vyšší efektivity výpočtu a zároveň oddělení lokalizace a mapování. Mapování se provádí s využitím několika sérií pozorování z různých míst a následnou optimalizací. Tímto způsobem lze získat všechny 3 souřadnice každého pixelu a sestavit tak 3D mapu prostředí. DTAM je navržený pro rychlé a online 3D modelování pro použití s mobilním telefonem.
 
-LSD-SLAM
-
-
-
+Metoda LSD-SLAM (Large-Scale Direct monocular SLAM) umožňuje vytvářet konzistentní rozsáhlé mapy prostředí.  
 
 
 
