@@ -234,6 +234,8 @@ Mapa zpravidla obsahuje kumulativní chybu odhadu, která se zvětšuje s ujetou
 \subsection{Metody řešení}
 Existují tři základní přístupy v získávání a/nebo zpracování obrazových dat. První dva rozlišujeme podle práce s obrazovými daty, kdy jeden přístup je založen na detekci a zpracování významných bodů, zatímco druhý pracuje přímo se získaným obrazem. Třetí možností je použití RGB-D kamer jako je například Microsoft Kinect, který je výhodný v možnosti získávání nejen obrazu prostředí, ale i informaci o jeho hloubce. 
 
+Tato práce se bude zabývat především monokulárním SLAMem, při kterém ke snímání prostředí používáme pouze jednu kameru. Výhody i nevýhody tohoto přístupu budou vysvětleny dále.
+
 \subsubsection{S použitím významných bodů}
 Metoda spočívá v zaznamenání vstupního obrazu a jeho převodu na významné body. Těmi jsou například různé hrany, snadno rozpoznatelné oblasti apod. Dále algoritmus pracuje pouze se získanými body a ne s celým obrazem. To zjednodušuje celkový problém, avšak je zde významné omezení v tom, že nedokážeme použít informaci z té části obrazu, která se nepřevede na nějaký významný bod a můžeme tím přijít o důležité data, která by se dala lépe využít k odhadu mapy.
 
@@ -249,12 +251,41 @@ RGB-D SLAM se začal nejvíce používat po příchodu kamery Microsoft Kinect, 
 Pomocí RGB-D kamer lze získat přímo 3D strukturu prostředí, většina přístupů však mapu rekonstruuje z kombinací více hloubkových map. K odhadu pozice kamery je hojně využívaný iterativní algoritmus nejbližšího bodu (ICP). 
 
 \subsubsection{Přímé metody}
-Přímé metody zpracovávají vstupní obraz bez použití doplňků extrahujících určité části obrazu a používají tak jeho fotometrickou konzistenci. Metody s detekcí významných bodů využívají geometrické konzistence obrazu. Tímto přístupem získáme podstatně více informací o geometrii prostředí, které mohou být užitečné pro lokalizaci a mapování.
+Přímé metody zpracovávají vstupní obraz bez použití doplňků extrahujících určité části obrazu a používají tak jeho fotometrickou konzistenci (metody s detekcí významných bodů využívají geometrické konzistence obrazu). Tímto přístupem získáme podstatně více informací o geometrii prostředí, které mohou být užitečné pro lokalizaci a mapování.
 
 Jedním příkladem je metoda DTAM, kde při lokalizaci porovnáváme vstupní obraz s uměle generovaným obrazem z rekonstruované 3D mapy. Tento algoritmus bývá implementován na grafické kartě, čímž dosáhneme vyšší efektivity výpočtu a zároveň oddělení lokalizace a mapování. Mapování se provádí s využitím několika sérií pozorování z různých míst a následnou optimalizací. Tímto způsobem lze získat všechny 3 souřadnice každého pixelu a sestavit tak 3D mapu prostředí. DTAM je navržený pro rychlé a online 3D modelování pro použití s mobilním telefonem.
 
-Metoda LSD-SLAM (Large-Scale Direct monocular SLAM) umožňuje vytvářet konzistentní rozsáhlé mapy prostředí.  
+Další přímé metody budou podrobně vysvětleny ve zvláštní kapitole.
 
+\subsection{Monokulární vSLAM}
+Jedním z hlavních důvodů používání SLAMu s jedinou kamerou je malá náročnost na používaný hardware. Je mnohem levnější a menší než například stereo SLAM. Oproti použití dvou kamer nevyžaduje kalibraci jejich vzájemné polohy. Velká výhoda je také v možnosti použití s mobilními smartphony, které mají obvykle jednu kameru a tím pádem vše, co je potřeba k běhu algoritmu. Není zapotřebí žádného externího hardwaru a SLAM se tím stává snadno dostupným.
+
+Na druhou stranu nevýhodou je nemožnost získání informace o hloubce prostředí z jednoho pozorování. Tuto informaci je potřeba dopočítat analýzou několika pozorování z různých míst. Algoritmy jsou více komplikované a také výpočetně náročné.
+
+\section{Konkrétní přímé metody}
+Dále se bude práce zabývat pouze přímými metodami řešení úlohy vizuální lokalizace a mapování. Nejdůležitější z nich budou podrobněji popsány v této kapitole.
+
+\subsection{Semi-Dense Visual Odometry}
+Tato metoda je pouze vizuální odometrií a není tedy určená pro sestavování globální mapy prostředí, ale přišla s přístupem, na kterém staví některé následující metody, které již jsou plnohodnotnými SLAM algoritmy. Klíčovou myšlenkou je průběžně odhadovat polo-hustou inverzní hloubkovou mapu pro aktuální snímek, která se dále používá pro sledování pohybu kamery pomocí zarovnání obrazu. Polo-hustou se rozumí hloubková mapa, která neobsahuje hloubkovou informaci pro každý pixel, ale pouze pro podmnožinu pohybujících se pixelů (mají nezanedbatelný obrazový gradient). Tím se značně sníží výpočetní náročnost oproti použití husté hloubkové mapy. Každý odhad je reprezentován jako Gaussovo rozdělení pravděpodobnosti nad inverzní hloubkou. Tyto informace jsou navíc aktualizovány v průběhu času při příchodu nových snímků. Celý algoritmus běží v reálném čase na CPU.
+
+\subsubsection{Odhad hloubkové mapy}
+Klíčová myšlenka tohoto algoritmu je odhadnout polo-hustou inverzní hloubkovou mapu pro aktuální obraz, která může být použita pro odhad pozice kamery u následujícího snímku. Tato mapa se průběžně šíří ze snímku do snímku a zpřesňuje se novými hloubkovými měřeními, která jsou získávána při adaptivním prostorovém srovnávání pixelů. To umožňuje přesně odhadnout hloubku blízkých i vzdálených částí obrazu.
+
+\paragraph{Aktualizace hloubkové mapy}
+Celková aktualizace hloubkové mapy se provádí jednou pro každý nový snímek a skládá se z následujících kroků: Nejprve je vybrána podmnožina obrazových bodů, pro kterou je přesnost vyhledání rozdílu dostatečně velká. Pro každý pixel se pak jednotlivě vybere vhodný referenční rámec a provede se jednorozměrné hledání rozdílnosti. Dřívější poznatky, pokud je to možné, se používají ke snížení rozsahu rozdílového vyhledávání a tím zmenšení výpočetních nákladů a odstranění falešných minim. Získaný inverzní hloubkový odhad se poté spojí do hloubkové mapy.
+
+\textsf{\textbf{TODO-----------------------------------------------------------}}
+
+\subsection{LSD-SLAM}
+Metoda LSD-SLAM (Large-Scale Direct monocular SLAM) umožňuje vytvářet konzistentní rozsáhlé mapy prostředí. Používá přímé zpracování vstupního obrazu spolu s odhadem založeným na filtraci hloubkových map. Globální mapa je reprezentována jako graf, jehož vrcholy představují vstupní obrazy a 3D transformace podobnosti znázorňují hrany umožňující detekci a opravu nahromaděné chyby. Metoda běží v reálném čase na CPU a jako odometrie i na smartphonu.
+
+\subsubsection{Přehled metody}
+Algoritmus se skládá ze tří hlavních částí:
+\begin{itemize}
+	\item \textbf{Sledování}; \textsf{\textbf{TODO-----------------------------------------------------------}}
+	\item \textbf{Odhad hloubkové mapy}; využívá sledované snímky buď k úpravě nebo nahrazení aktuálního snímku. \textsf{\textbf{TODO-----------------------------------------------------------}}
+	\item Optimalizace mapy
+\end{itemize}
 
 
 
