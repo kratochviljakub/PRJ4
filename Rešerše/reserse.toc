@@ -1,22 +1,22 @@
 \select@language {czech}
 \contentsline {section}{\numberline {1}\IeC {\'U}vod}{2}
 \contentsline {section}{\numberline {2}SLAM}{3}
-\contentsline {section}{\numberline {3}Pravd\IeC {\v e}podobnostn\IeC {\'\i } definice}{4}
-\contentsline {section}{\numberline {4}Graph-Based SLAM}{6}
-\contentsline {subsection}{\numberline {4.1}Definice}{7}
-\contentsline {subsubsection}{\numberline {4.1.1}Front-end}{7}
-\contentsline {subsubsection}{\numberline {4.1.2}Back-end}{8}
-\contentsline {section}{\numberline {5}Vizu\IeC {\'a}ln\IeC {\'\i } SLAM}{8}
-\contentsline {subsection}{\numberline {5.1}Z\IeC {\'a}kladn\IeC {\'\i } struktura vSLAM}{9}
-\contentsline {subsection}{\numberline {5.2}Dodatkov\IeC {\'e} moduly vSLAM}{9}
-\contentsline {subsection}{\numberline {5.3}Metody \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{10}
-\contentsline {subsubsection}{\numberline {5.3.1}S pou\IeC {\v z}it\IeC {\'\i }m v\IeC {\'y}znamn\IeC {\'y}ch bod\IeC {\r u}}{10}
-\contentsline {subsubsection}{\numberline {5.3.2}RGB-D}{11}
-\contentsline {subsubsection}{\numberline {5.3.3}P\IeC {\v r}\IeC {\'\i }m\IeC {\'e} metody}{11}
-\contentsline {subsection}{\numberline {5.4}Monokul\IeC {\'a}rn\IeC {\'\i } vSLAM}{11}
-\contentsline {section}{\numberline {6}Konkr\IeC {\'e}tn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }m\IeC {\'e} metody}{12}
-\contentsline {subsection}{\numberline {6.1}Semi-Dense Visual Odometry}{12}
-\contentsline {subsubsection}{\numberline {6.1.1}Odhad hloubkov\IeC {\'e} mapy}{12}
+\contentsline {subsection}{\numberline {2.1}Pravd\IeC {\v e}podobnostn\IeC {\'\i } definice}{4}
+\contentsline {section}{\numberline {3}Graph-Based SLAM}{6}
+\contentsline {subsection}{\numberline {3.1}Definice}{7}
+\contentsline {subsubsection}{\numberline {3.1.1}Front-end}{7}
+\contentsline {subsubsection}{\numberline {3.1.2}Back-end}{8}
+\contentsline {section}{\numberline {4}Vizu\IeC {\'a}ln\IeC {\'\i } SLAM}{8}
+\contentsline {subsection}{\numberline {4.1}Z\IeC {\'a}kladn\IeC {\'\i } struktura vSLAM}{9}
+\contentsline {subsection}{\numberline {4.2}Dodatkov\IeC {\'e} moduly vSLAM}{9}
+\contentsline {subsection}{\numberline {4.3}Metody \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{10}
+\contentsline {subsubsection}{\numberline {4.3.1}S pou\IeC {\v z}it\IeC {\'\i }m v\IeC {\'y}znamn\IeC {\'y}ch bod\IeC {\r u}}{10}
+\contentsline {subsubsection}{\numberline {4.3.2}RGB-D}{11}
+\contentsline {subsubsection}{\numberline {4.3.3}P\IeC {\v r}\IeC {\'\i }m\IeC {\'e} metody}{11}
+\contentsline {subsection}{\numberline {4.4}Monokul\IeC {\'a}rn\IeC {\'\i } vSLAM}{11}
+\contentsline {section}{\numberline {5}Konkr\IeC {\'e}tn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }m\IeC {\'e} metody}{12}
+\contentsline {subsection}{\numberline {5.1}Semi-Dense Visual Odometry}{12}
+\contentsline {subsubsection}{\numberline {5.1.1}Odhad hloubkov\IeC {\'e} mapy}{12}
 \contentsline {paragraph}{Aktualizace hloubkov\IeC {\'e} mapy}{12}
-\contentsline {subsection}{\numberline {6.2}LSD-SLAM}{12}
-\contentsline {subsubsection}{\numberline {6.2.1}P\IeC {\v r}ehled metody}{13}
+\contentsline {subsection}{\numberline {5.2}LSD-SLAM}{12}
+\contentsline {subsubsection}{\numberline {5.2.1}P\IeC {\v r}ehled metody}{13}

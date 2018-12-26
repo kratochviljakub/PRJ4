@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  4 DEC 2018 02:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  26 DEC 2018 22:38
 entering extended mode
 **./reserse.tex
 (reserse.tex
@@ -756,21 +756,21 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<logo_zcu.png, id=1, 306.14375pt x 165.61874pt>
-File: logo_zcu.png Graphic file (type png)
- <use logo_zcu.png>
-Package pdftex.def Info: logo_zcu.png used on input line 28.
+<img/logo_zcu.png, id=1, 306.14375pt x 165.61874pt>
+File: img/logo_zcu.png Graphic file (type png)
+ <use img/logo_zcu.png>
+Package pdftex.def Info: img/logo_zcu.png used on input line 28.
 (pdftex.def)             Requested size: 153.07149pt x 82.80916pt.
- [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <./logo_zcu.png>] (reserse
-.toc
-LaTeX Font Info:    Try loading font information for U+msa on input line 6.
+[1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <./img/logo_zcu.png>]
+(reserse.toc
+LaTeX Font Info:    Try loading font information for U+msa on input line 4.
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 6.
+LaTeX Font Info:    Try loading font information for U+msb on input line 4.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -779,39 +779,39 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout3 = `reserse.toc'.
 
  [1] [2]
-<Obr1.png, id=15, 306.39468pt x 88.83188pt>
-File: Obr1.png Graphic file (type png)
- <use Obr1.png>
-Package pdftex.def Info: Obr1.png used on input line 67.
+<img/Obr1_b.png, id=15, 306.39468pt x 88.83188pt>
+File: img/Obr1_b.png Graphic file (type png)
+ <use img/Obr1_b.png>
+Package pdftex.def Info: img/Obr1_b.png used on input line 67.
 (pdftex.def)             Requested size: 306.39394pt x 88.83165pt.
- [3 <./Obr1.png>]
+ [3 <./img/Obr1_b.png>]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 75.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 75.
 
-<Obr2.png, id=19, 490.08093pt x 398.99063pt>
-File: Obr2.png Graphic file (type png)
- <use Obr2.png>
-Package pdftex.def Info: Obr2.png used on input line 87.
+<img/Obr2_b.png, id=19, 490.08093pt x 398.99063pt>
+File: img/Obr2_b.png Graphic file (type png)
+ <use img/Obr2_b.png>
+Package pdftex.def Info: img/Obr2_b.png used on input line 87.
 (pdftex.def)             Requested size: 294.05083pt x 239.39622pt.
- [4 <./Obr2.png>]
-[5] <Obr3.png, id=34, 648.62325pt x 181.27725pt>
-File: Obr3.png Graphic file (type png)
- <use Obr3.png>
-Package pdftex.def Info: Obr3.png used on input line 166.
-(pdftex.def)             Requested size: 324.31082pt x 90.6384pt.
- [6]
-<Obr4.png, id=43, 407.121pt x 272.81924pt>
-File: Obr4.png Graphic file (type png)
- <use Obr4.png>
-Package pdftex.def Info: Obr4.png used on input line 178.
+
+[4 <./img/Obr2_b.png>] [5] [6] <img/Obr3.pdf, id=42, 359.42279pt x 73.2336pt>
+File: img/Obr3.pdf Graphic file (type pdf)
+
+<use img/Obr3.pdf>
+Package pdftex.def Info: img/Obr3.pdf used on input line 166.
+(pdftex.def)             Requested size: 431.30518pt x 87.87985pt.
+ <img/Obr4_b.png, id=43, 407.121pt x 272.81924pt>
+File: img/Obr4_b.png Graphic file (type png)
+
+<use img/Obr4_b.png>
+Package pdftex.def Info: img/Obr4_b.png used on input line 178.
 (pdftex.def)             Requested size: 325.69725pt x 218.25568pt.
- [7 <./Obr3.png>]
-[8 <./Obr4.png>] [9] [10] [11] [12] (reserse.bbl
+ [7 <./img/Obr3.pdf>] [8 <./img/Obr4_b.png>] [9] [10]
+[11] [12] (reserse.bbl
 Underfull \hbox (badness 3895) in paragraph at lines 4--10
 []\OT1/cmr/m/n/12 P. Abbeel.  Gra-phSLAM.  https://people.eecs.berkeley.edu/ pa
 bbeel/cs287-
@@ -824,13 +824,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--18
 
 ) [13] (reserse.aux) ) 
 Here is how much of TeX's memory you used:
- 8598 strings out of 493323
- 123220 string characters out of 3139065
- 314649 words of memory out of 3000000
+ 8599 strings out of 493323
+ 123334 string characters out of 3139065
+ 313649 words of memory out of 3000000
  11971 multiletter control sequences out of 15000+200000
  11372 words of font info for 42 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,10n,39p,1115b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,10n,39p,1571b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
 cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8
 .pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:
@@ -843,9 +843,9 @@ amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 m/cmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
 10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C
 :/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on reserse.pdf (14 pages, 267058 bytes).
+Output written on reserse.pdf (14 pages, 255647 bytes).
 PDF statistics:
- 110 PDF objects out of 1000 (max. 8388607)
+ 118 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

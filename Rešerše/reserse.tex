@@ -25,7 +25,7 @@
 \date{Akademický rok 2017/2018}
 \begin{titlepage}
 \begin{center}
-\includegraphics[scale=0.5]{logo_zcu}\\
+\includegraphics[scale=0.5]{img/logo_zcu}\\
 \vspace{5cm}
 \begin{Large}
 \textbf{\thetitle}\\
@@ -60,12 +60,12 @@ SLAM je problém týkající se otázky, zda je možné najít polohu nějakého
 
 Landmarky nebo také majáky jsou nezaměnitelné a snadno rozpoznatelné orientační body v prostředí, které mohou být v některých aplikacích dopředu známy. Například autonomní vozík pohybující se ve výrobní hale může mít předem nadefinovanou mapu landmarků. Nebo robot pro práci pod širým nebem používající pro svou orientaci GNSS (globální družicový polohový systém). V takových případech, kdy lze stroj lokalizovat vzhledem ke známým bodům, nemusí být SLAM vyžadován. Ovšem v husté zástavbě, v podzemí a uvnitř budov je použití GNSS omezené nebo úplně nemožné. V neznámém prostředí zase nelze využít předem připravenou mapu a přichází nutnost použití jiného řešení, kterým bývá nejčastěji právě SLAM. Navíc v mnoha vojenských i civilních aplikacích není cílem lokalizace, ale právě robotem vytvořená mapa, kterou poté dále zpracovává lidský operátor.
 
-Další z impulzů vývoje simultánní lokalizace a mapování byl špatný odhad pohybu získaný z odometrie kol, čímž se rozumí například počet otáček, úhel natočení apod. \cite{Past_Present_and_Future_of_Simultaneous_Localization_And_Mapping}. Tento odhad se navíc s ujetou vzdáleností zhoršuje (tzv. drift) a tím znemožňoval použití pro správnou a přesnou lokalizaci i tvorbu mapy. Nicméně dnešní algoritmy dokáží snížit drift na přijatelnou hodnotu 0,5\% a méně, takže v tomto ohledu není nutno využívat SLAM. \\ V čem je ale stále nenahraditelný, je schopnost tzv. uzavírání smyček. Při použití dat pouze z odometrie robot vnímá svět jako "nekonečný koridor", ve kterém neustále zkoumá nové oblasti (obr.1 vlevo). SLAM ale dokáže robotem vytvořenou smyčku uzavřít, protože porovná aktuální landmarky s těmi dříve objevenými a tím dokáže správně porozumět topologii prostředí a v mapě určit, že tyto dvě chodby se protínají (obr.1 vpravo).
+Další z impulzů vývoje simultánní lokalizace a mapování byl špatný odhad pohybu získaný z odometrie kol, čímž se rozumí například počet otáček, úhel natočení apod. \cite{Past_Present_and_Future_of_Simultaneous_Localization_And_Mapping}. Tento odhad se navíc s ujetou vzdáleností zhoršuje (tzv. drift) a tím znemožňoval použití pro správnou a přesnou lokalizaci i tvorbu mapy. Nicméně dnešní algoritmy dokáží snížit drift na přijatelnou hodnotu 0,5\% a méně, takže v tomto ohledu není nutno využívat SLAM. \\ V čem je ale stále nenahraditelný, je schopnost tzv. uzavírání smyček. Při použití dat pouze z odometrie robot vnímá svět jako "nekonečný koridor", ve kterém neustále zkoumá nové oblasti (obr.1 vlevo). SLAM ale dokáže robotem vytvořenou smyčku uzavřít, protože porovná aktuální landmarky s těmi dříve objevenými a tím dokáže správně porozumět topologii prostředí a v mapě určit, že tyto dvě chodby se protínají (obr.1 vpravo). Levá mapa je vytvořená pomocí odometrie a znázorňuje jeden dlouhý koridor od bodu A do B. Body, které jsou ve skutečnosti blízko (B a C) mohou být podle této mapy libovolně daleko. Pravá mapa je vytvořená pomocí SLAM s využití uzavírání smyček, kde je znázorněná správná topologie prostředí, neboť robot správně našel "zkratku" mezi dvěma koridory \cite{Past_Present_and_Future_of_Simultaneous_Localization_And_Mapping}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=1]{Obr1} 
-\caption{Levá mapa je vytvořená pomocí odometrie a znázorňuje jeden dlouhý koridor od bodu A do B. Body, které jsou ve skutečnosti blízko (B a C) mohou být podle této mapy libovolně daleko. Pravá mapa je vytvořená pomocí SLAM s využití uzavírání smyček, kde je znázorněná správná topologie prostředí, neboť robot správně našel "zkratku" mezi dvěma koridory. \cite{Past_Present_and_Future_of_Simultaneous_Localization_And_Mapping}}
+\includegraphics[scale=1]{img/Obr1_b} 
+\caption{Levá část - odometrie, pravá část - SLAM} 
 \end{figure}
 
 
@@ -79,12 +79,12 @@ SLAM je ze své podstaty problém typu slepice-vejce a je tedy do značné míry
 Například mapování vnitřního 2D prostředí s robotem vybaveným snímačem kol a laserovým senzorem s dostatečnou přesností a robustností lze považovat z velké části za vyřešené. Na druhou stranu další kombinace robot/prostředí/požadavky si stále zaslouží velké množství výzkumu. Aktuální algoritmy mohou snadno selhat, jestliže je pohyb robota nebo prostředí příliš náročný.
 
 
-\section{Pravděpodobnostní definice}
+\subsection{Pravděpodobnostní definice}
 Uvažujme mobilního robota, který se pohybuje v neznámém prostředí a pomocí svých senzorů pořizuje relativní pozorování okolních landmarků (obr.2).
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.6]{Obr2}
+\includegraphics[scale=0.6]{img/Obr2_b}
 \caption{Skutečné umístění landmarků ani robota není nikdy známo, jen jejich vzájemná poloha \cite{Durrant-Whyte}.}
 \end{figure}
 
@@ -159,12 +159,12 @@ Při tomto přístupu se k ukládání dat používá graf. Uzel grafu reprezent
 Formulace SLAM pomocí grafu byla poprvé představena v roce 1997, avšak kvůli vysoké výpočetní náročnosti trvalo ještě několik let, než se začala používat v reálných aplikacích. V dnešní době patří Graph SLAM k nejmodernějším technikám, co se rychlosti a přesnosti týče.
 
 \subsection{Definice}
-Pro správný chod graph SLAMu musí fungovat souhra mezi jeho dvěma částmi front-end a back-end. Front-end se obecně stará o sestrojení samotného grafu a back-end o jeho optimalizaci a tedy i optimalizaci mapy.
+Pro správný chod graph SLAMu musí fungovat souhra mezi jeho dvěma částmi front-end a back-end. Front-end se obecně stará o sestrojení samotného grafu a back-end o jeho optimalizaci a tedy i optimalizaci mapy. Následující schéma znázorňuje průchod dat metodou Graph SLAM. Nezpracovaná data (pozorování, odometrie) nejdříve zpracuje front-end a vytvoří graf. Ten po daném okamžiku putuje do back-end, kde se optimalizací získá nejlepší odhad mapy prostředí a poté předá opět do první části \cite{16-graph-slam}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{Obr3}
-\caption{Schéma převzaté z \cite{16-graph-slam} znázorňuje průchod dat metodou Graph SLAM. Surová data (pozorování, odometrie) nejdříve zpracuje front-end a vytvoří graf. Ten po daném okamžiku putuje do back-end, kde se optimalizací získá nejlepší odhad mapy prostředí a poté předá opět do první části.}
+\includegraphics[scale=1.2]{img/Obr3.pdf}
+\caption{Schéma toku dat v Graph SLAM}
 \end{figure}
 
 \subsubsection{Front-end}
@@ -175,7 +175,7 @@ Využívá se scan matching, který porovnává dvě pozorování z uzlů $x_i$ 
 Znázornění problému je v obrázku 4, kde $x_i$ je aktuální uzel, $x_j$ je uzel, ve kterém bylo provedeno podobné pozorování jako to aktuální, $\hat{z}_{ij}$ je predikce virtuálního měření reprezentující "jak uzel $i$ vidí uzel $j$", $z_{ij}$ je virtuální měření, $\Omega_{ij}$ je informační matice virtuálního měření a $e_{ij}(x_i, x_j)$ je funkce, která vyjadřuje rozdíl virtuálního a predikovaného měření.
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.8]{Obr4}
+\includegraphics[scale=0.8]{img/Obr4_b}
 \caption{Znázornění virtuálního měření a jeho predikce \cite{tutorialGraph}.}
 \end{figure}
 
