@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  26 DEC 2018 22:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  5 MAR 2019 01:42
 entering extended mode
 **./reserse.tex
 (reserse.tex
@@ -802,16 +802,22 @@ Package pdftex.def Info: img/Obr2_b.png used on input line 87.
 File: img/Obr3.pdf Graphic file (type pdf)
 
 <use img/Obr3.pdf>
-Package pdftex.def Info: img/Obr3.pdf used on input line 166.
+Package pdftex.def Info: img/Obr3.pdf used on input line 168.
 (pdftex.def)             Requested size: 431.30518pt x 87.87985pt.
  <img/Obr4_b.png, id=43, 407.121pt x 272.81924pt>
 File: img/Obr4_b.png Graphic file (type png)
 
 <use img/Obr4_b.png>
-Package pdftex.def Info: img/Obr4_b.png used on input line 178.
+Package pdftex.def Info: img/Obr4_b.png used on input line 180.
 (pdftex.def)             Requested size: 325.69725pt x 218.25568pt.
  [7 <./img/Obr3.pdf>] [8 <./img/Obr4_b.png>] [9] [10]
-[11] [12] (reserse.bbl
+[11] <img/hloubkova_mapa.jpg, id=69, 646.62631pt x 167.3621pt>
+File: img/hloubkova_mapa.jpg Graphic file (type jpg)
+
+<use img/hloubkova_mapa.jpg>
+Package pdftex.def Info: img/hloubkova_mapa.jpg used on input line 278.
+(pdftex.def)             Requested size: 452.63533pt x 117.15266pt.
+ [12 <./img/hloubkova_mapa.jpg>] [13] (reserse.bbl
 Underfull \hbox (badness 3895) in paragraph at lines 4--10
 []\OT1/cmr/m/n/12 P. Abbeel.  Gra-phSLAM.  https://people.eecs.berkeley.edu/ pa
 bbeel/cs287-
@@ -822,12 +828,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--18
 []\OT1/cmr/m/n/12 W. Bur-gard.  Graph-based SLAM.  http://ais.informatik.uni-
  []
 
-) [13] (reserse.aux) ) 
+) [14] (reserse.aux) ) 
 Here is how much of TeX's memory you used:
- 8599 strings out of 493323
- 123334 string characters out of 3139065
- 313649 words of memory out of 3000000
- 11971 multiletter control sequences out of 15000+200000
+ 8606 strings out of 493323
+ 123478 string characters out of 3139065
+ 314653 words of memory out of 3000000
+ 11976 multiletter control sequences out of 15000+200000
  11372 words of font info for 42 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,10n,39p,1571b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -843,9 +849,9 @@ amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 m/cmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
 10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C
 :/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on reserse.pdf (14 pages, 255647 bytes).
+Output written on reserse.pdf (15 pages, 349958 bytes).
 PDF statistics:
- 118 PDF objects out of 1000 (max. 8388607)
+ 122 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

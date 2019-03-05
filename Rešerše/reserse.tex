@@ -25,7 +25,7 @@
 \date{Akademický rok 2017/2018}
 \begin{titlepage}
 \begin{center}
-\includegraphics[scale=0.5]{img/logo_zcu}\\
+\includegraphics[scale=0.5]{img/logo_zcu.png}\\
 \vspace{5cm}
 \begin{Large}
 \textbf{\thetitle}\\
@@ -154,6 +154,8 @@ $$
 Takové rozdělení by vedlo k nekonzistentnosti odhadů a nepoužitelným výsledkům. 
 
 \section{Graph-Based SLAM}
+Pravděpodobnostní přístup se v dnešní době již téměř nepoužívá, avšak na jeho základech staví všechny vyspělejší algoritmy. Jedním z nich je pravděpodobnostní SLAM, jehož hlavní myšlenka je založená na použití pravděpodobnostních filtrů. Z tohoto přístupu se vyvinul Graph SLAM, který je v mnoha ohledech lepší a rychlejší a bude hlavní náplní této práce. 
+
 Při tomto přístupu se k ukládání dat používá graf. Uzel grafu reprezentuje stav robota a měření provedená z tohoto stavu. Hrany mezi uzly představují jejich vzájemnou polohu. Cílem algoritmu je najít takové rozložení uzlů, které minimalizuje čtvercovou chybu rozdílu pozorování a "virtuálního pozorování" \cite{GraphSLAM}. Tím se získá nejlepší odhad mapy. Optimalizace neprobíhá po každém novém pozorování, čímž se Graph SLAM řadí mezi offline metody řešení.
 
 Formulace SLAM pomocí grafu byla poprvé představena v roce 1997, avšak kvůli vysoké výpočetní náročnosti trvalo ještě několik let, než se začala používat v reálných aplikacích. V dnešní době patří Graph SLAM k nejmodernějším technikám, co se rychlosti a přesnosti týče.
@@ -209,9 +211,9 @@ Bohužel při použití snímačů obrazových dat mohou vzniknout chyby pokud k
 \subsection{Základní struktura vSLAM}
 Většina vSLAM algoritmů používá stejnou obecnou strukturu, která se skládá ze tří hlavních částí:
 \begin{itemize}
-\item Kalibrace  
-\item Sledování
-\item Mapování
+\item \textbf{Kalibrace} kamery 
+\item \textbf{Sledování} a hledání společných bodů prostoru a mapy
+\item \textbf{Mapování} - aktualizace a rozšiřování mapy
 \end{itemize}
 
 Nezávisle na přesném typu algoritmu musí proběhnout kalibrace kamer. Ta se dá rozdělit na vnitřní, která odpovídá geometrii kamery (ohnisková vzdálenost) a vnější, která záleží na pozici kamery v prostoru (rotace a translace s respektováním nějakého souřadnicového systému). Provádí se s použitím několika různých obrazů s motivem šachovnice. Jejich nasnímáním se vnitřní souřadnicový systém nastaví tak, aby odpovídal reálnému světu.
@@ -223,13 +225,13 @@ Mapováním se rozumí rozšiřování existující mapy v případě, kdy kamer
 \subsection{Dodatkové moduly vSLAM}
 Následující dvě části jsou často zahrnuty do algoritmu pro stabilnější a přesnější běh, avšak v závislosti na konkrétním použití je lze vynechat:
 \begin{itemize}
-\item Relokalizace
-\item Globální optimalizace mapy
+\item \textbf{Relokalizace} v případě ztráty povědomí o poloze
+\item \textbf{Globální optimalizace mapy}
 \end{itemize}
 
 V případě, kdy robot ztratí přehled o své pozici, například kvůli rychlému pohybu kamery, je zapotřebí jej znovu lokalizovat. Pokud by vSLAM systém neobsahoval tuto funkci, nemohl by dále pokračovat po ztrátě informace o své pozici.
 
-Mapa zpravidla obsahuje kumulativní chybu odhadu, která se zvětšuje s ujetou \linebreak vzdáleností. Když robot navštíví již dříve objevenou oblast, použitím techniky zvané uzavírání smyček, dojde k porovnání aktuálního obrazu s dříve nasnímanými a v případě shody může být dopočítána a následně odstraněna chyba odhadu.
+Mapa zpravidla obsahuje kumulativní chybu odhadu, která se zvětšuje s ujetou \linebreak vzdáleností. Když robot navštíví již dříve objevenou oblast, použitím techniky zvané uzavírání smyček, dojde k porovnání aktuálního obrazu s dříve nasnímanými obrazy a v případě shody může být dopočítána a následně odstraněna chyba odhadu.
 
 \subsection{Metody řešení}
 Existují tři základní přístupy v získávání a/nebo zpracování obrazových dat. První dva rozlišujeme podle práce s obrazovými daty, kdy jeden přístup je založen na detekci a zpracování významných bodů, zatímco druhý pracuje přímo se získaným obrazem. Třetí možností je použití RGB-D kamer jako je například Microsoft Kinect, který je výhodný v možnosti získávání nejen obrazu prostředí, ale i informaci o jeho hloubce. 
@@ -269,12 +271,24 @@ Dále se bude práce zabývat pouze přímými metodami řešení úlohy vizuál
 Tato metoda je pouze vizuální odometrií a není tedy určená pro sestavování globální mapy prostředí, ale přišla s přístupem, na kterém staví některé následující metody, které již jsou plnohodnotnými SLAM algoritmy. Klíčovou myšlenkou je průběžně odhadovat polo-hustou inverzní hloubkovou mapu pro aktuální snímek, která se dále používá pro sledování pohybu kamery pomocí zarovnání obrazu. Polo-hustou se rozumí hloubková mapa, která neobsahuje hloubkovou informaci pro každý pixel, ale pouze pro podmnožinu pohybujících se pixelů (mají nezanedbatelný obrazový gradient). Tím se značně sníží výpočetní náročnost oproti použití husté hloubkové mapy. Každý odhad je reprezentován jako Gaussovo rozdělení pravděpodobnosti nad inverzní hloubkou. Tyto informace jsou navíc aktualizovány v průběhu času při příchodu nových snímků. Celý algoritmus běží v reálném čase na CPU.
 
 \subsubsection{Odhad hloubkové mapy}
-Klíčová myšlenka tohoto algoritmu je odhadnout polo-hustou inverzní hloubkovou mapu pro aktuální obraz, která může být použita pro odhad pozice kamery u následujícího snímku. Tato mapa se průběžně šíří ze snímku do snímku a zpřesňuje se novými hloubkovými měřeními, která jsou získávána při adaptivním prostorovém srovnávání pixelů. To umožňuje přesně odhadnout hloubku blízkých i vzdálených částí obrazu.
+Hlavní částí tohoto algoritmu je odhad polo-husté inverzní hloubkové mapy pro aktuální obraz, která může být použita pro odhad pozice kamery u následujícího snímku. Tato mapa se průběžně šíří ze snímku do snímku a zpřesňuje se novými hloubkovými měřeními, která jsou získávána při adaptivním prostorovém srovnávání pixelů. To umožňuje přesně odhadnout hloubku blízkých i vzdálených částí obrazu.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/hloubkova_mapa.jpg}
+\caption{Ukázka polo-husté hloubkové mapy \cite{Semi-Dense_VO}.}
+\end{figure}
 
 \paragraph{Aktualizace hloubkové mapy}
-Celková aktualizace hloubkové mapy se provádí jednou pro každý nový snímek a skládá se z následujících kroků: Nejprve je vybrána podmnožina obrazových bodů, pro kterou je přesnost vyhledání rozdílu dostatečně velká. Pro každý pixel se pak jednotlivě vybere vhodný referenční rámec a provede se jednorozměrné hledání rozdílnosti. Dřívější poznatky, pokud je to možné, se používají ke snížení rozsahu rozdílového vyhledávání a tím zmenšení výpočetních nákladů a odstranění falešných minim. Získaný inverzní hloubkový odhad se poté spojí do hloubkové mapy.
+Celková aktualizace hloubkové mapy se provádí jednou pro každý nový snímek a skládá se z následujících kroků: Nejprve je vybrána podmnožina obrazových bodů, pro kterou je přesnost vyhledání rozdílu dostatečně velká. Pro každý pixel se pak jednotlivě vybere vhodný referenční snímek a provede se jednorozměrné hledání rozdílnosti. Dřívější poznatky, pokud je to možné, se používají ke snížení rozsahu rozdílového vyhledávání a tím zmenšení výpočetních nákladů a odstranění falešných minim. Získaný inverzní hloubkový odhad se poté spojí do hloubkové mapy.
 
-\textsf{\textbf{TODO-----------------------------------------------------------}}
+S výběrem referenčního snímku pomáhá zavedení jednoduché heuristiky. Použijeme nejstarší snímek, v němž byl pozorován pixel a jeho rozdílnost a pozorovací úhel nepře\-sahují určitou stanovenou mez. Pokud není nalezena dobrá shoda, \uv{věk} pixelů se zvýší, takže následné vyhledávání používá novější snímky, kde je větší pravděpodobnost, že pixel bude stále viditelný.
+
+
+\subsubsection{Shrnutí}
+Sledování a odhad hloubky běží na dvou samostatných vláknech. Jedno průběžně propaguje inverzní hloubkovou mapu k nejnovějšímu zpracovávanému snímku, aktualizuje ji a částečně upravuje. Druhé současně sleduje každý příchozí snímek na nejnovější dostupné hloubkové mapě. Zatímco sledování je prováděno v reálném čase na 30Hz, jedna úplná iterace mapování trvá déle a je prováděna zhruba na 15Hz. Pokud je mapa složitá, adaptivně snižujeme počet stereo porovnání, abychom udrželi konstantní kmitočet. U stereo pozorování je zachována vyrovnávací paměť až 100 posledních snímků, která automaticky odstraňuje ty, které jsou používány nejméně.
+
+Je použita standardní metoda založená na klíčových bodech pro získání relativní pozice kamery mezi dvěma počátečními snímky, které se pak používají k inicializaci inverzní hloubkové mapy. Po proběhnutí této inicializace je metoda zcela samostatná. Ve většině případů je algoritmus dokonce schopen zotavit se z náhodných nebo extrémně nepřesných počátečních hloubkových map, což naznačuje, že inicializace založená na klíčových bodech by se mohla v budoucnu stát nadbytečnou.
 
 \subsection{LSD-SLAM}
 Metoda LSD-SLAM (Large-Scale Direct monocular SLAM) umožňuje vytvářet konzistentní rozsáhlé mapy prostředí. Používá přímé zpracování vstupního obrazu spolu s odhadem založeným na filtraci hloubkových map. Globální mapa je reprezentována jako graf, jehož vrcholy představují vstupní obrazy a 3D transformace podobnosti znázorňují hrany umožňující detekci a opravu nahromaděné chyby. Metoda běží v reálném čase na CPU a jako odometrie i na smartphonu.
