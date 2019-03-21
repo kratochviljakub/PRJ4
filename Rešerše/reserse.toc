@@ -17,7 +17,8 @@
 \contentsline {section}{\numberline {5}Konkr\IeC {\'e}tn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }m\IeC {\'e} metody}{12}
 \contentsline {subsection}{\numberline {5.1}Semi-Dense Visual Odometry}{12}
 \contentsline {subsubsection}{\numberline {5.1.1}Odhad hloubkov\IeC {\'e} mapy}{12}
-\contentsline {paragraph}{Aktualizace hloubkov\IeC {\'e} mapy}{12}
-\contentsline {subsubsection}{\numberline {5.1.2}Shrnut\IeC {\'\i }}{13}
-\contentsline {subsection}{\numberline {5.2}LSD-SLAM}{13}
-\contentsline {subsubsection}{\numberline {5.2.1}P\IeC {\v r}ehled metody}{13}
+\contentsline {subsubsection}{\numberline {5.1.2}Aktualizace hloubkov\IeC {\'e} mapy}{13}
+\contentsline {subsubsection}{\numberline {5.1.3}Shrnut\IeC {\'\i }}{13}
+\contentsline {subsection}{\numberline {5.2}LSD-SLAM}{14}
+\contentsline {subsubsection}{\numberline {5.2.1}P\IeC {\v r}ehled metody}{14}
+\contentsline {paragraph}{Inicializaci}{14}

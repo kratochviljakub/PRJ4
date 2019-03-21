@@ -271,7 +271,7 @@ Dále se bude práce zabývat pouze přímými metodami řešení úlohy vizuál
 Tato metoda je pouze vizuální odometrií a není tedy určená pro sestavování globální mapy prostředí, ale přišla s přístupem, na kterém staví některé následující metody, které již jsou plnohodnotnými SLAM algoritmy. Klíčovou myšlenkou je průběžně odhadovat polo-hustou inverzní hloubkovou mapu pro aktuální snímek, která se dále používá pro sledování pohybu kamery pomocí zarovnání obrazu. Polo-hustou se rozumí hloubková mapa, která neobsahuje hloubkovou informaci pro každý pixel, ale pouze pro podmnožinu pohybujících se pixelů (mají nezanedbatelný obrazový gradient). Tím se značně sníží výpočetní náročnost oproti použití husté hloubkové mapy. Každý odhad je reprezentován jako Gaussovo rozdělení pravděpodobnosti nad inverzní hloubkou. Tyto informace jsou navíc aktualizovány v průběhu času při příchodu nových snímků. Celý algoritmus běží v reálném čase na CPU.
 
 \subsubsection{Odhad hloubkové mapy}
-Hlavní částí tohoto algoritmu je odhad polo-husté inverzní hloubkové mapy pro aktuální obraz, která může být použita pro odhad pozice kamery u následujícího snímku. Tato mapa se průběžně šíří ze snímku do snímku a zpřesňuje se novými hloubkovými měřeními, která jsou získávána při adaptivním prostorovém srovnávání pixelů. To umožňuje přesně odhadnout hloubku blízkých i vzdálených částí obrazu.
+Hlavní částí tohoto algoritmu je odhad polo-husté inverzní hloubkové mapy pro aktuální obraz, která může být použita pro odhad pozice kamery u následujícího snímku. Tato mapa se průběžně šíří ze snímku do snímku a zpřesňuje se novými hloubkovými měřeními. Ty získáváme porovnáním jednotlivých pixelů s použitím adaptivní základní čáry (tzv. baseline) u minimálně dvou prostorově posunutých snímků. To umožňuje přesně odhadnout hloubku blízkých i vzdálených částí obrazu. Je vhodné použití více délek baseline, neboť pomocí krátké baseline určíme jednu hodnotu hloubky, avšak ne příliš přesně. Při použití dlouhé baseline dostáváme více přesných hodnot. Jejich kombinací lze dosáhnout správné a přesné hodnoty hloubky pixelu.
 
 \begin{figure}[H]
 \centering
@@ -279,7 +279,13 @@ Hlavní částí tohoto algoritmu je odhad polo-husté inverzní hloubkové mapy
 \caption{Ukázka polo-husté hloubkové mapy \cite{Semi-Dense_VO}.}
 \end{figure}
 
-\paragraph{Aktualizace hloubkové mapy}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{img/baseline.jpg}
+\caption{Ukázka pojmu baseline na reálných datech \cite{Semi-Dense_VO}.}
+\end{figure}
+
+\subsubsection{Aktualizace hloubkové mapy}
 Celková aktualizace hloubkové mapy se provádí jednou pro každý nový snímek a skládá se z následujících kroků: Nejprve je vybrána podmnožina obrazových bodů, pro kterou je přesnost vyhledání rozdílu dostatečně velká. Pro každý pixel se pak jednotlivě vybere vhodný referenční snímek a provede se jednorozměrné hledání rozdílnosti. Dřívější poznatky, pokud je to možné, se používají ke snížení rozsahu rozdílového vyhledávání a tím zmenšení výpočetních nákladů a odstranění falešných minim. Získaný inverzní hloubkový odhad se poté spojí do hloubkové mapy.
 
 S výběrem referenčního snímku pomáhá zavedení jednoduché heuristiky. Použijeme nejstarší snímek, v němž byl pozorován pixel a jeho rozdílnost a pozorovací úhel nepře\-sahují určitou stanovenou mez. Pokud není nalezena dobrá shoda, \uv{věk} pixelů se zvýší, takže následné vyhledávání používá novější snímky, kde je větší pravděpodobnost, že pixel bude stále viditelný.
@@ -291,20 +297,21 @@ Sledování a odhad hloubky běží na dvou samostatných vláknech. Jedno průb
 Je použita standardní metoda založená na klíčových bodech pro získání relativní pozice kamery mezi dvěma počátečními snímky, které se pak používají k inicializaci inverzní hloubkové mapy. Po proběhnutí této inicializace je metoda zcela samostatná. Ve většině případů je algoritmus dokonce schopen zotavit se z náhodných nebo extrémně nepřesných počátečních hloubkových map, což naznačuje, že inicializace založená na klíčových bodech by se mohla v budoucnu stát nadbytečnou.
 
 \subsection{LSD-SLAM}
-Metoda LSD-SLAM (Large-Scale Direct monocular SLAM) umožňuje vytvářet konzistentní rozsáhlé mapy prostředí. Používá přímé zpracování vstupního obrazu spolu s odhadem založeným na filtraci hloubkových map. Globální mapa je reprezentována jako graf, jehož vrcholy představují vstupní obrazy a 3D transformace podobnosti znázorňují hrany umožňující detekci a opravu nahromaděné chyby. Metoda běží v reálném čase na CPU a jako odometrie i na smartphonu.
+Metoda LSD-SLAM (Large-Scale Direct monocular SLAM) umožňuje vytvářet konzistentní rozsáhlé mapy prostředí. Používá přímé zpracování vstupního obrazu spolu s odhadem založeným na filtraci polo-hustých hloubkových map, které přinesla zmiňovaná metoda Semi-Dense Visual Odometry \cite{Semi-Dense_VO}. Globální mapa je reprezentována jako graf, jehož vrcholy představují vstupní obrazy a 3D transformace podobnosti znázorňují hrany umožňující detekci a opravu nahromaděné chyby. Metoda běží v reálném čase na CPU a jako odometrie i na smartphonu.
 
 \subsubsection{Přehled metody}
 Algoritmus se skládá ze tří hlavních částí:
 \begin{itemize}
-	\item \textbf{Sledování}; \textsf{\textbf{TODO-----------------------------------------------------------}}
-	\item \textbf{Odhad hloubkové mapy}; využívá sledované snímky buď k úpravě nebo nahrazení aktuálního snímku. \textsf{\textbf{TODO-----------------------------------------------------------}}
-	\item Optimalizace mapy
+	\item \textbf{Sledování} průběžně monitoruje nové obrazy z kamery a odhaduje jejich pozici vzhledem k aktuálnímu snímku. Přitom používá pozici předchozího snímku jako vlastní inicializaci. 
+	\item \textbf{Odhad hloubkové mapy} využívá sledované snímky k úpravě nebo nahrazení aktuálního snímku. Hloubka je získána filtrací mnoha prostorových porovnání pixelů s použitím krátké baseline, stejně jako v metodě Semi-Dense Visual Odometry. Při velkém posunu kamery se nový snímek inicializuje promítnutím bodů z aktuálního snímku do snímků z jeho blízkého okolí. 
+	\item \textbf{Optimalizace mapy} se provádí nejdříve ve chvíli, kdy je u aktuálního snímku ukončen jeho hloubkový odhad. Pro detekci uzavření smyčky anebo chyby měřítka je s použitím zarovnání obrazu odhadována podobnostní transformace snímku se snímky v jeho blízkém okolí.
 \end{itemize}
 
+\paragraph{Inicializaci} prvního snímku je doporučeno provést náhodnou hloubkovou mapou s velkou variancí. Při dostatečném translačním pohybu kamery v prvních sekundách algoritmus sám konverguje ke správné hloubkové konfiguraci \cite{Engel14_LSD}.
 
 
 
-
+\textsf{\textbf{TODO-----------------------------------------------------------}}
 
 
 \bibliography{zdroje}

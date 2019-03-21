@@ -29,6 +29,11 @@ H.~Durrant-Whyte and T.~Bailey.
   algorithms.
 \newblock {\em IEEE ROBOTICS AND AUTOMATION MAGAZINE}, 2006.
 
+\bibitem{Engel14_LSD}
+J.~Engel and D.~Cremers.
+\newblock Lsd-slam: Large-scale direct monocular slam.
+\newblock In {\em In ECCV}, 2014.
+
 \bibitem{Semi-Dense_VO}
 J.~Engel, J.~Sturm, and D.~Cremers.
 \newblock Semi-dense visual odometry for a monocular camera.
