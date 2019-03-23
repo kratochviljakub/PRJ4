@@ -307,7 +307,13 @@ Algoritmus se skládá ze tří hlavních částí:
 	\item \textbf{Optimalizace mapy} se provádí nejdříve ve chvíli, kdy je u aktuálního snímku ukončen jeho hloubkový odhad. Pro detekci uzavření smyčky anebo chyby měřítka je s použitím zarovnání obrazu odhadována podobnostní transformace snímku se snímky v jeho blízkém okolí.
 \end{itemize}
 
-\paragraph{Inicializaci} prvního snímku je doporučeno provést náhodnou hloubkovou mapou s velkou variancí. Při dostatečném translačním pohybu kamery v prvních sekundách algoritmus sám konverguje ke správné hloubkové konfiguraci \cite{Engel14_LSD}.
+\paragraph{Inicializaci} prvního snímku je doporučeno provést náhodnou hloubkovou mapou s velkou variancí. Při dostatečném translačním pohybu kamery v prvních sekundách algoritmus sám konverguje ke správné hloubkové konfiguraci.
+
+\paragraph{Mapa} je reprezentována jako graf. Každý vrchol grafu obsahuje snímek z kamery, inverzní hloubkovou mapu a její varianci, které jsou definovány pouze pro podmnožinu pixelů (a jejich blízkého okolí) s největším obrazovým gradientem. Hrany mezi vrcholy obsahují informaci o vzájemné relativní poloze vrcholů a odpovídající kovarianční matici.
+
+\paragraph{Unikátnost} LSD algoritmu stojí na tom, že to byl první přímý monokulární SLAM, zatímco jeho \uv{předchůdci} dělaly pouze vizuální odometrii \cite{Engel14_LSD}. K tomu zřejmě pomohla i nová metoda zarovnání snímků s různým měřítkem. 
+
+Při použití jediné kamery nelze z principu pozorovat absolutní měřítko sledovaného prostoru, to vede, zejména u delších trajektorií, k hromadění chyby měřítka a chybnému fungování celého algoritmu. LSD SLAM tento problém řeší s použitím vnitřní korelace mezi hloubkou scény a přesností sledování. Hloubková mapa každého klíčového snímku je normována tak, že střední inverzní hloubka je rovna jedné. Tak je možné do transformací mezi snímky začlenit i rozdíl jejich meřítek, ve výsledku explicitně vyjádřit velikost nahromaděné chyby a adekvátně upravit absolutní měřítko celé mapy.
 
 
 

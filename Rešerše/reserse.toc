@@ -22,3 +22,5 @@
 \contentsline {subsection}{\numberline {5.2}LSD-SLAM}{14}
 \contentsline {subsubsection}{\numberline {5.2.1}P\IeC {\v r}ehled metody}{14}
 \contentsline {paragraph}{Inicializaci}{14}
+\contentsline {paragraph}{Mapa}{14}
+\contentsline {paragraph}{Unik\IeC {\'a}tnost}{14}
