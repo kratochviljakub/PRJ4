@@ -20,4 +20,4 @@
 \contentsline {paragraph}{Mapa}{14}
 \contentsline {paragraph}{Unik\IeC {\'a}tnost}{14}
 \contentsline {subsection}{\numberline {5.3}Direct Sparse Odometry}{15}
-\contentsline {subsection}{\numberline {5.4}Direct Sparse Odometry with Loop Closure}{15}
+\contentsline {subsection}{\numberline {5.4}Direct Sparse Odometry with Loop Closure}{17}

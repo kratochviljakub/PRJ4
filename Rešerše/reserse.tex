@@ -47,7 +47,7 @@
 \section{Úvod}
 SLAM je zkratka pro simultánní lokalizaci a mapování, jeden ze základních problémů autonomních robotů. Jeho řešením by měl být robot, schopný na neznámém místě v neznámém prostředí vytvořit mapu tohoto prostředí a zároveň se v ní sám během pohybu lokalizovat.
 
-Do povědomí se SLAM dostal v roce 1986 na konferenci IEEE Robotics and Automation, která se konala v San Francisku v Kalifornii \cite{Durrant-Whyte}. V tomto období se v robotice a umělé inteligenci začaly objevovat metody založené na pravděpodobnostních principech a tak vyvstala otázka možnosti použití odhadových metod na mapovací a lokalizační problémy. Po následujících diskuzích se problém ukázal jako velice zajímavý a konzistentní pravděpodobnostní mapování stalo jedním ze základních problémů a výzev robotiky.
+Do povědomí se SLAM dostal v roce 1986 na konferenci IEEE Robotics and Automation, která se konala v San Francisku v Kalifornii \cite{Durrant-Whyte}. V tomto období se v robotice a umělé inteligenci začaly objevovat metody založené na pravděpodobnostních principech a tak vyvstala otázka možnosti použití odhadových metod na mapovací a lokalizační problémy. Po následujících diskuzích se problém ukázal jako velice zajímavý a konzistentní pravděpodobnostní mapování se stalo jedním ze základních problémů a výzev robotiky.
 
 Aplikací SLAM můžeme najít mnoho, počínaje autonomním domácím vysavačem nebo sekačkou na trávu přes robotický průzkum opuštěných nebo člověku nebezpečných prostor, navigaci ponorek kolem podmořských přírodních překážek, řízení bezpilotních letounů a dronů až po v poslední době hodně diskutované samořídící automobily nebo dokonce planetární rovery brázdící povrch Marsu.
 
@@ -239,13 +239,13 @@ Existují tři základní přístupy v získávání a/nebo zpracování obrazov
 Tato práce se bude zabývat především monokulárním SLAMem, při kterém ke snímání prostředí používáme pouze jednu kameru. Výhody i nevýhody tohoto přístupu budou vysvětleny dále.
 
 \subsubsection{S použitím významných bodů}
-Metoda spočívá v zaznamenání vstupního obrazu a jeho převodu na významné body. Těmi jsou například různé hrany, snadno rozpoznatelné oblasti apod. Dále algoritmus pracuje pouze se získanými body a ne s celým obrazem. To zjednodušuje celkový problém, avšak je zde významné omezení v tom, že nedokážeme použít informaci z té části obrazu, která se nepřevede na nějaký významný bod a můžeme tím přijít o důležité data, která by se dala lépe využít k odhadu mapy.
+Metoda spočívá v zaznamenání vstupního obrazu a jeho převodu na významné body. Těmi jsou například různé hrany, snadno rozpoznatelné oblasti apod. Dále algoritmus pracuje pouze se získanými body a ne s celým obrazem. To zjednodušuje celkový problém, avšak je zde významné omezení v tom, že nedokážeme použít informaci z té části obrazu, která se nepřevede na nějaký významný bod a můžeme tím přijít o důležitá data, která by se dala lépe využít k odhadu mapy.
 
 První monokulární SLAM nazvaný MonoSLAM byl vyvinutý v roce 2003. V tomto algoritmu probíhá lokalizace i mapování souběžně a k odhadu se používá Kalmanův filtr. Pohyb kamery a pozice významných bodů prostředí jsou reprezentovány stavovým vektorem. Při objevení nového významného bodu je tento přidán do stavového vektoru, v důsledku čehož se při použití ve velkém prostředí dimenze vektoru zvětší natolik, že výpočetní náročnost souběžné lokalizace a mapování přestává být únosná a je těžké dosáhnout potřebných odhadů v reálném čase. 
 
 Řešením problému výpočetní náročnosti je lokalizaci a mapování spustit každé na svém vlastním procesorovém vlákně tak, jako v metodě zvané PTAM (tj. Parallel Tracking and Mapping). Tyto vlákna běží paralelně, tím nedochází k omezování lokalizace výpočetní náročností odhadu mapy. Navíc je do mapování zahrnuta i průběžná optimalizace, takže je robot v reálném čase lokalizován a navíc vytvářena přesná mapa prostředí. PTAM je první metodou, která zahrnuje optimalizaci do algoritmu v reálném čase a většina novějších algoritmů následuje tento vícevláknový přístup \cite{Taketomi_visual}.
 
-PTAM, narozdíl od MonoSLAM, dokáže v réálném čase fungovat i v případě rozlehlého prostředí, kde stavový vektor obsahuje několik tisíc významných bodů.
+PTAM, na rozdíl od MonoSLAM, dokáže v reálném čase fungovat i v případě rozlehlého prostředí, kde stavový vektor obsahuje několik tisíc významných bodů.
 
 \subsubsection{RGB-D}
 RGB-D SLAM se začal nejvíce používat po příchodu kamery Microsoft Kinect, která započala malou \uv{revoluci} díky své ceně, velikosti a jednoduchosti použití. Má zabudovanou RGB i infrakameru a dokáže tak kromě obrazu navíc získávat informaci o hloubce prostředí. Většina spotřebitelských RGB-D kamer je však určena pouze pro použití v interiéru, neboť v exteriéru je obtížné zachytit odražené IR záření a kromě toho mají malý dosah v řádu jednotek metrů.
@@ -316,6 +316,50 @@ Algoritmus se skládá ze tří hlavních částí:
 Při použití jediné kamery nelze z principu pozorovat absolutní měřítko sledovaného prostoru, to vede, zejména u delších trajektorií, k hromadění chyby měřítka a chybnému fungování celého algoritmu. LSD SLAM tento problém řeší s použitím vnitřní korelace mezi hloubkou scény a přesností sledování. Hloubková mapa každého klíčového snímku je normována tak, že střední inverzní hloubka je rovna jedné. Tak je možné do transformací mezi snímky začlenit i rozdíl jejich měřítek, ve výsledku explicitně vyjádřit velikost nahromaděné chyby a adekvátně upravit absolutní měřítko celé mapy.
 
 \subsection{Direct Sparse Odometry}
+DSO je přímou vizuální odometrií, postavená na využití vysoce přesné řídké hloubkové mapy. Díky tomu je první plně přímou metodou, která dokáže v reálném čase optimalizovat pravděpodobnosti všech získávaných parametrů (pozice kamery, vnitřní parametry kamery a geometrii prostředí, respektive jeho inverzní hloubku). Oproti tomu například zmiňovaná metoda Semi-Dense Visual Odometry používá nepřímou formulaci k optimalizaci parametrů.
+
+Z hlediska přesnosti sledování i robustnosti výrazně překonává i nejmodernější použí\-vané přímé a nepřímé metody v různých reálných podmínkách. Při použití v reálném čase hravě předčí hlavní nepřímé metody a při vysokém nastavení (více bodů a aktivních klíčových snímků) vytváří podobně husté, avšak daleko přesnější modely prostředí než LSD SLAM \cite{Engel2018_DSO}.
+
+\subsubsection*{Řídká hloubková mapa} Mapa je sestavena pouze z vybrané sady nezávislých bodů (tradičně rohů). Oproti metodám využívající husté hloubkové mapy, které se k její tvorbě snaží použít všechny nasnímané pixely. Třetí možností kombinující oba přístupy jsou již dříve zmiňované polo-husté hloubkové mapy, které nepoužívají celý obraz, avšak stále se zaměřují na využití propojených a dobře ohraničených podmnožin. 
+
+Kromě rozsahu použité oblasti obrazu je zde významnější rozdíl v přidání apriorní informace o geometrii prostředí. Neexistuje zde žádná definice sousedních pixelů a pozice klíčových bodů jsou tak nezávislé k poloze kamery. Nevýhodou přidání této informace je možnost zanesení zkreslení a tím snížení přesnosti 3D rekonstrukce rozsáhlých prostředí. 
+
+\subsubsection*{Optimalizace} Provádí se s pomocí klouzavého okna, kdy staré pozice kamery a body, které opustí toto okno jsou v úloze již ignorovány. Na rozdíl od ostatních přímých metod simultánně optimalizuje všechny parametry modelu, při udržení stejné geometrické reprezentace používanou jinými přímými přístupy.
+
+Navržený model umožňuje některá pozorování použít vícekrát, zatímco jiné nepoužít vůbec. Stává se to z důvodu umožnění překrytí bodových pozorování (a tedy více pozorování závisí na stejných hodnotách pixelů), přestože strategie výběru bodů se tomu snaží zabránit rovnoměrným rozložením bodů v prostoru. Děje se tak zejména ve scénách s nízkou texturou, kde musí být všechny body vybrány z relativně malé oblasti s texturovaným obrazem. 
+
+\subsubsection*{Správa snímků}
+Metoda stále drží klouzavé okno maximálně \textit{N} aktivních snímků (standardně \textit{N} = 7). Každý nový snímek je zpočátku sledován s respektem k těmto referenčním snímkům.
+
+\paragraph*{1) Počátek sledování nových snímků.} Při inicializaci nového klíčového snímku jsou do něj promítnuty a mírně rozšířeny všechny aktivní body a tím vytvořena polo-hustá hloubková mapa. Nové snímky jsou sledovány s ohledem pouze na tento klíčový snímek. Obrázek 7 ukazuje některé příklady inicializace hloubkové mapy. Zároveň je zde dobře vidět používaná hustota hloubkové mapy, kde další zvyšování hustoty by vedlo pouze k minimálnímu zlepšení přesnosti a robustnosti, avšak by významně zpomalilo běh algoritmu. Za povšimnutí stojí rozložení stejného počtu hloubkových bodů. V hustě texturovaných prostředích (vlevo) jsou rozprostřené po celém snímku, zatímco při malé části texturovaného obrazu jsou rozloženy podobně jako v LSD SLAMu.
+
+Předpokládá se, že selhalo přímé zarovnání obrazu, pokud je střední kvadratická odchylka aktuálního snímku větší nebo rovna dvojnásobku odchylky předchozího snímku. Poté se metoda snaží obnovit novou inicializací provedením až 27 různými malými rotacemi v různých směrech. Každý takový pokus trvá přibližně 0,5ms, ale je potřeba jen velmi zřídka, a to v případech, kdy se kamera pohybuje velmi rychle nebo roztřeseně.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.64]{img/Obr5_b.png}
+\caption{Příklady hloubkových map. V horní řadě jsou originální snímky, v dolní snímky s promítnutými hloubkovými mapami.  \cite{Engel2018_DSO}.}
+\end{figure}
+
+\paragraph*{2) Vytváření klíčových snímků.} Metoda zpočátku vytvoří několik klíčových snímků (přibližně 5-10 za vteřinu) a poté je vytřídí marginalizací nadbytečných snímků. Kombinují se zde 3 pravidla k rozhodnutí, zda je třeba vytvořit nový klíčový snímek:
+\begin{itemize}
+\item První pravidlo sleduje změnu zorného pole, kterou reprezentuje střední kvadratický optický tok z posledního klíčového snímku do posledního snímku
+ 
+\( f:=(\frac{1}{n}\sum_{i=1}^n||\textbf{p}-\textbf{p}'||^2)^\frac{1}{2} \), kde \textbf{p} je fotometrická chyba a \(\textbf{p}'\) je promítnutá pozice \textbf{p} s inverzní hloubkou.
+
+\item Vyšší počet vytvořených klíčových snímků vyžaduje posun kamery, který je měřen středním optickým tokem bez rotace \( f:=(\frac{1}{n}\sum_{i=1}^n||\textbf{p}-\textbf{p}'_t||^2)^\frac{1}{2} \), kde \(\textbf{p}'_t\) je \(\textbf{p}'\) bez rotace.
+
+\item Nový klíčový snímek je vytvořen pokud se významně změní expoziční čas kamery, ten je měřen jako relativní jas mezi dvěma snímky \( a:=|\log(e^{a_j-a_i} t_j t_i^{-1})| \), kde \( e \) je afinní jasová transformační funkce \cite{Engel2018_DSO}.
+\end{itemize}
+
+
+\paragraph*{3) Marginalizace starých klíčových snímků.} Nechť \( I_1 \dots I_n \) je množina aktivních klíčových snímků seřazených od nejnovějšího po nejstarší.
+\begin{itemize}
+\item Dva nejnovější klíčové snímky \( I_1 \) a \( I_2 \) vždy ponecháváme.
+\item Všechny snímky s méně než 5\% podílem bodů viditelných v \( I_1 \) jsou marginalizovány.
+\item Pokud je počet aktivních klíčových snímků větší než \( N_f \), marginalizujeme snímek s nejvyšší funkční hodnotou \( s(I_i) \). \( s(I_i)=\sqrt{d(i,1)} \sum_{j=3}^n (d(i,j)+\epsilon)^{-1}, j\neq i \), kde \( d(i,j) \) je eukleidovská vzdálenost mezi snímky \( I_i \) a \( I_j \) a \( \epsilon \) je  malá konstanta. Tato funkce je heuristicky vytvořená pro zachování správného rozdělení snímků v prostoru, s vyšším důrazem na snímky blízké aktuálnímu snímku.
+\end{itemize}
+
 
 
 \subsection{Direct Sparse Odometry with Loop Closure}

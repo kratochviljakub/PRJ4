@@ -34,6 +34,12 @@ J.~Engel and D.~Cremers.
 \newblock Lsd-slam: Large-scale direct monocular slam.
 \newblock In {\em In ECCV}, 2014.
 
+\bibitem{Engel2018_DSO}
+J.~Engel, V.~Koltun, and D.~Cremers.
+\newblock Direct sparse odometry.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  40:611--625, 2018.
+
 \bibitem{Semi-Dense_VO}
 J.~Engel, J.~Sturm, and D.~Cremers.
 \newblock Semi-dense visual odometry for a monocular camera.
