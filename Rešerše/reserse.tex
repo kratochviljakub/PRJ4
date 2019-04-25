@@ -360,7 +360,18 @@ Předpokládá se, že selhalo přímé zarovnání obrazu, pokud je střední k
 \item Pokud je počet aktivních klíčových snímků větší než \( N_f \), marginalizujeme snímek s nejvyšší funkční hodnotou \( s(I_i) \). \( s(I_i)=\sqrt{d(i,1)} \sum_{j=3}^n (d(i,j)+\epsilon)^{-1}, j\neq i \), kde \( d(i,j) \) je eukleidovská vzdálenost mezi snímky \( I_i \) a \( I_j \) a \( \epsilon \) je  malá konstanta. Tato funkce je heuristicky vytvořená pro zachování správného rozdělení snímků v prostoru, s vyšším důrazem na snímky blízké aktuálnímu snímku.
 \end{itemize}
 
+\subsubsection*{Správa bodů}
+Většina přímých metod se snaží využívat co nejvíce dostupných obrazových dat, avšak k udržení běhu algoritmu v reálném čase jsou nuceny akumulovat nedokonalé odhady a aproximovat, nebo ignorovat, korelace mezi jednotlivými parametry. Namísto toho DSO využívá silně podvzorkovaná data, díky čemuž je lze v reálném čase řádně optimalizovat. Experimenty navíc dokazují, že obrazová data jsou silně redundantní a využití většího množství dat není zásadní výhodou. 
 
+Metoda se vždy snaží držet pevný počet \( N_p \) aktivních bodů (standardně \( N_p = 2000 \)) rovnoměrně rozložených napříč prostorem a aktivními snímky. V každém klíčovém snímku je vybráno \( N_p \) kandidátních bodů, které jsou následně sledovány a případně přidány do optimalizace. V případě potřeby přidat do optimalizace nové body vybíráme z kandidátních bodů, kterých je díky tomuto přístupu (\( N_p \) kandidátních bodů v každém snímku, ale pouze \( N_p \) aktivních bodů ve všech aktivních snímcích) vždy dostatek i přesto, že některé z nich již můžou být neplatné.
+
+\paragraph*{1) Výběr kandidátních bodů.} Zaměřujeme se na body, které jsou dobře rozložené v obraze a mají dostatečně vysoký gradient vzhledem k jejich bezprostřednímu okolí. Regionální prahovou hranici pro rozhodnutí o dostatečně vysokém gradientu získáme rozdělením obrazu na \( 32 \times 32 \) bloků a pro každý zvlášť vypočítáme hodnotu jeho prahu.
+
+Abychom dosáhli stejného rozdělení bodů, rozdělíme obraz na \( d \times d \) bloků a z každého vybereme bod s nejvyšší hodnotou gradientu (pokud převyšuje regionální práh). Někdy je ovšem prospěšné zahrnout i body z oblastí se slabším gradientem, které mohou zachycovat například informaci o hladce se měnící intenzitě osvětlení na bílé stěně. Proto tento postup opakujeme ještě dvakrát se sníženým gradientním prahem a blokovou velikostí \( 2d \) a \( 4d \). Velikost bloku \( d \) se může v průběhu algoritmu měnit podle počtu již vybraných bodů, tzn. jeho zvětšení, pokud je již vybráno hodně bodů a naopak.
+
+\paragraph*{2) Sledování kandidátních bodů.} V následujících snímcích jsou kandidátní body sledovány s použitím diskrétního vyhledávání podél epipolární přímky \cite{Engel2018_DSO}. Z nejlepší shody je vypočítána hloubka a související variance, která je používána k omezení vyhledávání u následujících snímků. Body, které nejsou navzájem dostatečně odlišné jsou vyřazeny, to výrazně snižuje počet falešných shod v opakujících se oblastech. Vypočítaná hloubka slouží pouze jako inicializace pro aktivaci bodu.
+
+\paragraph*{3) Aktivace kandidátních bodů.} Po marginalizaci souboru starých bodů jsou aktivovány kandidátní body. Do nejnovějšího klíčového snímku jsou promítnuty aktivní i kandidátní body a z nich jsou aktivovány ty, které maximalizují vzdálenost k nějakému existujícímu bodu.
 
 \subsection{Direct Sparse Odometry with Loop Closure}
 
