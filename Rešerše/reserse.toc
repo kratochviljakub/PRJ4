@@ -21,3 +21,4 @@
 \contentsline {paragraph}{Unik\IeC {\'a}tnost}{14}
 \contentsline {subsection}{\numberline {5.3}Direct Sparse Odometry}{15}
 \contentsline {subsection}{\numberline {5.4}Direct Sparse Odometry with Loop Closure}{18}
+\contentsline {section}{\numberline {6}"""Praktick\IeC {\'a} \IeC {\v c}\IeC {\'a}st"""}{20}

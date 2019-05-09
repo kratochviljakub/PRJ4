@@ -374,10 +374,50 @@ Abychom dosáhli stejného rozdělení bodů, rozdělíme obraz na \( d \times d
 \paragraph*{3) Aktivace kandidátních bodů.} Po marginalizaci souboru starých bodů jsou aktivovány kandidátní body. Do nejnovějšího klíčového snímku jsou promítnuty aktivní i kandidátní body a z nich jsou aktivovány ty, které maximalizují vzdálenost k nějakému existujícímu bodu.
 
 \subsection{Direct Sparse Odometry with Loop Closure}
+Zkráceně LDSO je rozšířením popsaného Direct Sparse Odometry (DSO) o uzavírání smyček a optimalizaci pozic robota. Tím se z LDSO stává plnohodnotná SLAM metoda.
+
+Typický vizuální SLAM se skládá z frontend, starajícího se o sledování pohybu kamery a backend, který vytváří a spravuje mapu prostředí a zmenšuje nahromaděnou chybu pomocí uzavírání smyček a globální optimalizace. LDSO přišlo s nápadem přizpůsobit DSO k použití na frontend pro odhad vizuální odometrie a v backend části dělat korekci její chyby s využitím uzavírání smyček a optimalizace mapy. Přičemž samotný DSO se již skládá ze svého frontend a backend. Tento přístup je vhodný například pro vyčíslení fotometrické chyby, neboť za normálních okolností by musely být v paměti uchovány obrazy minulých klíčových snímků a při začlenění měření z těchto snímků do výpočtu je obtížné zajistit konzistenci odhadu, protože stejná obrazová informace je již použita v marginalizaci a neměla by být používána znovu. Navíc zakomponování uzavírání smyček díky minimalizaci chyb translace, rotace a měřítka otevírá možnosti použití algoritmu v rozsáhlejších prostředích.
+
+Detekce smyček je v nepřímých vizuálních metodách nejčastěji založena na indexování významných částí obrazu (například metoda Bag of words, která části obrazu reprezentuje slovy a celý obraz histogramem těchto slov) a je snadno aplikovatelná na nepřímou vizuální odometrii opětovným použitím významných částí obrazu z fronted. V přímých metodách to však není tak jednoduché. Pokud budeme detekovat a porovnávat části obrazu nezávisle odděleně od fronted, nemusíme získat hloubkové odhady bodů potřebných pro efektivní výpočet pozičních omezení robota. Naopak při pokusu znovu použít body z fronted a vypočítat pro ně identifikátory, pravděpodobně nebudou odpovídat opakujícím se částem obrazu a vedou ke špatné detekci uzavření smyčky. Vizuální odometrie byly v minulosti rozšiřovány na SLAM buď za použití porovnání podobnosti klíčových snímků a následné vyhodnocení uzavření smyček, nebo výpočty důležitých částí obrazu odděleně od fronted. To vyžaduje dostupnost klíčových snímků po celou dobu běhu algoritmu. LDSO namísto toho navrhuje, aby výběr bodů směřoval k opakovatelně použitelným částem obrazu a použití geometrických funkcí k výpočtu pozičních omezení.
+
+\paragraph*{Souhrn provedených vylepšení:}
+\begin{itemize}
+\item Strategii bodového výběru DSO přizpůsobujeme tak, aby byla zajištěna možnost opakovaného použití rohových klíčových bodů a zároveň zachována robustnost v slabě texturovaných prostředích. Vybrané rohové prvky jsou poté použity pro detekci uzavření smyčky s použitím Bag of words.
+\item Využíváme hloubkových odhadů odpovídajících si klíčových bodů pro výpočet \newline pozičních omezení v kombinaci s poziční optimalizací, zarovnání mračna bodů a překrytím grafem relativních pozic získaných z optimalizovaného posuvného okna z DSO.
+\item Na veřejně dostupných souborech dat demonstrujeme, že bodový výběr zachovává přesnost i robustnost a optimalizace grafu pozic významně snižuje chybu odometrie a vede k výkonu srovnatelnýmu s nejlepšími nepřímými metodami i bez použití globální optimalizace.
+\end{itemize}
+
+Na obrázku 8 lze vidět rozdíl po detekci a uzavření smyčky ve veřejně dostupných datech z Technické univerzity Mnichov. Černou barvou je trajektorie před uzavřením a bílou po uzavření smyčky. V přiblížených výřezech lze vidět vylepšení zarovnání mračna bodů.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.75]{img/Obr6_b.png}
+\caption{Ilustrace jak LDSO zmenší nahromaděnou chybu po uzavření smyčky.\cite{LDSO}.}
+\end{figure}
+
 
 
 
 \textsf{\textbf{TODO-----------------------------------------------------------}}
+
+
+Neuronové sítě???
+
+\section{"""Praktická část"""}
+
+\textsf{\textbf{TODO-----------------------------------------------------------}}
+
+Popsat ROS
+
+\textsf{\textbf{TODO-----------------------------------------------------------}}
+
+Popsat testovací data
+
+\textsf{\textbf{TODO-----------------------------------------------------------}}
+
+úprava LoopClosing.cc a následná rekompilace u LDSO pro fungování OpenCV3. Zkontrolovat, jestli to doopravdy dělá loopclosing, nebo jen obchází problém.
+
+https://github.com/tum-vision/LDSO/issues/21
 
 
 \bibliography{zdroje}
