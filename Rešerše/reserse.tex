@@ -395,6 +395,14 @@ Na obrázku 8 lze vidět rozdíl po detekci a uzavření smyčky ve veřejně do
 \caption{Ilustrace jak LDSO zmenší nahromaděnou chybu po uzavření smyčky.\cite{LDSO}.}
 \end{figure}
 
+\subsubsection*{Uzavírání smyček}
+Pro dlouhodobé uzavírání smyček v DSO je zapotřebí zavést globální optimalizační linku zajišťující vyhledávání a validaci smyček. Kvůli nutnosti ukládání všech obrazů a velkému množství bodů v 3D mapě bylo zavrženo použití globální fotometrické optimalizace a místo toho zvolena optimalizace grafu pozic. Vedle okna DSO přidáme globální poziční graf, abychom udrželi spojení mezi klíčovými snímky. Z posuvného okna DSO přebereme relativní 3D transformace pozic mezi klíčovými snímky. Pro detekci a validaci smyček spoléháme na metodu Bag of words. Pokud je kandidát smyčky schválen, je vypočtena jeho vazba s ohledem na aktuální klíčový snímek a přidána do globálního grafu pozic, který je poté optimalizován pro zpřesnění dlouhodobého odhadu pozice robota.
+
+Přímé metody, na rozdíl od nepřímých, při výběru bodů nevyžadují jejich opakovatelné použití, které je ale vhodné pro hledání shody obrazu v problému uzavírání smyček. DSO používá dynamické vyhledávání v mřížce pro získání dostatečného počtu pixelů i ve slabě texturovaných prostředích. Tuto strategii v LDSO upravujeme tak, aby byla citlivější na rohové body při zachování potřebného počtu pixelů (standardně 2000). Vizuální odometrie v frontend používá jak rohové, tak nerohové pixely pro sledování pohybu kamery, čímž udržuje dodatečnou režii pro extrakci důležitých částí obrazu z vlákna pro uzavírání smyček na minimu.
+
+\subsubsection*{Shrnutí}
+LDSO ukazuje možný přístup začlenění uzavírání smyček a globální mapovou optimalizaci do přímé vizuální odometrie. Výběr bodů z DSO je přizpůsoben tak, aby zahrnoval znovu použitelné části obrazu. Pro ty jsou následně vypočítány identifikátory a vytvořeny modely metodou Bag of words pro detekci smyček. Tyto změny zachovávají robustnost a přesnost původní odometrie, přičemž snižují globální chybu rotace, posuvu i měřítka \cite{LDSO}.
+
 
 
 
@@ -411,7 +419,7 @@ Popsat ROS
 
 \textsf{\textbf{TODO-----------------------------------------------------------}}
 
-Popsat testovací data
+Popsat testovací data. TUM datasets, začínají i končí ve stejném místě - ideální pro uzavírání smyček anebo ukázku driftu u odometrie.
 
 \textsf{\textbf{TODO-----------------------------------------------------------}}
 
