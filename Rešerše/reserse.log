@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  10 MAY 2019 23:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  13 MAY 2019 01:17
 entering extended mode
 **./reserse.tex
 (reserse.tex
@@ -612,6 +612,10 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+("C:\Program Files\MiKTeX 2.9\tex\latex\url\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
@@ -638,18 +642,18 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg")) (reserse.aux)
 \openout1 = `reserse.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
 
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -759,7 +763,7 @@ Package caption Info: End \AtBeginDocument code.
 <img/logo_zcu.png, id=1, 306.14375pt x 165.61874pt>
 File: img/logo_zcu.png Graphic file (type png)
  <use img/logo_zcu.png>
-Package pdftex.def Info: img/logo_zcu.png used on input line 28.
+Package pdftex.def Info: img/logo_zcu.png used on input line 29.
 (pdftex.def)             Requested size: 153.07149pt x 82.80916pt.
 
 [1
@@ -782,62 +786,62 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <img/Obr1_b.png, id=15, 306.39468pt x 88.83188pt>
 File: img/Obr1_b.png Graphic file (type png)
  <use img/Obr1_b.png>
-Package pdftex.def Info: img/Obr1_b.png used on input line 67.
+Package pdftex.def Info: img/Obr1_b.png used on input line 68.
 (pdftex.def)             Requested size: 306.39394pt x 88.83165pt.
  [3 <./img/Obr1_b.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 75.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 76.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 75.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 76.
 
 <img/Obr2_b.png, id=19, 490.08093pt x 398.99063pt>
 File: img/Obr2_b.png Graphic file (type png)
  <use img/Obr2_b.png>
-Package pdftex.def Info: img/Obr2_b.png used on input line 87.
+Package pdftex.def Info: img/Obr2_b.png used on input line 88.
 (pdftex.def)             Requested size: 294.05083pt x 239.39622pt.
 
 [4 <./img/Obr2_b.png>] [5] [6] <img/Obr3.pdf, id=42, 359.42279pt x 73.2336pt>
 File: img/Obr3.pdf Graphic file (type pdf)
 
 <use img/Obr3.pdf>
-Package pdftex.def Info: img/Obr3.pdf used on input line 168.
+Package pdftex.def Info: img/Obr3.pdf used on input line 169.
 (pdftex.def)             Requested size: 431.30518pt x 87.87985pt.
  <img/Obr4_b.png, id=43, 407.121pt x 272.81924pt>
 File: img/Obr4_b.png Graphic file (type png)
 
 <use img/Obr4_b.png>
-Package pdftex.def Info: img/Obr4_b.png used on input line 180.
+Package pdftex.def Info: img/Obr4_b.png used on input line 181.
 (pdftex.def)             Requested size: 325.69725pt x 218.25568pt.
  [7 <./img/Obr3.pdf>] [8 <./img/Obr4_b.png>] [9] [10]
 [11] <img/hloubkova_mapa.jpg, id=69, 646.62631pt x 167.3621pt>
 File: img/hloubkova_mapa.jpg Graphic file (type jpg)
 
 <use img/hloubkova_mapa.jpg>
-Package pdftex.def Info: img/hloubkova_mapa.jpg used on input line 278.
+Package pdftex.def Info: img/hloubkova_mapa.jpg used on input line 279.
 (pdftex.def)             Requested size: 452.63533pt x 117.15266pt.
 
 <img/baseline.jpg, id=70, 1078.0275pt x 252.945pt>
 File: img/baseline.jpg Graphic file (type jpg)
  <use img/baseline.jpg>
-Package pdftex.def Info: img/baseline.jpg used on input line 284.
+Package pdftex.def Info: img/baseline.jpg used on input line 285.
 (pdftex.def)             Requested size: 431.20335pt x 101.17621pt.
 
 [12 <./img/hloubkova_mapa.jpg>] [13 <./img/baseline.jpg>] [14] [15]
 <img/Obr5_b.png, id=84, 702.2235pt x 271.61475pt>
 File: img/Obr5_b.png Graphic file (type png)
  <use img/Obr5_b.png>
-Package pdftex.def Info: img/Obr5_b.png used on input line 340.
+Package pdftex.def Info: img/Obr5_b.png used on input line 341.
 (pdftex.def)             Requested size: 449.42151pt x 173.83284pt.
  [16 <./img/Obr5_b.png>] [17] [18] <img/Obr6_b.png, id=95, 437.83575pt x 370.38
 374pt>
 File: img/Obr6_b.png Graphic file (type png)
 
 <use img/Obr6_b.png>
-Package pdftex.def Info: img/Obr6_b.png used on input line 394.
+Package pdftex.def Info: img/Obr6_b.png used on input line 395.
 (pdftex.def)             Requested size: 328.376pt x 277.78711pt.
- [19] [20 <./img/Obr6_b.png>] (reserse.bbl
+ [19] [20 <./img/Obr6_b.png>] [21] [22] (reserse.bbl
 Underfull \hbox (badness 2744) in paragraph at lines 4--10
 []\OT1/cmr/m/n/12 P. Abbeel.  Gra-phSLAM.  https://people.eecs.berkeley.edu/ pa
 bbeel/cs287-
@@ -854,13 +858,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--18
  2018.  UNI
  []
 
-[21]) [22] (reserse.aux) ) 
+[23]) [24] (reserse.aux) ) 
 Here is how much of TeX's memory you used:
- 8629 strings out of 493323
- 123849 string characters out of 3139065
- 314666 words of memory out of 3000000
- 11996 multiletter control sequences out of 15000+200000
- 11372 words of font info for 42 fonts, out of 3000000 for 9000
+ 8704 strings out of 493323
+ 124729 string characters out of 3139065
+ 315777 words of memory out of 3000000
+ 12066 multiletter control sequences out of 15000+200000
+ 11541 words of font info for 43 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,10n,39p,1571b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
@@ -874,10 +878,11 @@ s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX
 lic/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pf
-b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on reserse.pdf (23 pages, 1330317 bytes).
+b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on reserse.pdf (25 pages, 1345678 bytes).
 PDF statistics:
- 150 PDF objects out of 1000 (max. 8388607)
+ 161 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -21,4 +21,11 @@
 \contentsline {paragraph}{Unik\IeC {\'a}tnost}{14}
 \contentsline {subsection}{\numberline {5.3}Direct Sparse Odometry}{15}
 \contentsline {subsection}{\numberline {5.4}Direct Sparse Odometry with Loop Closure}{18}
-\contentsline {section}{\numberline {6}"""Praktick\IeC {\'a} \IeC {\v c}\IeC {\'a}st"""}{21}
+\contentsline {section}{\numberline {6}Porovn\IeC {\'a}n\IeC {\'\i } metod}{21}
+\contentsline {subsection}{\numberline {6.1}Robot Operating System}{21}
+\contentsline {subsection}{\numberline {6.2}Testovac\IeC {\'\i } data}{22}
+\contentsline {subsection}{\numberline {6.3}Zprovozn\IeC {\v e}n\IeC {\'\i } jednotliv\IeC {\'y}ch metod}{23}
+\contentsline {subsubsection}{\numberline {6.3.1}SVO}{23}
+\contentsline {subsubsection}{\numberline {6.3.2}LSD}{23}
+\contentsline {subsubsection}{\numberline {6.3.3}DSO}{23}
+\contentsline {subsubsection}{\numberline {6.3.4}LDSO}{23}

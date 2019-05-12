@@ -13,6 +13,7 @@
 \usepackage{listings}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{url}
 \usepackage[left=25mm,right=25mm,top=30mm,bottom=20mm]{geometry}
 \bibliographystyle{abbrv}
 
@@ -411,15 +412,54 @@ LDSO ukazuje možný přístup začlenění uzavírání smyček a globální ma
 
 Neuronové sítě???
 
-\section{"""Praktická část"""}
+\section{Porovnání metod}
+V této kapitole je vysvětlen způsob zprovoznění čtyř vybraných metod provádějících přímou vizuální odometrii, nebo přímý vizuální SLAM - Semi-Direct Visual Odometry (SVO), LSD-SLAM, Direct Sparse Odometry (DSO) a Direct Sparse Odometry with Loop Closure (LDSO). Dále jsou zde popsána testovací data, jejich úpravy, použití a následné získání výsledných dat z jednotlivých metod. Je zde popis potřebných úprav trajektorií pro vyhodnocení jejich vlastností, vykreslení a celkové porovnání.
 
-\textsf{\textbf{TODO-----------------------------------------------------------}}
+\subsection{Robot Operating System}
+Mnoho metod pro lokalizaci a mapování je uzpůsobeno na provozování s pomocí ROS, což je balík knihoven a nástrojů vytvořený pro snadnější vývoj robotického softwaru. ROS není tradiční operační systém, jak by se mohlo z názvu zdát, je často označovaný jako \uv{middleware} a nelze ho provozovat bez klasického operačního systému. Jeho hlavním cílem je umožnit opětovné použití kódů napsaných pro konkrétní hardware robota i při výměně některých součástek nebo použití celého odlišného robota. Proto poskytuje podobné služby jako klasický operační systém - abstrakci hardwaru, nízkoúrovňové řízení, implementuje často používané funkce, meziprocesovou komunikaci a správu balíčků. Poskytuje také nástroje a knihovny pro získávání, vytváření, psaní a spouštění kódu napříč různými počítači \cite{ROS}.
 
-Popsat ROS
+Základní prvek ROSu je uzel (\textit{node}), který představuje běžící proces. Takových uzlů může být mnoho, neboť je pravidlem, že každý vykonává pouze svou jedinou funkci (například ovládání motorů, poskytování grafického rozhraní, výpočet polohy apod.). Každý uzel je připojen na hlavní uzel \textit{Master}, přes který lze přistupovat ke všem funkcionalitám ROSu - zajišťuje vzájemnou komunikaci uzlů, funguje jako databáze jmen uzlů (uzly by o sobě jinak nevěděly) a musí být vždy spuštěný jako první. 
 
-\textsf{\textbf{TODO-----------------------------------------------------------}}
+Uzly mezi sebou mohou komunikovat přímo v rámci peer-to-peer sítě (Master pouze poskytuje jejich adresu). Zpráva (\textit{message}) je jednoduchá datová struktura obsahující typová pole, podporuje standardní primitivní typy (integer, float, boolean atd.), pole primitivních typů nebo vlastní deklarované datové typy (příjemce zprávy musí být s tímto typem obeznámen). Komunikace probíhá přes publish-subscribe model s využitím \textit{topics} pro zasílání zpráv. Pro každý topic může být několik publikovatelů a odběratelů, stejně tak každý uzel může odebírat i publikovat do několika topiců. Topic si lze představit jako datovou sběrnici, která má své jméno a každý uzel se k ní může připojit a posílat či odebírat zprávy, zatímco jednotlivé publikující nebo odebírající uzly o sobě nemají žádné informace. 
 
-Popsat testovací data. TUM datasets, začínají i končí ve stejném místě - ideální pro uzavírání smyček anebo ukázku driftu u odometrie.
+V případě, že uzel potřebuje dostat na zaslanou zprávu odpověď, místo topiců se požívají služby (\textit{services}). Ty jsou definovány jménem a párem zpráv - jedna pro žádost a druhá pro odpověď. Existuje uzel pro poskytování služby pod určitým názvem a klientský uzel tuto službu použije zasláním požadavku a čekáním na odpověď.
+
+Poslední částí architektury ROSu, kterou si lze představit jako orientovaný graf, jsou tzv. \textit{bags}. Ty jsou vytvořené pro uložení a zpětné přehrání zpráv. Umožňují tedy ukládat například data ze senzorů, časové značky, vypočítané polohy a další informace, které může být složité znovu získat. Lze tedy spustit algoritmus, výsledná data si uložit do bag souboru a příště už jen otevřít uložený soubor bez nutnosti opakovat experiment.
+
+ROS poskytuje mnoho dalších užitečných nástrojů, jako ROS Graph, ve kterém lze v přehledném grafu vidět spuštěné uzly a jejich komunikaci. rqt\_bag pro správu bag souborů, poskytuje prohlížeč zpráv v bag souborech, možnost přehrání obrazových zpráv, vykreslení grafů nebo publikování/nahrávání zpráv ze zvoleného topicu. Případně RViz - program pro vizualizaci dat z robota, po krátké konfiguraci tedy v našem případě může zobrazit rekonstruovanou 3D mapu, trajektorii robota, vstupní obrazová data atd.
+
+
+\subsection{Testovací data}
+Jako vhodná testovací data (tzv. \textit{datasets}) jsem vybral sekvence určené pro monokulární vizuální odometrii z Technické univerzity Mnichov (TUM). Jsou hojně používané pro testování vizuálních SLAMů, navíc tři ze čtyř testovaných metod byly publikované pod hlavičkou TUM, což zajišťuje lepší kompatibilitu oproti jiným datasetům (například z KITTI - Technologický institut v Karlsruhe). 
+
+Na webových stránkách TUM je volně k dispozici 50 sekvencí určených k vyhodnocení přesnosti sledování metod Vizuální odometrie a SLAM. Sekvence dohromady obsahují přes 100 minut videa (43GB) z různých druhů reálných prostředí počínaje úzkými chodbami v kancelářských budovách po rozlehlá venkovní prostranství. Všechny sekvence obsahují kamerové záznamy začínající i končící ve stejném bodě - to umožňuje porovnat startovní bod s závěrečným bodem obsahujícím akumulovanou chybu bez nutnosti vlastnit kompletní data o skutečné poloze robota v průběhu měření - tzv. ground-truth pro celou sekvenci a také otestovat funkčnost uzavírání smyček. Ground-truth data jsou  tedy v těchto datasetech pouze částečná.
+
+Na rozdíl od většiny existujících datasetů, všechny poskytované sekvence z TUM jsou fotometricky kalibrovány, obsahují expoziční časy pro každý snímek, informace o použité kameře a činitel zeslabení čočky (vinětace) \cite{TUM_datasets}. Všechna data jsou stejně formátovaná, to značně usnadňuje následnou práci, neboť ground-truth jsou v TUM formátu ve tvaru:
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+časová\_značka & x & y & z & qx & qy & qz & qw \\
+\hline
+\end{tabular}
+\end{center}
+a vypočítaná trajektorie získaná z některých metod je ve stejném formátu.
+
+\subsection{Zprovoznění jednotlivých metod}
+Každá metoda vyžaduje zvláštní přístup, protože jsou rozdílné postupy pro spuštění, extrakci výsledných dat, upravení vstupních dat a řešení případných problémů. V této podkapitole budou popsány všechny postupy aplikované individuálně pro jednotlivé porovnávané metody.
+
+\subsubsection{SVO}
+
+\subsubsection{LSD}
+
+\subsubsection{DSO}
+
+\subsubsection{LDSO}
+
+
+
+
+
 
 \textsf{\textbf{TODO-----------------------------------------------------------}}
 
@@ -434,3 +474,4 @@ https://github.com/tum-vision/LDSO/issues/21
 
 
 \end{document}
+

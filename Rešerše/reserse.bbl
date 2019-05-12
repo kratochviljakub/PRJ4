@@ -58,9 +58,21 @@ G.~Grisetti, R.~Kuemmerle, C.~Stachniss, and W.~Burgard.
 \newblock {\em Intelligent Transportation Systems Magazine, IEEE}, 2(4):31--43,
   2010.
 
+\bibitem{ROS}
+{Open Source Robotics Foundation}.
+\newblock Documentation - ros wiki.
+\newblock \url{http://wiki.ros.org}.
+\newblock [Online].
+
 \bibitem{Taketomi_visual}
 S.~I. Takafumi~Taketomi, Hideaki~Uchiyama.
 \newblock Visual slam algorithms: a survey from 2010 to 2016.
 \newblock {\em IPSJ Transactions on Computer Vision and Applications}, 2017.
+
+\bibitem{TUM_datasets}
+{Technical University of Munich}.
+\newblock Computer vision group - datasets - monocular visual odometry dataset.
+\newblock \url{https://vision.in.tum.de/data/datasets/mono-dataset}.
+\newblock [Online].
 
 \end{thebibliography}
