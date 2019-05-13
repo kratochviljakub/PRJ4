@@ -1,2 +1,2 @@
-# PRJ4
-Práce na Projekt 4 na téma Simultánní lokalizace a mapování (SLAM).
+# PRJ4-BP
+Práce na téma přímá vizuální simultánní lokalizace a mapování (vSLAM) v rámci Projektu 4, Projektu 5 a Bakalářské práce na ZČU FAV.
