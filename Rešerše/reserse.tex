@@ -405,13 +405,6 @@ Přímé metody, na rozdíl od nepřímých, při výběru bodů nevyžadují je
 LDSO ukazuje možný přístup začlenění uzavírání smyček a globální mapovou optimalizaci do přímé vizuální odometrie. Výběr bodů z DSO je přizpůsoben tak, aby zahrnoval znovu použitelné části obrazu. Pro ty jsou následně vypočítány identifikátory a vytvořeny modely metodou Bag of words pro detekci smyček. Tyto změny zachovávají robustnost a přesnost původní odometrie, přičemž snižují globální chybu rotace, posuvu i měřítka \cite{LDSO}.
 
 
-
-
-\textsf{\textbf{TODO-----------------------------------------------------------}}
-
-
-Neuronové sítě???
-
 \section{Porovnání metod}
 V této kapitole je vysvětlen způsob zprovoznění čtyř vybraných metod provádějících přímou vizuální odometrii, nebo přímý vizuální SLAM - Semi-Direct Visual Odometry (SVO), LSD-SLAM, Direct Sparse Odometry (DSO) a Direct Sparse Odometry with Loop Closure (LDSO). Dále jsou zde popsána testovací data, jejich úpravy, použití a následné získání výsledných dat z jednotlivých metod. Je zde popis potřebných úprav trajektorií pro vyhodnocení jejich vlastností, vykreslení a celkové porovnání.
 
@@ -427,6 +420,8 @@ V případě, že uzel potřebuje dostat na zaslanou zprávu odpověď, místo t
 Poslední částí architektury ROSu, kterou si lze představit jako orientovaný graf, jsou tzv. \textit{bags}. Ty jsou vytvořené pro uložení a zpětné přehrání zpráv. Umožňují tedy ukládat například data ze senzorů, časové značky, vypočítané polohy a další informace, které může být složité znovu získat. Lze tedy spustit algoritmus, výsledná data si uložit do bag souboru a příště už jen otevřít uložený soubor bez nutnosti opakovat experiment.
 
 ROS poskytuje mnoho dalších užitečných nástrojů, jako ROS Graph, ve kterém lze v přehledném grafu vidět spuštěné uzly a jejich komunikaci. rqt\_bag pro správu bag souborů, poskytuje prohlížeč zpráv v bag souborech, možnost přehrání obrazových zpráv, vykreslení grafů nebo publikování/nahrávání zpráv ze zvoleného topicu. Případně RViz - program pro vizualizaci dat z robota, po krátké konfiguraci tedy v našem případě může zobrazit rekonstruovanou 3D mapu, trajektorii robota, vstupní obrazová data atd.
+
+ROS funguje jen na Unixových operačních systémech, přičemž konkrétně je při vývoji testován na Ubuntu a Mac OS X. Neoficiální komunitní podpora je pro systémy Fedora, Gentoo, Arch Linux a další Linuxové distribuce. Stejně tak většina SLAM metod je vyvíjena pro Ubuntu (i bez použití ROS), proto je pro potřeby této práce použit operační systém Ubuntu 16.04 s ROS Kinetic.
 
 
 \subsection{Testovací data}
@@ -445,12 +440,117 @@ Na rozdíl od většiny existujících datasetů, všechny poskytované sekvence
 \end{center}
 a vypočítaná trajektorie získaná z některých metod je ve stejném formátu.
 
+\subsection{Porovnání a výpočet chyb}
+Porovnání výsledné trajektorie a dat z ground-truth není tak triviální, jak by se mohlo zdát. Data nejsou přesně zarovnána v čase a často ani v prostoru, je třeba provést aproximaci, abychom mohli porovnat data z mírně odlišných časových okamžiků. Zároveň posunout informace o poloze tak, aby začínaly ve stejném bodě a často také provést rotaci pro zarovnání porovnávaných trajektorií.
+
+K tomuto účelu používám dva vyhodnocovací algoritmy, prvním je balíček spustitelných Python sobourů a knihoven nazvaný \textit{evo}, který je přímo určený pro vyhodnocování kvality a porovnání trajektorií odometrií a SLAM systémů publikovaný pod licencí GNU GPL \cite{evo}. Z evo využívám zarovnání a vykreslení porovnávaných trajektorií a výpočet relativních chyb.
+
+Druhý algoritmus vytvořila Technická univerzita Mnichov, je to balíček skriptů v Matlabu, dokáže správně zarovnat porovnávanou trajektorii s ground-truth, vykreslit jejich průběh a vypočítat několik druhů statistických chyb \cite{tum_evo}. Skripty jsou zveřejněné na GitHub po licencí BSD.
+
+Posledním používaným nástrojem je mnou napsaný skript v jazyce Python pro převod trajektorie získané odebíráním topicu v ROS do TUM formátu potřebném pro další použití ve vyhodnocovacích algoritmech. Skript, jakož i všechny získané trajektorie je dostupný online na \url{github.com/kratochviljakub/PRJ4/tree/master/Trajektorie_a_kody}.
+
 \subsection{Zprovoznění jednotlivých metod}
 Každá metoda vyžaduje zvláštní přístup, protože jsou rozdílné postupy pro spuštění, extrakci výsledných dat, upravení vstupních dat a řešení případných problémů. V této podkapitole budou popsány všechny postupy aplikované individuálně pro jednotlivé porovnávané metody.
 
 \subsubsection{SVO}
+Metodu Semi-direct Visual Odometry je možno nainstalovat i spouštět s využitím ROSu, případně zvolit druhou a nedoporučovanou možnost bez ROSu. S výhodami jsem dal na doporučení autorů, přičemž instalace samotného SVO i dalších knihoven potřebných pro správný běh proběhla bez problému i přesto, že byl vyvíjen a testován na starší verzi Ubuntu i ROS. Vzorový způsob spuštění přes launch file s ukázkovým datasetem fungoval správně a v programu RViz jsem mohl sledovat vstupní obrazová data, směr zaměření kamery a uraženou trajektorii. 
+
+Pro možnost porovnání s ostatními metodami bylo potřeba spustit SVO na datasetu z TUM. SVO však vyžaduje vstupní data v souboru typu bag, zatímco zvolený dataset je pouze složka se sekvencí snímků a inicializačními informacemi. Pro vytvoření bag souboru z TUM datasetu jsem využil BagFromImages, což je přídavný balíček do ROS, který sekvenci obrazů spolu s informací o frekvenci snímání dokáže do bag souboru převést \cite{BagFromImages}. BagFromImages však zahrnuje pouze obrazová data bez dalších informací, takže bylo nutné ručně vytvořit inicializační soubor podle informací z původního datasetu. I přes veškerou snahu, a postupování podle návodu pro tvorbu inicializačních souborů pro SVO, všechny pokusy o správnou inicializaci algoritmu selhaly a z metody jsem tak nedostal žádný použitelný výstup pro porovnání s dalšími metodami.
+
+Přesnost metody mohu porovnat pouze s informacemi z ground-truth ze vzorového datasetu. Vzhledem k tomu, že SVO je pouze odometrií a svojí trajektorii nijak dále neoptimalizuje, mohu výstupní trajektorii extrahovat z algoritmu za pomoci ROS. V novém terminálu spustím příkaz \texttt{rostopic list} pro výpis aktivních topiců. Zjistím, že SVO publikuje trajektorii do topicu \texttt{/svo/pose} a tento topic mohu příkazem 
+\begin{verbatim}
+rostpic echo /svo/pose > result_svo.txt
+\end{verbatim}
+ odebírat a zároveň zapisovat do souboru \texttt{result\_svo.txt}. Takto získaná trajektorie se uloží za použití odlišného formátování než data z ground-truth a pro použití vyhodnocovacích skriptů je nutnost převést do formátu TUM. Pro tento účel využiji svůj dříve zmíněný skript pro převod dat do formátu vhodném pro další zpracování v \textit{evo}.
+
+\subsubsection*{Výsledky} 
+Na následujících dvou obrázcích je vizualizace běhu SVO zobrazená v RViz. V obrázku 9 je vidět uražená trajektorie robota jako tečkovaná křivka, jehlan znázorňuje výseč, kterou momentálně zabírá kamera a malé body v okolí by měly znázorňovat mapu prostředí pomocí mračna bodů, která se bohužel také netvoří jak by měla. Na obrázku 10 lze vidět vstupní snímek s bíle vyznačenými klíčovými body SVO.
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/SVO_rviz_1.png}
+\caption{Vizualizace průběhu SVO v RViz.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1]{img/SVO_rviz_2.png}
+\caption{Vstupní obraz s klíčovými body SVO.}
+\end{figure}
+
+Na obrázku 11 je vykreslení ground-truth z datasetu použitého u SVO, které na první pohled moc neodpovídá trajektorii. Na obrázku 12 se nám odlišnost potvrdí, neboť i přes zarovnání trajektorie a ground-truth jsou mezi nimi velké rozdíly, avšak patrné i jistá snaha trajektorie kopírovat tvar ground-truth.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/xy_SVO_gt.png}
+\caption{Vykreslení grount-truth z datasetu pro SVO.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{img/xyz_SVO.png}
+\caption{Porovnání trajektorie SVO a ground-truth}
+\end{figure} 
+
+Špatné výsledky porovnání potvrzuje i absolutní střední kvadratická odchylka, která vyšla přibližně 0,58 a relativní střední kvadratická odchylka s hodnotou 0,16m.
+
 
 \subsubsection{LSD}
+Large-Scale Direct Monocular SLAM ke svému běhu i instalaci vyžaduje ROS, přestože jej využívá pouze pro vstup a výstup dat. Je testován na systémech Ubuntu 12.04 s ROS Fuerte a Ubuntu 14.04 s ROS Indigo. První problémy nastaly ihned při instalaci na mnou používaný Ubuntu 16.04 s ROS Kinetic, většinou se týkaly nekompatibility verzí OpenCV, protože LSD SLAM byl vytvořen pro OpenCV verze 2, zatímco ROS Kinetic standardně používá OpenCV verze 3. K vyřešení těchto problémů, kdy LSD SLAM nemohl najít správnou cestu k OpenCV bylo zapotřebí ve složce \texttt{lsd\_slam\_core} pozměnit soubor \texttt{CMakeLists.txt} přidáním řádky
+\begin{verbatim}
+find_package(OpenCV REQUIRED)
+\end{verbatim}
+a úpravou následujících dvou příkazů
+\begin{verbatim}
+target_link_libraries(live_slam lsdslam 
+${catkin_LIBRARIES} ${G2O_LIBRARIES})
+
+target_link_libraries(dataset lsdslam 
+${catkin_LIBRARIES} ${G2O_LIBRARIES})
+\end{verbatim}
+přidáním reference na knihovny OpenCV na tvar
+\begin{verbatim}
+target_link_libraries(live_slam lsdslam 
+${catkin_LIBRARIES} ${G2O_LIBRARIES} ${OpenCV_LIBS})
+
+target_link_libraries(dataset lsdslam 
+${catkin_LIBRARIES} ${G2O_LIBRARIES} ${OpenCV_LIBS})
+\end{verbatim}
+
+Po vyřešení nekompatibility knihoven se objevila nová chyba neodpovídajících si \newline proměnných typů. Proto bylo nutné udělat změny ve zdrojovém souboru \newline \texttt{lsd\_slam\_viewer/src/PointCloudViewer.cpp} a přepsat typ proměnné na řádce 326 z \texttt{float x, y, z;} na tvar \texttt{qreal x, y, z;} a podobnou změnu udělat také v souboru \texttt{lsd\_slam\_viewer/src/PointCLoudViewer.h} a změnit řádku 135 z \texttt{float x, y, z;} na tvar \texttt{qreal x, y, z;}. Následovala již úspěšná instalace.
+
+Spouštění LSD SLAMu se ale také neobešlo bez problémů, neboť při vizualizaci běhu algoritmu se otevře \textit{viewer} a spolu s ním \textit{DebugWindow DEPTH}, který ale ihned po otevření přestane pracovat. Algoritmus však lze do jisté míry provozovat i bez tohoto okna, které slouží pro zobrazení informací o běhu programu, vizualizaci vstupních dat s promítnutými body z LSD a spouštění některých rychlých příkazů. Jako vizualizaci tak máme k dispozici pouze husté mračno bodů tvořící 3D mapu prostředí a uraženou trajektorii.
+
+Standardně LSD SLAM očekává vstupní data v bag souboru, obsahujícím obrazové data a kalibrační informace. Pro použití TUM datasetu je nutné algoritmu zvlášť zadat cestu k sekvenci snímků, kalibračnímu souboru a zadat informaci o frekvenci vstupního videa.
+
+Výsledky z této metody jsem získal podobně jako u SVO, tedy s pomocí ROS topicu. Zjistil jsem, že LSD publikuje informace o poloze do \texttt{/lsd\_slam/pose} a celou trajektorii jsem zapsal do souboru spuštěním příkazu
+\begin{verbatim}
+rostopic echo /lsd_slam/pose > result_lsd.txt
+\end{verbatim}
+čímž znovu dostanu trajektorii ve formátu, který poskytuje ROS a pro potřeby dalšího vyhodnocení musím soubor převést do formátu TUM pomocí svého Python skriptu.
+
+\subsubsection*{Výsledky}
+Ukázalo se, že LSD SLAM neimplementuje žádnou možnost získání globální trajektorie a můj způsob extrakce za pomocí ROS získává pouze relativní trajektorii se špatným měřítkem, která navíc ani neprošla optimalizací. Metoda tedy podle vizualizace funguje správně, ale výslednou trajektorii jsem nedokázal extrahovat ani při úpravách zdrojových souborů.
+
+Na obrázku 13 je porovnání trajektorií z LSD (s ručně upraveným měřítkem) a LDSO na stejném datasetu a lze pozorovat jistou podobnost i napříč relativními daty z LSD a absolutními daty z LDSO. Explicitně porovnat mezi sebou nebo oproti ground-truth je však nelze.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.62]{img/porov_lsd_ldso.png}
+\caption{Porovnání trajektorie z LDSO a upravené trajektorie z LSD.}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.455]{img/LSD_11_top.png}
+\caption{.}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.31]{img/LSD_11_kancl.png}
+\caption{.}
+\end{figure} 
 
 \subsubsection{DSO}
 

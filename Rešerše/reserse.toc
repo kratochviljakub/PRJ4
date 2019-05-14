@@ -24,8 +24,9 @@
 \contentsline {section}{\numberline {6}Porovn\IeC {\'a}n\IeC {\'\i } metod}{21}
 \contentsline {subsection}{\numberline {6.1}Robot Operating System}{21}
 \contentsline {subsection}{\numberline {6.2}Testovac\IeC {\'\i } data}{22}
-\contentsline {subsection}{\numberline {6.3}Zprovozn\IeC {\v e}n\IeC {\'\i } jednotliv\IeC {\'y}ch metod}{23}
-\contentsline {subsubsection}{\numberline {6.3.1}SVO}{23}
-\contentsline {subsubsection}{\numberline {6.3.2}LSD}{23}
-\contentsline {subsubsection}{\numberline {6.3.3}DSO}{23}
-\contentsline {subsubsection}{\numberline {6.3.4}LDSO}{23}
+\contentsline {subsection}{\numberline {6.3}Porovn\IeC {\'a}n\IeC {\'\i } a v\IeC {\'y}po\IeC {\v c}et chyb}{23}
+\contentsline {subsection}{\numberline {6.4}Zprovozn\IeC {\v e}n\IeC {\'\i } jednotliv\IeC {\'y}ch metod}{23}
+\contentsline {subsubsection}{\numberline {6.4.1}SVO}{23}
+\contentsline {subsubsection}{\numberline {6.4.2}LSD}{27}
+\contentsline {subsubsection}{\numberline {6.4.3}DSO}{30}
+\contentsline {subsubsection}{\numberline {6.4.4}LDSO}{30}

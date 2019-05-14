@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  13 MAY 2019 01:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  14 MAY 2019 03:04
 entering extended mode
 **./reserse.tex
 (reserse.tex
@@ -841,7 +841,54 @@ File: img/Obr6_b.png Graphic file (type png)
 <use img/Obr6_b.png>
 Package pdftex.def Info: img/Obr6_b.png used on input line 395.
 (pdftex.def)             Requested size: 328.376pt x 277.78711pt.
- [19] [20 <./img/Obr6_b.png>] [21] [22] (reserse.bbl
+ [19] [20 <./img/Obr6_b.png>] [21] [22] [23]
+<img/SVO_rviz_1.png, id=112, 885.3075pt x 685.05937pt>
+File: img/SVO_rviz_1.png Graphic file (type png)
+
+<use img/SVO_rviz_1.png>
+Package pdftex.def Info: img/SVO_rviz_1.png used on input line 471.
+(pdftex.def)             Requested size: 442.65266pt x 342.52884pt.
+ [24]
+<img/SVO_rviz_2.png, id=117, 270.25969pt x 173.14688pt>
+File: img/SVO_rviz_2.png Graphic file (type png)
+
+<use img/SVO_rviz_2.png>
+Package pdftex.def Info: img/SVO_rviz_2.png used on input line 477.
+(pdftex.def)             Requested size: 270.25902pt x 173.14645pt.
+ <img/xy_SVO_gt.png, id=118, 867.24pt x 562.2606pt>
+File: img/xy_SVO_gt.png Graphic file (type png)
+
+<use img/xy_SVO_gt.png>
+Package pdftex.def Info: img/xy_SVO_gt.png used on input line 485.
+(pdftex.def)             Requested size: 433.61894pt x 281.12961pt.
+ [25 <./img/SVO_rviz_1.png> <./img/SVO_rviz_2.png>]
+<img/xyz_SVO.png, id=122, 867.24pt x 562.2606pt>
+File: img/xyz_SVO.png Graphic file (type png)
+ <use img/xyz_SVO.png>
+Package pdftex.def Info: img/xyz_SVO.png used on input line 491.
+(pdftex.def)             Requested size: 433.61894pt x 281.12961pt.
+ [26 <./img/xy_SVO_gt.png> <./img/xyz_SVO.png>] [27]
+<img/porov_lsd_ldso.png, id=130, 733.99219pt x 418.56375pt>
+File: img/porov_lsd_ldso.png Graphic file (type png)
+
+<use img/porov_lsd_ldso.png>
+Package pdftex.def Info: img/porov_lsd_ldso.png used on input line 539.
+(pdftex.def)             Requested size: 455.07045pt x 259.50684pt.
+
+<img/LSD_11_top.png, id=131, 941.01563pt x 715.92468pt>
+File: img/LSD_11_top.png Graphic file (type png)
+
+<use img/LSD_11_top.png>
+Package pdftex.def Info: img/LSD_11_top.png used on input line 545.
+(pdftex.def)             Requested size: 428.16278pt x 325.74623pt.
+ [28 <./img/porov_lsd_ldso.png>]
+<img/LSD_11_kancl.png, id=135, 1388.93906pt x 792.71156pt>
+File: img/LSD_11_kancl.png Graphic file (type png)
+
+<use img/LSD_11_kancl.png>
+Package pdftex.def Info: img/LSD_11_kancl.png used on input line 551.
+(pdftex.def)             Requested size: 430.56667pt x 245.73804pt.
+ [29 <./img/LSD_11_top.png> <./img/LSD_11_kancl.png>] (reserse.bbl
 Underfull \hbox (badness 2744) in paragraph at lines 4--10
 []\OT1/cmr/m/n/12 P. Abbeel.  Gra-phSLAM.  https://people.eecs.berkeley.edu/ pa
 bbeel/cs287-
@@ -858,12 +905,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--18
  2018.  UNI
  []
 
-[23]) [24] (reserse.aux) ) 
+[30]) [31] (reserse.aux) ) 
 Here is how much of TeX's memory you used:
- 8704 strings out of 493323
- 124729 string characters out of 3139065
- 315777 words of memory out of 3000000
- 12066 multiletter control sequences out of 15000+200000
+ 8743 strings out of 493323
+ 125511 string characters out of 3139065
+ 315792 words of memory out of 3000000
+ 12098 multiletter control sequences out of 15000+200000
  11541 words of font info for 43 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,10n,39p,1571b,301s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -880,9 +927,9 @@ ts/cm/cmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on reserse.pdf (25 pages, 1345678 bytes).
+Output written on reserse.pdf (32 pages, 3233157 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
+ 191 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

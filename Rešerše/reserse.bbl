@@ -58,10 +58,22 @@ G.~Grisetti, R.~Kuemmerle, C.~Stachniss, and W.~Burgard.
 \newblock {\em Intelligent Transportation Systems Magazine, IEEE}, 2(4):31--43,
   2010.
 
+\bibitem{evo}
+{Michael Grupp}.
+\newblock evo.
+\newblock \url{https://michaelgrupp.github.io/evo/}.
+\newblock [Online].
+
 \bibitem{ROS}
 {Open Source Robotics Foundation}.
 \newblock Documentation - ros wiki.
 \newblock \url{http://wiki.ros.org}.
+\newblock [Online].
+
+\bibitem{BagFromImages}
+{Raul Mur-Artal}.
+\newblock Bagfromimages.
+\newblock \url{https://github.com/raulmur/BagFromImages}.
 \newblock [Online].
 
 \bibitem{Taketomi_visual}
@@ -73,6 +85,12 @@ S.~I. Takafumi~Taketomi, Hideaki~Uchiyama.
 {Technical University of Munich}.
 \newblock Computer vision group - datasets - monocular visual odometry dataset.
 \newblock \url{https://vision.in.tum.de/data/datasets/mono-dataset}.
+\newblock [Online].
+
+\bibitem{tum_evo}
+{TUM Computer Vision Group}.
+\newblock Matlab evaluation code.
+\newblock \url{https://github.com/tum-vision/mono_dataset_code}.
 \newblock [Online].
 
 \end{thebibliography}
