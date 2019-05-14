@@ -16,30 +16,86 @@
 \usepackage{url}
 \usepackage[left=25mm,right=25mm,top=30mm,bottom=20mm]{geometry}
 \bibliographystyle{abbrv}
+\def\dotfill#1{\cleaders\hbox to #1{.}\hfill}
+\newcommand\dotline[2][.5em]{\leavevmode\hbox to #2{\dotfill{#1}\hfil}}
+
 
 
 
 
 \begin{document}
-\title{SLAM - rešerše \\ Projekt 4}
+\title{BAKALÁŘSKÁ PRÁCE}
 \author{Jakub Kratochvíl}
-\date{Akademický rok 2017/2018}
 \begin{titlepage}
 \begin{center}
-\includegraphics[scale=0.5]{img/logo_zcu.png}\\
-\vspace{5cm}
-\begin{Large}
+\begin{LARGE}
+\vspace*{1cm}
+Západočeská univerzita v Plzni \\
+Fakulta aplikovaných věd \\
+Katedra kybernetiky \\
+\end{LARGE}
+
+\vspace{6cm}
+\begin{huge}
 \textbf{\thetitle}\\
-\end{Large}
-\vspace{3cm}
-\theauthor\\
-\vspace{5cm}
-\thedate
+\end{huge}
+\vspace{2cm}
+\begin{LARGE}
+Vlastnosti systémů pro přímou vizuální simultánní lokalizaci a mapování
+\end{LARGE}
 \end{center}
+\vspace{7cm}
+\begin{large}
+\noindent
+PLZEŇ, 2019 \hfill Jakub Kratochvíl
+
+\end{large}
+
 \end{titlepage}
 \newpage
-		
-		
+
+\pagestyle{empty}		
+\includepdf[pages=1,pagecommand={},width=\paperwidth]{zadaniBP1.pdf}
+\newpage
+\includepdf[pages=1,pagecommand={},width=\paperwidth]{zadaniBP2.pdf}
+\newpage
+\pagestyle{plain}
+\setcounter{page}{1}
+
+\vspace*{1cm}
+\subsection*{Prohlášení}
+
+\vspace{2cm}
+Předkládám  tímto  k posouzení  a  obhajobě  bakalářskou  práci  zpracovanou  na závěr studia na Fakultě aplikovaných věd Západočeské univerzity v Plzni. \\
+\vspace{0.5cm}
+
+\noindent
+Prohlašuji,  že  jsem  bakalářskou  práci  vypracoval  samostatně  a  výhradně s použitím odborné literatury a pramenů, jejichž úplný seznam je její součástí. \\
+
+\vspace{2cm}
+\noindent
+V Plzni dne 24.5.2019 \hfill \dotline{6cm} \\
+
+\hspace*{10.7cm} Jakub Kratochvíl
+
+\vspace{6cm}
+
+\subsection*{Poděkování}
+
+Rád bych poděkoval Ing. Petru Neduchalovi za odborné vedení bakalářské práce, za pomoc a rady při jejím zpracování.
+
+\newpage
+\subsection*{Abstrakt}
+TODO
+
+\textbf{Klíčová slova:} 
+
+\subsection*{Abstract}
+TODO
+
+\textbf{Keywords:}
+
+\newpage
 \tableofcontents
 \newpage
 \fontsize{12pt}{18pt}\selectfont
@@ -530,44 +586,202 @@ rostopic echo /lsd_slam/pose > result_lsd.txt
 čímž znovu dostanu trajektorii ve formátu, který poskytuje ROS a pro potřeby dalšího vyhodnocení musím soubor převést do formátu TUM pomocí svého Python skriptu.
 
 \subsubsection*{Výsledky}
-Ukázalo se, že LSD SLAM neimplementuje žádnou možnost získání globální trajektorie a můj způsob extrakce za pomocí ROS získává pouze relativní trajektorii se špatným měřítkem, která navíc ani neprošla optimalizací. Metoda tedy podle vizualizace funguje správně, ale výslednou trajektorii jsem nedokázal extrahovat ani při úpravách zdrojových souborů.
+Ukázalo se, že LSD SLAM neimplementuje žádnou možnost získání globální trajektorie a způsob extrakce za pomocí ROS získává pouze relativní trajektorii se špatným měřítkem, která navíc ani neprošla optimalizací. Metoda tedy podle vizualizace funguje správně, ale výslednou trajektorii jsem nedokázal extrahovat ani při úpravách zdrojových souborů.
 
 Na obrázku 13 je porovnání trajektorií z LSD (s ručně upraveným měřítkem) a LDSO na stejném datasetu a lze pozorovat jistou podobnost i napříč relativními daty z LSD a absolutními daty z LDSO. Explicitně porovnat mezi sebou nebo oproti ground-truth je však nelze.
 
+Obrázky 14 a 15 zobrazují LSD SLAMem sestavenou 3D mapu s odhadnutou trajektorií, zeleně jsou znázorněny relativní poziční omezení.
+
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.62]{img/porov_lsd_ldso.png}
+\includegraphics[scale=0.63]{img/porov_lsd_ldso.png}
 \caption{Porovnání trajektorie z LDSO a upravené trajektorie z LSD.}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.455]{img/LSD_11_top.png}
-\caption{.}
+\caption{Sestavená 3D mapa z LSD a proběhlá trajektorie.}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.31]{img/LSD_11_kancl.png}
-\caption{.}
+\caption{Ukázka vysoké hustoty 3D mapy s jasně rozeznatelnými částmi budovy a proběhlou trajektorií. Stejná část mapy je pro porovnání exportována i u DSO a LDSO.}
 \end{figure} 
 
 \subsubsection{DSO}
+Direct Sparse Odometry nevyužívá ROS a při instalaci ani běhu nenastaly žádné potíže. Jelikož tato metoda pochází z Technické univerzity Mnichov, je plně kompatibilní s TUM datasety a dokonce poskytuje možnost exportu výsledné trajektorie do stejně formáto\-vaného souboru jako ground-truth.
+
+\subsubsection*{Výsledky}
+Následující obrázky zobrazují vždy vybranou část 3D mapy a půdorys ze třech různých TUM sekvencí. Stejné části jsou pro porovnání vybrány i u LDSO. V poměrně hustém mračnu bodů tvořících přesnou 3D mapu prostředí lze jasně rozeznat i malé části interiéru, zatímco pohyblivé části prostředí (např procházející lidé) se ve výsledné mapě neobjevují.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{img/DSO_01_kolo.png}
+\caption{Sekvence 01 - kancelář s jízdním kolem.}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{img/DSO_01_top_b.png}
+\caption{Sekvence 01 - půdorys s vyznačenou trajektorií.}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{img/DSO_02_chodba.png}
+\caption{Sekvence 02 - část chodby.}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{img/DSO_02_top_b.png}
+\caption{Sekvence 02 - půdorys s vyznačenou trajektorií.}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{img/DSO_11_kancl_b.png}
+\caption{Sekvence 11 - kancelář. Stejná část k porovnání i u LSD a LDSO.}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{img/DSO_11_top_b.png}
+\caption{Sekvence 11 - půdorys s vyznačenou trajektorií. Stejná část k porovnání i u metod LSD a LDSO.}
+\end{figure} 
+
+\subsubsection*{Porovnání s ground-truth}
+Následují grafy vygenerované z vyhodnocovacího algoritmu v Matlabu. Trajektorie jsou vykresleny dvakrát, kdy je pokaždé použitý jiný zarovnávací algoritmus. Zeleně vyznačené data z ground-truth (GT) jsou u každé sekvence dostupné pouze na začátku a na konci. Vyčíslení konkrétních chyb bude provedeno v jedné z následujících sekcí.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{img/m_dso_01_2.png}
+\caption{Sekvence 01 - zarovnání trajektorií s GT - pohled shora.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{img/m_dso_02_2.png}
+\caption{Sekvence 02 - zarovnání trajektorií s GT - pohled shora.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{img/m_dso_11_1.png}
+\caption{Sekvence 02 - zarovnání trajektorií s GT - rozděleno po složkách x, y, z.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{img/m_dso_11_2.png}
+\caption{Sekvence 11 - zarovnání trajektorií s GT - pohled shora.}
+\end{figure}
+
 
 \subsubsection{LDSO}
+Direct Sparse Odometry with Loop Closure vychází z DSO a proto instalace i způsob spuštění metod je téměř shodný. LDSO taktéž nevyužívá ROS a je plně kompatibilní s TUM datasety, přičemž poskytuje výslednou trajektorii do souboru \texttt{results.txt} v TUM formátu.
+
+Při spouštění se objevil podobný problém nekompatibility verzí OpenCV jako v LSD SLAM. Zjištění příčiny a oprava byla o to horší, že běh algoritmu se přerušoval v různých časových okamžicích v průběhu mapování. Ukázalo se, že problém nastává v souboru \texttt{src/frontend/Loopclosing.cc}, který se volá při pokusu o uzavření smyčky. Jako opravu bylo nutné přepsat parametry v řádku 203 na tvar \texttt{cv::solvePnPRansac(p3d, p2d, K, cv::Mat(), R, t, false, 100, 8.0, 0.99, inliers);}. Po kompilaci již metoda pracovala naprosto bezchybně a spolehlivě.
+
+\subsubsection*{Výsledky}
+Následují ukázky vybraných částí 3D mapy a půdorysy ze třech různých TUM sekvencí. Pro možnost porovnání jsou vybrané části stejné jako u DSO. Vzhledem k tomu, že LDSO téměř nemění způsob mapování oproti DSO by výsledné mapy neměly být příliš odlišné. Černě je vyznačená trajektorie s relativními polohovými omezeními.
 
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{img/LDSO_01_kolo.png}
+\caption{Sekvence 01 - kancelář s jízdním kolem.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{img/LDSO_01_top_b.png}
+\caption{Sekvence 01 - půdorys s vyznačenou trajektorií.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{img/LDSO_02_chodba.png}
+\caption{Sekvence 02 - část chodby.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{img/LDSO_02_top_b.png}
+\caption{Sekvence 02 - půdorys s vyznačenou trajektorií.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{img/LDSO_kancl_b.png}
+\caption{Sekvence 11 - kancelář. Stejná část k porovnání i u LSD a DSO.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{img/LDSO_11_top_b.png}
+\caption{Sekvence 11 - půdorys s vyznačenou trajektorií. Stejná část k porovnání i u LSD a DSO.}
+\end{figure}
+
+\newpage
+\subsubsection*{Porovnání s ground-truth}
+Pro porovnání trajektorie s ground-truth jsem na ukázku vybral nejvíce odlišný graf oproti zarovnáním s DSO. Všechny získané trajektorie přibližně odpovídají  GT, grafy tak nejsou dostatečně vypovídající o přesnosti metody. Konkrétní vyčíslení chyb bude rozebráno v následující sekci.
 
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{img/m_ldso_02_2.png}
+\caption{Sekvence 02 - zarovnání trajektorií s GT - pohled shora.}
+\end{figure}
+
+\subsection{Porovnání}
+Z porovnávacího skriptu v Matlabu jsem získal konkrétní hodnoty chyb. V první tabulce porovnávám chyby pro jednu konkrétní sekvenci a menší hodnota chyby je znázorněna tučně. V druhé tabulce jsou střední hodnoty chyb ze třech různých sekvencí, přičemž lepší hodnoty jsou znovu tučně zvýrazněny. Hodnoty chyb jsou ovlivněny skutečností, že ground-truth data jsou dostupná pouze pro počáteční a konečnou část trajektorie. Chyby jsou tedy vypočítané pouze z přibližně 10\% výsledných dat. 
+
+Z těchto výsledků se nedá říci, že by DSO nebo LDSO fungovalo s menší chybou, neboť rozdíly chyb nejsou dostatečné a ani jedna metoda svou přesností výrazně nepřevyšuje druhou.
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Sekvence 11}} \\
+\hline
+ & DSO & LDSO \\
+\hline
+Střední kvadratická odchylka & \textbf{0.431941} & 0.467910 \\
+Chyba zarovnání trajektorií & \textbf{0.657937} & 0.717888 \\
+Chyba rotace & \textbf{0.879922} & 1.237425 \\
+Chyba měřítka & 0.947550 & \textbf{0.942661} \\
+\hline
+\end{tabular}
+\caption{Chyby implementací v 11. sekvenci}
+\end{table}
 
 
-\textsf{\textbf{TODO-----------------------------------------------------------}}
+\noindent
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Střední hodnota ze sekvencí 01, 02 a 11}} \\
+\hline
+ & DSO & LDSO \\
+\hline
+Střední kvadratická odchylka & \textbf{0.343958} & 0.384410 \\
+Chyba zarovnání trajektorií & \textbf{0.524797} & 0.617730 \\
+Chyba rotace & 1.001115 & \textbf{0.946257} \\
+Chyba měřítka & 0.960064 & \textbf{0.940674} \\
+\hline
+\end{tabular}
+\caption{Střední hodnoty chyb implementací ze třech sekvencí}
+\end{table}
 
-úprava LoopClosing.cc a následná rekompilace u LDSO pro fungování OpenCV3. Zkontrolovat, jestli to doopravdy dělá loopclosing, nebo jen obchází problém.
 
-https://github.com/tum-vision/LDSO/issues/21
+\section{Závěr}
+TODO
 
 
+\newpage
 \bibliography{zdroje}
 
 
