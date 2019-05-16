@@ -23,6 +23,13 @@ C.~Cadena, L.~Carlone, H.~Carrillo, Y.~Latif, D.~Scaramuzza, J.~Neira, I.~D.
   robust-perception age.
 \newblock {\em CoRR}, abs/1606.05830, 2016.
 
+\bibitem{monoslam}
+A.~J. Davison.
+\newblock Real-time simultaneous localisation and mapping with a single camera.
+\newblock In {\em Proceedings of the Ninth IEEE International Conference on
+  Computer Vision - Volume 2}, ICCV '03, pages 1403--, Washington, DC, USA,
+  2003. IEEE Computer Society.
+
 \bibitem{Durrant-Whyte}
 H.~Durrant-Whyte and T.~Bailey.
 \newblock Simultaneous localisation and mapping (slam): Part i the essential
@@ -58,6 +65,12 @@ G.~Grisetti, R.~Kuemmerle, C.~Stachniss, and W.~Burgard.
 \newblock {\em Intelligent Transportation Systems Magazine, IEEE}, 2(4):31--43,
   2010.
 
+\bibitem{ptam}
+G.~{Klein} and D.~{Murray}.
+\newblock Parallel tracking and mapping for small ar workspaces.
+\newblock In {\em 2007 6th IEEE and ACM International Symposium on Mixed and
+  Augmented Reality}, pages 225--234, Nov 2007.
+
 \bibitem{evo}
 {Michael Grupp}.
 \newblock evo.
@@ -92,5 +105,11 @@ S.~I. Takafumi~Taketomi, Hideaki~Uchiyama.
 \newblock Matlab evaluation code.
 \newblock \url{https://github.com/tum-vision/mono_dataset_code}.
 \newblock [Online].
+
+\bibitem{gauss-newton}
+J.~Yan, C.~Tiberius, G.~Bellusci, and G.~Janssen.
+\newblock Feasibility of gauss-newton method for indoor positioning.
+\newblock In {\em Feasibility of Gauss-Newton method for indoor positioning},
+  pages 660 -- 670, 06 2008.
 
 \end{thebibliography}
