@@ -89,12 +89,13 @@ Rád bych poděkoval Ing. Petru Neduchalovi za odborné vedení bakalářské pr
 Práce se zabývá formulací úlohy Simultánní lokalizace a mapování, zvláště se zaměřuje na monokulární přímé metody řešící tuto úlohu. Popisuje základy od pravděpodobnostní definice, přes graph SLAM až po vizuální SLAM. V práci je popsána implementace čtyř vybraných přímých metod, jejich otestování na reálných datech a vyhodnocení těchto experimentů. 
 
 \noindent
-\textbf{Klíčová slova:} 
+\textbf{Klíčová slova:} SLAM, vizuální SLAM, Semi-Dense Visual Odometry, Large Scale Direct monocular SLAM, Direct Sparse Odometry, Direct Sparse Odometry with Loop Closure, ROS
 
 \subsection*{Abstract}
-TODO
+This thesis deals with the formulation of Simultaneous localization and mapping problem, in particular it focuses on monocular direct methods solving this problem. It describes the basics from probability definition through graph SLAM to visual SLAM. The paper contains description of the implementation of four selected direct methods their testing on real data and evaluation of these experiments.
 
-\textbf{Keywords:}
+\noindent
+\textbf{Keywords:} SLAM, visual SLAM, Semi-Dense Visual Odometry, Large Scale Direct monocular SLAM, Direct Sparse Odometry, Direct Sparse Odometry with Loop Closure, ROS
 
 \newpage
 \tableofcontents
@@ -779,7 +780,9 @@ Chyba měřítka & 0.960064 & \textbf{0.940674} \\
 
 
 \section{Závěr}
-TODO
+Cílem práce byla zejména rešerše v oblasti vizuální odometrie a vizuálního SLAMu. Byla popsána historie problému SLAM a důležité způsoby řešení, konkrétně pravděpodobností přístup a Graph-based SLAM, na jejichž základech staví vizuální SLAM. Ten byl následně důkladně popsán spolu s jeho základními principy a odlišnostmi od jiných přístupů. Poté byly vybrány čtyři známé vizuální metody, u kterých byly vysvětleny konkrétní přístupy k řešení a nové vylepšení, které tyto metody přinesly.
+
+V rámci praktické části práce byla popsána implementace čtyř metod, včetně popisu a konkrétnímu postupu řešení problémů, které se při zprovoznění objevily. Charakterizované jsou všechny použité softwarové nástroje k instalaci, běhu i vyhodnocení provedených experimentů. Přiloženo je několik snímků vytvořených 3D map ze všech metod včetně uražených trajektorií. Následně jsou do algoritmů nahrány datasety, vyexportovány vypočítané trajektorie a pomocí vyhodnocovacích skriptů v Pythonu a Matlabu je porovnána jejich přesnost a vypočteny hodnoty chyb.
 
 
 \newpage
