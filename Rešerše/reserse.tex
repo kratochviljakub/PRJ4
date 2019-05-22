@@ -89,16 +89,16 @@ Rád bych poděkoval Ing. Petru Neduchalovi za odborné vedení bakalářské pr
 
 \newpage
 \subsection*{Abstrakt}
-Práce se zabývá formulací úlohy Simultánní lokalizace a mapování, zvláště se zaměřuje na monokulární přímé metody řešící tuto úlohu. Popisuje základy od pravděpodobnostní definice, přes graph SLAM až po vizuální SLAM. V práci je popsána implementace čtyř vybraných přímých metod, jejich otestování na reálných datech a vyhodnocení těchto experimentů. 
+Práce se zabývá formulací úlohy Simultánní lokalizace a mapování, zvláště se zaměřuje na monokulární přímé metody řešící tuto úlohu. Popisuje základy od pravděpodobnostní definice, přes graph SLAM až po vizuální SLAM. V práci je popsána implementace čtyř přímých metod - SVO, LSD, DSO a LDSO, jejich otestování na reálných datech a vyhodnocení těchto experimentů z hlediska přesnosti vypočtených trajektorií. 
 
 \noindent
-\textbf{Klíčová slova:} SLAM, vizuální SLAM, Semi-Dense Visual Odometry, Large Scale Direct monocular SLAM, Direct Sparse Odometry, Direct Sparse Odometry with Loop Closure, ROS
+\textbf{Klíčová slova:} SLAM, vizuální SLAM, grafový SLAM, lokalizace, mapování, vizuální odometrie, přímé metody, ROS
 
 \subsection*{Abstract}
-This thesis deals with the formulation of Simultaneous localization and mapping problem, in particular it focuses on monocular direct methods solving this problem. It describes the basics from probability definition through graph SLAM to visual SLAM. The paper contains description of the implementation of four selected direct methods their testing on real data and evaluation of these experiments.
+This thesis deals with the formulation of Simultaneous localization and mapping problem, in particular it focuses on monocular direct methods solving this problem. It describes the basics from probability definition through graph SLAM to visual SLAM. The paper contains description of the implementation of four direct methods - SVO, LSD, DSO and LDSO their testing on real data and evaluation of these experiments in terms of accuracy of calculated trajectories.
 
 \noindent
-\textbf{Keywords:} SLAM, visual SLAM, Semi-Dense Visual Odometry, Large Scale Direct monocular SLAM, Direct Sparse Odometry, Direct Sparse Odometry with Loop Closure, ROS
+\textbf{Keywords:} SLAM, visual SLAM, graph SLAM, localization, mapping, visual odometry, direct methods, ROS
 
 \newpage
 \tableofcontents
@@ -114,8 +114,6 @@ Do povědomí se SLAM dostal v roce 1986 na konferenci IEEE Robotics and Automat
 Aplikací SLAM můžeme najít mnoho, počínaje autonomním domácím vysavačem nebo sekačkou na trávu přes robotický průzkum opuštěných nebo člověku nebezpečných prostor, navigaci ponorek kolem podmořských přírodních překážek, řízení bezpilotních letounů a dronů až po v poslední době hodně diskutované samořídící automobily nebo dokonce planetární rovery brázdící povrch Marsu.
 
 Tato práce si klade za úkol čtenáře seznámit se základními vlastnostmi a popisem problému SLAM. V druhé kapitole dává nahlédnout do jeho původní pravděpodobnostní definice, v další kapitole se podrobněji zabývá metodou Graph SLAM a zbytek práce se zaměřuje na vizuální SLAM. Konkrétněji ve čtvrté kapitole nabízí obecné informace o vizuálním přístupu řešení problému SLAM. V páté kapitole důkladně rozebírá princip několika známých vizuálních algoritmů a šestá kapitola implementuje čtyři konkrétní metody řešení i s řešenými problémy při jejich zprovoznění a navzájem je porovnává v rámci přesnosti vypočtených trajektorií. 
-
-
 
 
 \chapter{SLAM}
