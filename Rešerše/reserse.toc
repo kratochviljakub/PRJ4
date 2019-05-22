@@ -16,19 +16,19 @@
 \contentsline {chapter}{\numberline {5}Konkr\IeC {\'e}tn\IeC {\'\i } p\IeC {\v r}\IeC {\'\i }m\IeC {\'e} metody}{16}
 \contentsline {section}{\numberline {5.1}Semi-Dense Visual Odometry}{16}
 \contentsline {section}{\numberline {5.2}LSD-SLAM}{18}
-\contentsline {paragraph}{Inicializaci}{18}
+\contentsline {paragraph}{Inicializaci}{19}
 \contentsline {paragraph}{Mapa}{19}
 \contentsline {paragraph}{Unik\IeC {\'a}tnost}{19}
 \contentsline {section}{\numberline {5.3}Direct Sparse Odometry}{19}
 \contentsline {section}{\numberline {5.4}Direct Sparse Odometry with Loop Closure}{23}
-\contentsline {chapter}{\numberline {6}Porovn\IeC {\'a}n\IeC {\'\i } metod}{26}
-\contentsline {section}{\numberline {6.1}Robot Operating System}{26}
-\contentsline {section}{\numberline {6.2}Testovac\IeC {\'\i } data}{27}
-\contentsline {section}{\numberline {6.3}Porovn\IeC {\'a}n\IeC {\'\i } a v\IeC {\'y}po\IeC {\v c}et chyb}{28}
-\contentsline {section}{\numberline {6.4}Zprovozn\IeC {\v e}n\IeC {\'\i } jednotliv\IeC {\'y}ch metod}{28}
-\contentsline {subsection}{\numberline {6.4.1}SVO}{29}
-\contentsline {subsection}{\numberline {6.4.2}LSD}{32}
-\contentsline {subsection}{\numberline {6.4.3}DSO}{35}
-\contentsline {subsection}{\numberline {6.4.4}LDSO}{40}
-\contentsline {section}{\numberline {6.5}Porovn\IeC {\'a}n\IeC {\'\i }}{44}
-\contentsline {chapter}{\numberline {7}Z\IeC {\'a}v\IeC {\v e}r}{46}
+\contentsline {chapter}{\numberline {6}Porovn\IeC {\'a}n\IeC {\'\i } metod}{27}
+\contentsline {section}{\numberline {6.1}Robot Operating System}{27}
+\contentsline {section}{\numberline {6.2}Testovac\IeC {\'\i } data}{28}
+\contentsline {section}{\numberline {6.3}Porovn\IeC {\'a}n\IeC {\'\i } a v\IeC {\'y}po\IeC {\v c}et chyb}{29}
+\contentsline {section}{\numberline {6.4}Zprovozn\IeC {\v e}n\IeC {\'\i } jednotliv\IeC {\'y}ch metod}{30}
+\contentsline {subsection}{\numberline {6.4.1}SVO}{30}
+\contentsline {subsection}{\numberline {6.4.2}LSD}{33}
+\contentsline {subsection}{\numberline {6.4.3}DSO}{37}
+\contentsline {subsection}{\numberline {6.4.4}LDSO}{43}
+\contentsline {section}{\numberline {6.5}Porovn\IeC {\'a}n\IeC {\'\i }}{47}
+\contentsline {chapter}{\numberline {7}Z\IeC {\'a}v\IeC {\v e}r}{50}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  16 MAY 2019 20:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.10)  22 MAY 2019 07:27
 entering extended mode
 **./reserse.tex
 (reserse.tex
@@ -603,6 +603,162 @@ File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\textcomp.sty"
+Package: textcomp 2017/04/05 v2.0i Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1enc.def"
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+Now handling font encoding TS1 ...
+... processing UTF-8 mapping file for font encoding TS1
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1enc.dfu"
+File: ts1enc.dfu 2017/01/28 v1.1t UTF-8 support for inputenc
+   defining Unicode char U+00A2 (decimal 162)
+   defining Unicode char U+00A3 (decimal 163)
+   defining Unicode char U+00A4 (decimal 164)
+   defining Unicode char U+00A5 (decimal 165)
+   defining Unicode char U+00A6 (decimal 166)
+   defining Unicode char U+00A7 (decimal 167)
+   defining Unicode char U+00A8 (decimal 168)
+   defining Unicode char U+00A9 (decimal 169)
+   defining Unicode char U+00AA (decimal 170)
+   defining Unicode char U+00AC (decimal 172)
+   defining Unicode char U+00AE (decimal 174)
+   defining Unicode char U+00AF (decimal 175)
+   defining Unicode char U+00B0 (decimal 176)
+   defining Unicode char U+00B1 (decimal 177)
+   defining Unicode char U+00B2 (decimal 178)
+   defining Unicode char U+00B3 (decimal 179)
+   defining Unicode char U+00B4 (decimal 180)
+   defining Unicode char U+00B5 (decimal 181)
+   defining Unicode char U+00B6 (decimal 182)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+00B9 (decimal 185)
+   defining Unicode char U+00BA (decimal 186)
+   defining Unicode char U+00BC (decimal 188)
+   defining Unicode char U+00BD (decimal 189)
+   defining Unicode char U+00BE (decimal 190)
+   defining Unicode char U+00D7 (decimal 215)
+   defining Unicode char U+00F7 (decimal 247)
+   defining Unicode char U+0192 (decimal 402)
+   defining Unicode char U+02C7 (decimal 711)
+   defining Unicode char U+02D8 (decimal 728)
+   defining Unicode char U+02DD (decimal 733)
+   defining Unicode char U+0E3F (decimal 3647)
+   defining Unicode char U+2016 (decimal 8214)
+   defining Unicode char U+2020 (decimal 8224)
+   defining Unicode char U+2021 (decimal 8225)
+   defining Unicode char U+2022 (decimal 8226)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2031 (decimal 8241)
+   defining Unicode char U+203B (decimal 8251)
+   defining Unicode char U+203D (decimal 8253)
+   defining Unicode char U+2044 (decimal 8260)
+   defining Unicode char U+204E (decimal 8270)
+   defining Unicode char U+2052 (decimal 8274)
+   defining Unicode char U+20A1 (decimal 8353)
+   defining Unicode char U+20A4 (decimal 8356)
+   defining Unicode char U+20A6 (decimal 8358)
+   defining Unicode char U+20A9 (decimal 8361)
+   defining Unicode char U+20AB (decimal 8363)
+   defining Unicode char U+20AC (decimal 8364)
+   defining Unicode char U+20B1 (decimal 8369)
+   defining Unicode char U+2103 (decimal 8451)
+   defining Unicode char U+2116 (decimal 8470)
+   defining Unicode char U+2117 (decimal 8471)
+   defining Unicode char U+211E (decimal 8478)
+   defining Unicode char U+2120 (decimal 8480)
+   defining Unicode char U+2122 (decimal 8482)
+   defining Unicode char U+2126 (decimal 8486)
+   defining Unicode char U+2127 (decimal 8487)
+   defining Unicode char U+212E (decimal 8494)
+   defining Unicode char U+2190 (decimal 8592)
+   defining Unicode char U+2191 (decimal 8593)
+   defining Unicode char U+2192 (decimal 8594)
+   defining Unicode char U+2193 (decimal 8595)
+   defining Unicode char U+2329 (decimal 9001)
+   defining Unicode char U+232A (decimal 9002)
+   defining Unicode char U+2422 (decimal 9250)
+   defining Unicode char U+25E6 (decimal 9702)
+   defining Unicode char U+25EF (decimal 9711)
+   defining Unicode char U+266A (decimal 9834)
+))
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
+)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
@@ -643,18 +799,25 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg")) (reserse.aux)
 \openout1 = `reserse.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
-LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
+LaTeX Font Info:    ... okay on input line 29.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 29.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 29.
 
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -767,84 +930,84 @@ Package caption Info: End \AtBeginDocument code.
 <zadaniBP1.pdf, id=8, 597.23125pt x 844.15375pt>
 File: zadaniBP1.pdf Graphic file (type pdf)
  <use zadaniBP1.pdf>
-Package pdftex.def Info: zadaniBP1.pdf used on input line 58.
+Package pdftex.def Info: zadaniBP1.pdf used on input line 61.
 (pdftex.def)             Requested size: 597.22978pt x 844.15169pt.
 File: zadaniBP1.pdf Graphic file (type pdf)
 
 <use zadaniBP1.pdf>
-Package pdftex.def Info: zadaniBP1.pdf used on input line 58.
+Package pdftex.def Info: zadaniBP1.pdf used on input line 61.
 (pdftex.def)             Requested size: 597.22978pt x 844.15169pt.
  <zadaniBP1.pdf, id=11, page=1, 597.23125pt x 844.15375pt>
 File: zadaniBP1.pdf Graphic file (type pdf)
 
 <use zadaniBP1.pdf, page 1>
-Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 58.
+Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 61.
 (pdftex.def)             Requested size: 597.50787pt x 844.60251pt.
 File: zadaniBP1.pdf Graphic file (type pdf)
  <use zadaniBP1.pdf, page 1>
-Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 58.
+Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 61.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
 File: zadaniBP1.pdf Graphic file (type pdf)
 
 <use zadaniBP1.pdf, page 1>
-Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 58.
+Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 61.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
 File: zadaniBP1.pdf Graphic file (type pdf)
  <use zadaniBP1.pdf, page 1>
-Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 58.
+Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 61.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
 File: zadaniBP1.pdf Graphic file (type pdf)
 
 <use zadaniBP1.pdf, page 1>
-Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 58.
+Package pdftex.def Info: zadaniBP1.pdf, page1 used on input line 61.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
  [1 <./zadaniBP1.pdf>]
 <zadaniBP2.pdf, id=18, 597.23125pt x 844.15375pt>
 File: zadaniBP2.pdf Graphic file (type pdf)
  <use zadaniBP2.pdf>
-Package pdftex.def Info: zadaniBP2.pdf used on input line 60.
+Package pdftex.def Info: zadaniBP2.pdf used on input line 63.
 (pdftex.def)             Requested size: 597.22978pt x 844.15169pt.
 File: zadaniBP2.pdf Graphic file (type pdf)
 
 <use zadaniBP2.pdf>
-Package pdftex.def Info: zadaniBP2.pdf used on input line 60.
+Package pdftex.def Info: zadaniBP2.pdf used on input line 63.
 (pdftex.def)             Requested size: 597.22978pt x 844.15169pt.
  <zadaniBP2.pdf, id=21, page=1, 597.23125pt x 844.15375pt>
 File: zadaniBP2.pdf Graphic file (type pdf)
 
 <use zadaniBP2.pdf, page 1>
-Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 60.
+Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 63.
 (pdftex.def)             Requested size: 597.50787pt x 844.60251pt.
 File: zadaniBP2.pdf Graphic file (type pdf)
  <use zadaniBP2.pdf, page 1>
-Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 60.
+Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 63.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
 File: zadaniBP2.pdf Graphic file (type pdf)
 
 <use zadaniBP2.pdf, page 1>
-Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 60.
+Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 63.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
 File: zadaniBP2.pdf Graphic file (type pdf)
  <use zadaniBP2.pdf, page 1>
-Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 60.
+Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 63.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
 File: zadaniBP2.pdf Graphic file (type pdf)
 
 <use zadaniBP2.pdf, page 1>
-Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 60.
+Package pdftex.def Info: zadaniBP2.pdf, page1 used on input line 63.
 (pdftex.def)             Requested size: 597.73099pt x 844.86012pt.
  [2 <./zadaniBP2.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 72--74
+Underfull \hbox (badness 10000) in paragraph at lines 75--77
 
  []
 
 
-Underfull \hbox (badness 10000) detected at line 77
+Underfull \hbox (badness 10000) detected at line 80
 \OT1/cmr/m/n/12 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 76--78
+Underfull \hbox (badness 10000) in paragraph at lines 79--81
 
  []
 
@@ -873,37 +1036,29 @@ Kapitola 2.
 ] <img/Obr1_b.png, id=44, 306.39468pt x 88.83188pt>
 File: img/Obr1_b.png Graphic file (type png)
  <use img/Obr1_b.png>
-Package pdftex.def Info: img/Obr1_b.png used on input line 129.
+Package pdftex.def Info: img/Obr1_b.png used on input line 132.
 (pdftex.def)             Requested size: 306.39394pt x 88.83165pt.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 136.
-
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
 
 <img/Obr2_b.png, id=45, 490.08093pt x 398.99063pt>
 File: img/Obr2_b.png Graphic file (type png)
  <use img/Obr2_b.png>
-Package pdftex.def Info: img/Obr2_b.png used on input line 148.
+Package pdftex.def Info: img/Obr2_b.png used on input line 152.
 (pdftex.def)             Requested size: 294.05083pt x 239.39622pt.
 
 [6 <./img/Obr1_b.png>] [7 <./img/Obr2_b.png>] [8]
 Kapitola 3.
-<img/Obr3.pdf, id=67, 359.42279pt x 73.2336pt>
+<img/Obr3.pdf, id=68, 359.42279pt x 73.2336pt>
 File: img/Obr3.pdf Graphic file (type pdf)
  <use img/Obr3.pdf>
-Package pdftex.def Info: img/Obr3.pdf used on input line 225.
+Package pdftex.def Info: img/Obr3.pdf used on input line 230.
 (pdftex.def)             Requested size: 431.30518pt x 87.87985pt.
  [9
 
 ]
-<img/Obr4_b.png, id=71, 407.121pt x 272.81924pt>
+<img/Obr4_b.png, id=72, 407.121pt x 272.81924pt>
 File: img/Obr4_b.png Graphic file (type png)
  <use img/Obr4_b.png>
-Package pdftex.def Info: img/Obr4_b.png used on input line 237.
+Package pdftex.def Info: img/Obr4_b.png used on input line 243.
 (pdftex.def)             Requested size: 325.69725pt x 218.25568pt.
  [10 <./img/Obr3.pdf> <./img/Obr4_b.png>] [11]
 Kapitola 4.
@@ -911,250 +1066,270 @@ Kapitola 4.
 
 ] [13] [14] [15]
 Kapitola 5.
-<img/hloubkova_mapa.jpg, id=101, 646.62631pt x 167.3621pt>
+<img/hloubkova_mapa.jpg, id=102, 646.62631pt x 167.3621pt>
 File: img/hloubkova_mapa.jpg Graphic file (type jpg)
 
 <use img/hloubkova_mapa.jpg>
-Package pdftex.def Info: img/hloubkova_mapa.jpg used on input line 334.
+Package pdftex.def Info: img/hloubkova_mapa.jpg used on input line 341.
 (pdftex.def)             Requested size: 452.63533pt x 117.15266pt.
  [16
 
 ]
-<img/baseline.jpg, id=106, 1078.0275pt x 252.945pt>
+<img/baseline.jpg, id=107, 1078.0275pt x 252.945pt>
 File: img/baseline.jpg Graphic file (type jpg)
  <use img/baseline.jpg>
-Package pdftex.def Info: img/baseline.jpg used on input line 340.
+Package pdftex.def Info: img/baseline.jpg used on input line 348.
 (pdftex.def)             Requested size: 431.20335pt x 101.17621pt.
 
-[17 <./img/hloubkova_mapa.jpg> <./img/baseline.jpg>] [18] [19]
-<img/Obr5_b.png, id=116, 702.2235pt x 271.61475pt>
-File: img/Obr5_b.png Graphic file (type png)
- <use img/Obr5_b.png>
-Package pdftex.def Info: img/Obr5_b.png used on input line 396.
-(pdftex.def)             Requested size: 449.42151pt x 173.83284pt.
+<img/baseline2.png, id=108, 815.4465pt x 292.6935pt>
+File: img/baseline2.png Graphic file (type png)
+ <use img/baseline2.png>
+Package pdftex.def Info: img/baseline2.png used on input line 355.
+(pdftex.def)             Requested size: 326.17282pt x 117.07532pt.
 
-[20] [21 <./img/Obr5_b.png>] [22] [23]
-<img/Obr6_b.png, id=130, 437.83575pt x 370.38374pt>
+[17 <./img/hloubkova_mapa.jpg> <./img/baseline.jpg> <./img/baseline2.png>]
+[18] [19] [20] <img/Obr5_b.png, id=121, 702.2235pt x 271.61475pt>
+File: img/Obr5_b.png Graphic file (type png)
+
+<use img/Obr5_b.png>
+Package pdftex.def Info: img/Obr5_b.png used on input line 412.
+(pdftex.def)             Requested size: 421.33736pt x 162.9701pt.
+ [21 <./img/Obr5_b.png>]
+<img/photometric_error.png, id=125, 618.31pt x 293.095pt>
+File: img/photometric_error.png Graphic file (type png)
+
+<use img/photometric_error.png>
+Package pdftex.def Info: img/photometric_error.png used on input line 437.
+(pdftex.def)             Requested size: 432.81404pt x 205.16508pt.
+ [22 <./img/photometric_error.png>] [23]
+<img/Obr6_b.png, id=134, 437.83575pt x 370.38374pt>
 File: img/Obr6_b.png Graphic file (type png)
  <use img/Obr6_b.png>
-Package pdftex.def Info: img/Obr6_b.png used on input line 450.
+Package pdftex.def Info: img/Obr6_b.png used on input line 473.
 (pdftex.def)             Requested size: 328.376pt x 277.78711pt.
 
-[24 <./img/Obr6_b.png>] [25]
-Kapitola 6.
-[26
+[24] <img/LDSO_frame.png, id=138, 437.2335pt x 487.8225pt>
+File: img/LDSO_frame.png Graphic file (type png)
 
-] [27] [28] <img/SVO_rviz_1.png, id=148, 885.3075pt x 685.05937pt>
+<use img/LDSO_frame.png>
+Package pdftex.def Info: img/LDSO_frame.png used on input line 485.
+(pdftex.def)             Requested size: 262.34212pt x 292.69576pt.
+ [25 <./img/Obr6_b.png>] [26 <./img/LDSO_frame.png>]
+Kapitola 6.
+[27
+
+] [28] [29] [30] <img/SVO_rviz_1.png, id=162, 885.3075pt x 685.05937pt>
 File: img/SVO_rviz_1.png Graphic file (type png)
 
 <use img/SVO_rviz_1.png>
-Package pdftex.def Info: img/SVO_rviz_1.png used on input line 526.
+Package pdftex.def Info: img/SVO_rviz_1.png used on input line 557.
 (pdftex.def)             Requested size: 442.65266pt x 342.52884pt.
- [29]
-<img/SVO_rviz_2.png, id=152, 270.25969pt x 173.14688pt>
+
+<img/SVO_rviz_2.png, id=163, 270.25969pt x 173.14688pt>
 File: img/SVO_rviz_2.png Graphic file (type png)
 
 <use img/SVO_rviz_2.png>
-Package pdftex.def Info: img/SVO_rviz_2.png used on input line 532.
+Package pdftex.def Info: img/SVO_rviz_2.png used on input line 564.
 (pdftex.def)             Requested size: 270.25902pt x 173.14645pt.
- <img/xy_SVO_gt.png, id=153, 867.24pt x 562.2606pt>
+ [31 <./img/SVO_rviz_1.png>]
+<img/xy_SVO_gt.png, id=167, 867.24pt x 562.2606pt>
 File: img/xy_SVO_gt.png Graphic file (type png)
-
-<use img/xy_SVO_gt.png>
-Package pdftex.def Info: img/xy_SVO_gt.png used on input line 540.
+ <use img/xy_SVO_gt.png>
+Package pdftex.def Info: img/xy_SVO_gt.png used on input line 573.
 (pdftex.def)             Requested size: 433.61894pt x 281.12961pt.
- [30 <./img/SVO_rviz_1.png> <./img/SVO_rviz_2.png>]
-<img/xyz_SVO.png, id=157, 867.24pt x 562.2606pt>
+
+<img/xyz_SVO.png, id=168, 867.24pt x 562.2606pt>
 File: img/xyz_SVO.png Graphic file (type png)
  <use img/xyz_SVO.png>
-Package pdftex.def Info: img/xyz_SVO.png used on input line 546.
+Package pdftex.def Info: img/xyz_SVO.png used on input line 580.
 (pdftex.def)             Requested size: 433.61894pt x 281.12961pt.
- [31 <./img/xy_SVO_gt.png> <./img/xyz_SVO.png>] [32]
-<img/porov_lsd_ldso.png, id=165, 642.14906pt x 388.45125pt>
+ [32 <./img/SVO_rviz_2.png> <./img/xy_SVO_gt.png>] [33 <./img/xyz_SVO.png>]
+<img/LSD_run.png, id=176, 547.2947pt x 410.2828pt>
+File: img/LSD_run.png Graphic file (type png)
+ <use img/LSD_run.png>
+Package pdftex.def Info: img/LSD_run.png used on input line 616.
+(pdftex.def)             Requested size: 328.37935pt x 246.17157pt.
+
+[34 <./img/LSD_run.png>]
+<img/porov_lsd_ldso.png, id=181, 642.14906pt x 388.45125pt>
 File: img/porov_lsd_ldso.png Graphic file (type png)
 
 <use img/porov_lsd_ldso.png>
-Package pdftex.def Info: img/porov_lsd_ldso.png used on input line 596.
+Package pdftex.def Info: img/porov_lsd_ldso.png used on input line 638.
 (pdftex.def)             Requested size: 404.55605pt x 244.72557pt.
 
-<img/LSD_11_top.png, id=166, 941.01563pt x 715.92468pt>
+<img/LSD_11_top.png, id=182, 941.01563pt x 715.92468pt>
 File: img/LSD_11_top.png Graphic file (type png)
 
 <use img/LSD_11_top.png>
-Package pdftex.def Info: img/LSD_11_top.png used on input line 602.
+Package pdftex.def Info: img/LSD_11_top.png used on input line 645.
 (pdftex.def)             Requested size: 428.16278pt x 325.74623pt.
- [33 <./img/porov_lsd_ldso.png>]
-<img/LSD_11_kancl.png, id=170, 1388.93906pt x 792.71156pt>
+ [35 <./img/porov_lsd_ldso.png>]
+<img/LSD_11_kancl.png, id=186, 1388.93906pt x 792.71156pt>
 File: img/LSD_11_kancl.png Graphic file (type png)
 
 <use img/LSD_11_kancl.png>
-Package pdftex.def Info: img/LSD_11_kancl.png used on input line 608.
+Package pdftex.def Info: img/LSD_11_kancl.png used on input line 652.
 (pdftex.def)             Requested size: 430.56667pt x 245.73804pt.
- [34 <./img/LSD_11_top.png> <./img/LSD_11_kancl.png>] <img/DSO_01_kolo.png, id=
-175, 1668.2325pt x 1055.945pt>
+ [36 <./img/LSD_11_top.png> <./img/LSD_11_kancl.png>] <img/DSO_01_kolo.png, id=
+190, 1668.2325pt x 1055.945pt>
 File: img/DSO_01_kolo.png Graphic file (type png)
 
 <use img/DSO_01_kolo.png>
-Package pdftex.def Info: img/DSO_01_kolo.png used on input line 620.
+Package pdftex.def Info: img/DSO_01_kolo.png used on input line 665.
 (pdftex.def)             Requested size: 455.24411pt x 288.1542pt.
 
-<img/DSO_01_top_b.png, id=176, 1282.7925pt x 791.95876pt>
+<img/DSO_01_top_b.png, id=191, 1282.7925pt x 791.95876pt>
 File: img/DSO_01_top_b.png Graphic file (type png)
 
 <use img/DSO_01_top_b.png>
-Package pdftex.def Info: img/DSO_01_top_b.png used on input line 626.
+Package pdftex.def Info: img/DSO_01_top_b.png used on input line 672.
 (pdftex.def)             Requested size: 455.24411pt x 281.04462pt.
- [35 <./img/DSO_01_kolo.png>]
-<img/DSO_02_chodba.png, id=180, 1680.2775pt x 1059.96pt>
+ [37 <./img/DSO_01_kolo.png>]
+<img/DSO_02_chodba.png, id=195, 1680.2775pt x 1059.96pt>
 File: img/DSO_02_chodba.png Graphic file (type png)
 
 <use img/DSO_02_chodba.png>
-Package pdftex.def Info: img/DSO_02_chodba.png used on input line 632.
+Package pdftex.def Info: img/DSO_02_chodba.png used on input line 679.
 (pdftex.def)             Requested size: 455.24411pt x 287.17961pt.
 
-<img/DSO_02_top_b.png, id=181, 1469.49pt x 788.9475pt>
+<img/DSO_02_top_b.png, id=196, 1469.49pt x 788.9475pt>
 File: img/DSO_02_top_b.png Graphic file (type png)
 
 <use img/DSO_02_top_b.png>
-Package pdftex.def Info: img/DSO_02_top_b.png used on input line 638.
+Package pdftex.def Info: img/DSO_02_top_b.png used on input line 686.
 (pdftex.def)             Requested size: 455.24411pt x 244.41469pt.
- [36 <./img/DSO_01_top_b.png> <./img/DSO_02_chodba.png>] <img/DSO_11_kancl_b.pn
-g, id=185, 1670.24pt x 1022.82124pt>
+ [38 <./img/DSO_01_top_b.png> <./img/DSO_02_chodba.png>] <img/DSO_11_kancl_b.pn
+g, id=200, 1670.24pt x 1022.82124pt>
 File: img/DSO_11_kancl_b.png Graphic file (type png)
 
 <use img/DSO_11_kancl_b.png>
-Package pdftex.def Info: img/DSO_11_kancl_b.png used on input line 644.
+Package pdftex.def Info: img/DSO_11_kancl_b.png used on input line 693.
 (pdftex.def)             Requested size: 455.24411pt x 278.77179pt.
 
-<img/DSO_11_top_b.png, id=186, 1358.07375pt x 804.00375pt>
+<img/DSO_11_top_b.png, id=201, 1357.07pt x 766.865pt>
 File: img/DSO_11_top_b.png Graphic file (type png)
 
 <use img/DSO_11_top_b.png>
-Package pdftex.def Info: img/DSO_11_top_b.png used on input line 650.
-(pdftex.def)             Requested size: 409.71692pt x 242.55247pt.
- [37 <./img/DSO_02_top_b.png> <./img/DSO_11_kancl_b.png>] <img/m_dso_01_2.png, 
-id=190, 803.25093pt x 602.25pt>
+Package pdftex.def Info: img/DSO_11_top_b.png used on input line 700.
+(pdftex.def)             Requested size: 409.71692pt x 231.52396pt.
+ [39 <./img/DSO_02_top_b.png> <./img/DSO_11_kancl_b.png>] <img/m_dso_01_2.png, 
+id=205, 803.25093pt x 602.25pt>
 File: img/m_dso_01_2.png Graphic file (type png)
 
 <use img/m_dso_01_2.png>
-Package pdftex.def Info: img/m_dso_01_2.png used on input line 659.
-(pdftex.def)             Requested size: 359.63979pt x 269.64993pt.
- <img/m_dso_02_2.png, id=191, 802.49812pt x 602.25pt>
+Package pdftex.def Info: img/m_dso_01_2.png used on input line 710.
+(pdftex.def)             Requested size: 409.71692pt x 307.19856pt.
+ [40 <./img/DSO_11_top_b.png>]
+<img/m_dso_02_2.png, id=210, 802.49812pt x 602.25pt>
 File: img/m_dso_02_2.png Graphic file (type png)
-
-<use img/m_dso_02_2.png>
-Package pdftex.def Info: img/m_dso_02_2.png used on input line 665.
+ <use img/m_dso_02_2.png>
+Package pdftex.def Info: img/m_dso_02_2.png used on input line 717.
 (pdftex.def)             Requested size: 409.71692pt x 307.48344pt.
- [38 <./img/DSO_11_top_b.png> <./img/m_dso_01_2.png (PNG copy)>] <img/m_dso_11_
-1.png, id=195, 802.49812pt x 602.25pt>
+
+<img/m_dso_11_1.png, id=211, 802.49812pt x 602.25pt>
 File: img/m_dso_11_1.png Graphic file (type png)
-
-<use img/m_dso_11_1.png>
-Package pdftex.def Info: img/m_dso_11_1.png used on input line 671.
+ <use img/m_dso_11_1.png>
+Package pdftex.def Info: img/m_dso_11_1.png used on input line 724.
 (pdftex.def)             Requested size: 409.71692pt x 307.48344pt.
- <img/m_dso_11_2.png, id=196, 802.49812pt x 602.25pt>
+
+[41 <./img/m_dso_01_2.png (PNG copy)> <./img/m_dso_02_2.png (PNG copy)>]
+<img/m_dso_11_2.png, id=215, 802.49812pt x 602.25pt>
 File: img/m_dso_11_2.png Graphic file (type png)
+ <use img/m_dso_11_2.png>
+Package pdftex.def Info: img/m_dso_11_2.png used on input line 731.
+(pdftex.def)             Requested size: 386.96027pt x 290.4092pt.
 
-<use img/m_dso_11_2.png>
-Package pdftex.def Info: img/m_dso_11_2.png used on input line 677.
-(pdftex.def)             Requested size: 409.71692pt x 307.48344pt.
- [39 <./img/m_dso_02_2.png (PNG copy)> <./img/m_dso_11_1.png (PNG copy)>] <img/
-LDSO_01_kolo.png, id=200, 1665.22125pt x 1056.94875pt>
+[42 <./img/m_dso_11_1.png (PNG copy)> <./img/m_dso_11_2.png (PNG copy)>]
+<img/LDSO_01_kolo.png, id=219, 1665.22125pt x 1056.94875pt>
 File: img/LDSO_01_kolo.png Graphic file (type png)
 
 <use img/LDSO_01_kolo.png>
-Package pdftex.def Info: img/LDSO_01_kolo.png used on input line 693.
+Package pdftex.def Info: img/LDSO_01_kolo.png used on input line 748.
 (pdftex.def)             Requested size: 409.71692pt x 260.05945pt.
- [40 <./img/m_dso_11_2.png (PNG copy)>]
-<img/LDSO_01_top_b.png, id=205, 1213.53375pt x 834.11626pt>
+
+<img/LDSO_01_top_b.png, id=220, 1213.53375pt x 834.11626pt>
 File: img/LDSO_01_top_b.png Graphic file (type png)
 
 <use img/LDSO_01_top_b.png>
-Package pdftex.def Info: img/LDSO_01_top_b.png used on input line 699.
+Package pdftex.def Info: img/LDSO_01_top_b.png used on input line 755.
 (pdftex.def)             Requested size: 455.24411pt x 312.90738pt.
-
-<img/LDSO_02_chodba.png, id=206, 1586.92876pt x 1059.96pt>
+ [43 <./img/LDSO_01_kolo.png>]
+<img/LDSO_02_chodba.png, id=224, 1586.92876pt x 1059.96pt>
 File: img/LDSO_02_chodba.png Graphic file (type png)
 
 <use img/LDSO_02_chodba.png>
-Package pdftex.def Info: img/LDSO_02_chodba.png used on input line 705.
+Package pdftex.def Info: img/LDSO_02_chodba.png used on input line 762.
 (pdftex.def)             Requested size: 455.24411pt x 304.06493pt.
- [41 <./img/LDSO_01_kolo.png> <./img/LDSO_01_top_b.png>] <img/LDSO_02_top_b.png
-, id=210, 1427.3325pt x 915.42pt>
+
+<img/LDSO_02_top_b.png, id=225, 1427.3325pt x 915.42pt>
 File: img/LDSO_02_top_b.png Graphic file (type png)
 
 <use img/LDSO_02_top_b.png>
-Package pdftex.def Info: img/LDSO_02_top_b.png used on input line 711.
+Package pdftex.def Info: img/LDSO_02_top_b.png used on input line 769.
 (pdftex.def)             Requested size: 455.24411pt x 291.96262pt.
-
-<img/LDSO_kancl_b.png, id=211, 1677.26625pt x 897.3525pt>
+ [44 <./img/LDSO_01_top_b.png> <./img/LDSO_02_chodba.png>] <img/LDSO_kancl_b.pn
+g, id=229, 1677.26625pt x 897.3525pt>
 File: img/LDSO_kancl_b.png Graphic file (type png)
 
 <use img/LDSO_kancl_b.png>
-Package pdftex.def Info: img/LDSO_kancl_b.png used on input line 717.
+Package pdftex.def Info: img/LDSO_kancl_b.png used on input line 776.
 (pdftex.def)             Requested size: 455.24411pt x 243.54811pt.
- [42 <./img/LDSO_02_chodba.png> <./img/LDSO_02_top_b.png>] <img/LDSO_11_top_b.p
-ng, id=215, 1321.93875pt x 804.00375pt>
+
+<img/LDSO_11_top_b.png, id=230, 1321.93875pt x 804.00375pt>
 File: img/LDSO_11_top_b.png Graphic file (type png)
 
 <use img/LDSO_11_top_b.png>
-Package pdftex.def Info: img/LDSO_11_top_b.png used on input line 723.
+Package pdftex.def Info: img/LDSO_11_top_b.png used on input line 783.
 (pdftex.def)             Requested size: 455.24411pt x 276.8786pt.
- [43 <./img/LDSO_kancl_b.png> <./img/LDSO_11_top_b.png>] <img/m_ldso_02_2.png, 
-id=219, 803.25093pt x 602.25pt>
+ [45 <./img/LDSO_02_top_b.png> <./img/LDSO_kancl_b.png>]
+Overfull \hbox (0.40533pt too wide) in paragraph at lines 789--790
+\OT1/cmr/m/n/12 tra-jek-to-rie priblizne od-povdaj GT, grafy tak nejsou 
+do-statecne vy-povdajc o nepresnosti
+ []
+
+<img/m_ldso_02_2.png, id=234, 803.25093pt x 602.25pt>
 File: img/m_ldso_02_2.png Graphic file (type png)
 
 <use img/m_ldso_02_2.png>
-Package pdftex.def Info: img/m_ldso_02_2.png used on input line 734.
+Package pdftex.def Info: img/m_ldso_02_2.png used on input line 794.
 (pdftex.def)             Requested size: 455.24411pt x 341.33788pt.
- [44 <./img/m_ldso_02_2.png (PNG copy)>] [45]
+ [46 <./img/LDSO_11_top_b.png>] [47 <./img/m_ldso_02_2.png (PNG copy)>] [48] [4
+9]
 Kapitola 7.
-[46
+[50
 
-] (reserse.bbl
-Underfull \hbox (badness 2744) in paragraph at lines 4--10
-[]\OT1/cmr/m/n/12 P. Abbeel.  Gra-phSLAM.  https://people.eecs.berkeley.edu/ pa
-bbeel/cs287-
- []
+] [51] (reserse.bbl [52
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--18
-[]\OT1/cmr/m/n/12 W. Bur-gard.  Graph-based SLAM.  http://ais.informatik.uni-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--18
-\OT1/cmr/m/n/12 freiburg.de/teaching/ss18/robotics/slides/16-graph-slam.pdf, 07
- 2018.  UNI
- []
-
-[47
-
-]) [48] (reserse.aux) ) 
+]) [53] (reserse.aux) ) 
 Here is how much of TeX's memory you used:
- 8863 strings out of 493323
- 127927 string characters out of 3139065
- 315213 words of memory out of 3000000
- 12200 multiletter control sequences out of 15000+200000
- 11845 words of font info for 44 fonts, out of 3000000 for 9000
+ 9441 strings out of 493323
+ 135877 string characters out of 3139065
+ 320656 words of memory out of 3000000
+ 12762 multiletter control sequences out of 15000+200000
+ 14049 words of font info for 54 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,18n,47p,1331b,436s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx
-8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C
-:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Progra
-m Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
+ 39i,18n,47p,1337b,436s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\jakub\AppData\Local\MiKTeX\2.9\fonts\pk\ljfou
+r\jknappen\ec\dpi600\tcrm1200.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmbx8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cme
+x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Progr
+am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts
 /cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10
 .pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on reserse.pdf (51 pages, 12462589 bytes).
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on reserse.pdf (56 pages, 12689859 bytes).
 PDF statistics:
- 282 PDF objects out of 1000 (max. 8388607)
+ 322 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 201 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 221 words of extra memory for PDF output out of 10000 (max. 10000000)
 

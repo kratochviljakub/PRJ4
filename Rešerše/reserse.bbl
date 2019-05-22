@@ -1,21 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{GraphSLAM}
-P.~Abbeel.
-\newblock Graph{SLAM}.
-\newblock
-  https://people.eecs.berkeley.edu/~pabbeel/cs287-fa13/slides/GraphSLAM.pdf, 11
-  2013.
-\newblock UC Berkeley EECS.
-
-\bibitem{16-graph-slam}
-W.~Burgard.
-\newblock Graph-based {SLAM}.
-\newblock
-  http://ais.informatik.uni-freiburg.de/teaching/ss18/robotics/slides/16-graph-slam.pdf,
-  07 2018.
-\newblock UNI Freiburg.
-
 \bibitem{Past_Present_and_Future_of_Simultaneous_Localization_And_Mapping}
 C.~Cadena, L.~Carlone, H.~Carrillo, Y.~Latif, D.~Scaramuzza, J.~Neira, I.~D.
   Reid, and J.~J. Leonard.
@@ -54,6 +38,11 @@ J.~Engel, J.~Sturm, and D.~Cremers.
   Computer Vision}, ICCV '13, pages 1449--1456, Washington, DC, USA, 2013. IEEE
   Computer Society.
 
+\bibitem{benchmark}
+J.~Engel, V.~C. Usenko, and D.~Cremers.
+\newblock A photometrically calibrated benchmark for monocular visual odometry.
+\newblock {\em CoRR}, abs/1607.02555, 2016.
+
 \bibitem{LDSO}
 X.~Gao, R.~Wang, N.~Demmel, and D.~Cremers.
 \newblock Ldso: Direct sparse odometry with loop closure.
@@ -71,22 +60,10 @@ G.~{Klein} and D.~{Murray}.
 \newblock In {\em 2007 6th IEEE and ACM International Symposium on Mixed and
   Augmented Reality}, pages 225--234, Nov 2007.
 
-\bibitem{evo}
-{Michael Grupp}.
-\newblock evo.
-\newblock \url{https://michaelgrupp.github.io/evo/}.
-\newblock [Online].
-
 \bibitem{ROS}
 {Open Source Robotics Foundation}.
 \newblock Documentation - ros wiki.
 \newblock \url{http://wiki.ros.org}.
-\newblock [Online].
-
-\bibitem{BagFromImages}
-{Raul Mur-Artal}.
-\newblock Bagfromimages.
-\newblock \url{https://github.com/raulmur/BagFromImages}.
 \newblock [Online].
 
 \bibitem{Taketomi_visual}
@@ -98,12 +75,6 @@ S.~I. Takafumi~Taketomi, Hideaki~Uchiyama.
 {Technical University of Munich}.
 \newblock Computer vision group - datasets - monocular visual odometry dataset.
 \newblock \url{https://vision.in.tum.de/data/datasets/mono-dataset}.
-\newblock [Online].
-
-\bibitem{tum_evo}
-{TUM Computer Vision Group}.
-\newblock Matlab evaluation code.
-\newblock \url{https://github.com/tum-vision/mono_dataset_code}.
 \newblock [Online].
 
 \bibitem{gauss-newton}

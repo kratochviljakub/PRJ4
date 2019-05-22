@@ -12,12 +12,15 @@
 \usepackage{enumitem}
 \usepackage{listings}
 \usepackage{amsmath}
+\usepackage{textcomp}
 \usepackage{amssymb}
 \usepackage{url}
 \usepackage[left=25mm,right=25mm,top=30mm,bottom=20mm]{geometry}
 \bibliographystyle{abbrv}
 \def\dotfill#1{\cleaders\hbox to #1{.}\hfill}
 \newcommand\dotline[2][.5em]{\leavevmode\hbox to #2{\dotfill{#1}\hfil}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 
 
@@ -40,9 +43,9 @@ Katedra kybernetiky \\
 \textbf{\thetitle}\\
 \end{huge}
 \vspace{2cm}
-\begin{LARGE}
-Vlastnosti systémů pro přímou vizuální simultánní lokalizaci a mapování
-\end{LARGE}
+%\begin{LARGE}
+%Vlastnosti systémů pro přímou vizuální simultánní lokalizaci a mapování
+%\end{LARGE}
 \end{center}
 \vspace{7cm}
 \begin{large}
@@ -122,12 +125,13 @@ Landmarky nebo také majáky jsou nezaměnitelné a snadno rozpoznatelné orient
 
 Další z impulzů vývoje simultánní lokalizace a mapování byl špatný odhad pohybu získaný z odometrie kol, čímž se rozumí například počet otáček, úhel natočení apod. \cite{Past_Present_and_Future_of_Simultaneous_Localization_And_Mapping}. Tento odhad se navíc s ujetou vzdáleností zhoršuje (tzv. drift) a tím znemožňoval použití pro správnou a přesnou lokalizaci i tvorbu mapy. Nicméně dnešní algoritmy dokáží snížit drift na přijatelnou hodnotu 0,5\% a méně, takže v tomto ohledu není nutno využívat SLAM. 
 
-V čem je ale stále nenahraditelný, je schopnost tzv. uzavírání smyček. Při použití dat pouze z odometrie robot vnímá svět jako "nekonečný koridor", ve kterém neustále zkoumá nové oblasti (Obrázek 1 vlevo). SLAM ale dokáže robotem vytvořenou smyčku takzvaně uzavřít, protože porovná aktuální landmarky s těmi dříve objevenými a tím dokáže správně porozumět topologii prostředí a v mapě určit, že tyto dvě chodby se protínají (Obrázek 1 vpravo). Levá mapa je vytvořená pomocí odometrie a znázorňuje jeden dlouhý koridor od bodu A do B. Body, které jsou ve skutečnosti blízko (B a C) mohou být podle této mapy libovolně daleko. Pravá mapa je vytvořená pomocí SLAM s využití uzavírání smyček, kde je znázorněná správná topologie prostředí, neboť robot správně našel "zkratku" mezi dvěma koridory \cite{Past_Present_and_Future_of_Simultaneous_Localization_And_Mapping}.
+V čem je ale stále nenahraditelný, je schopnost tzv. uzavírání smyček. Při použití dat pouze z odometrie robot vnímá svět jako "nekonečný koridor", ve kterém neustále zkoumá nové oblasti (Obrázek \ref{1} vlevo). SLAM ale dokáže robotem vytvořenou smyčku takzvaně uzavřít, protože porovná aktuální landmarky s těmi dříve objevenými a tím dokáže správně porozumět topologii prostředí a v mapě určit, že tyto dvě chodby se protínají (Obrázek \ref{1} vpravo). Levá mapa je vytvořená pomocí odometrie a znázorňuje jeden dlouhý koridor od bodu A do B. Body, které jsou ve skutečnosti blízko (B a C) mohou být podle této mapy libovolně daleko. Pravá mapa je vytvořená pomocí SLAM s využití uzavírání smyček, kde je znázorněná správná topologie prostředí, neboť robot správně našel "zkratku" mezi dvěma koridory \cite{Past_Present_and_Future_of_Simultaneous_Localization_And_Mapping}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=1]{img/Obr1_b} 
+\includegraphics[scale=1]{img/Obr1_b}
 \caption{Levá část - odometrie, pravá část - SLAM} 
+\label{1}
 \end{figure}
 
 
@@ -141,12 +145,13 @@ Například mapování vnitřního 2D prostředí s robotem vybaveným snímače
 
 
 \section{Pravděpodobnostní definice}
-Uvažujme mobilního robota, který se pohybuje v neznámém prostředí a pomocí svých senzorů pořizuje relativní pozorování okolních landmarků (obr.2).
+Uvažujme mobilního robota, který se pohybuje v neznámém prostředí a pomocí svých senzorů pořizuje relativní pozorování okolních landmarků. Schématické znázornění této situace je v obrázku \ref{2}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{img/Obr2_b}
 \caption{Skutečné umístění landmarků ani robota není nikdy známo, jen jejich vzájemná poloha \cite{Durrant-Whyte}.}
+\label{2}
 \end{figure}
 
 V okamžiku \textit{k} definujeme následující veličiny a zároveň vektory jejich historie od počátku snímání až do aktuálního časového kroku:
@@ -213,17 +218,18 @@ Takové rozdělení by vedlo k nekonzistentnosti odhadů a nepoužitelným výsl
 \chapter{Graph-Based SLAM}
 Pravděpodobnostní přístup se v dnešní době již téměř nepoužívá, avšak na jeho základech staví všechny vyspělejší algoritmy. Jedním z nich je pravděpodobnostní SLAM, jehož hlavní myšlenka je založená na použití pravděpodobnostních filtrů. Z tohoto přístupu se vyvinul Graph SLAM, který je v mnoha ohledech lepší a rychlejší a bude hlavní náplní této práce. 
 
-Při tomto přístupu se k ukládání dat používá graf. Uzel grafu reprezentuje stav robota a měření provedená z tohoto stavu. Hrany mezi uzly představují jejich vzájemnou polohu. Cílem algoritmu je najít takové rozložení uzlů, které minimalizuje čtvercovou chybu rozdílu pozorování a "virtuálního pozorování" \cite{GraphSLAM}. Tím se získá nejlepší odhad mapy. Optimalizace neprobíhá po každém novém pozorování, čímž se Graph SLAM řadí mezi offline metody řešení.
+Při tomto přístupu se k ukládání dat používá graf. Uzel grafu reprezentuje stav robota a měření provedená z tohoto stavu. Hrany mezi uzly představují jejich vzájemnou polohu. Cílem algoritmu je najít takové rozložení uzlů, které minimalizuje čtvercovou chybu rozdílu pozorování a "virtuálního pozorování" \cite{tutorialGraph}. Tím se získá nejlepší odhad mapy. Optimalizace neprobíhá po každém novém pozorování, čímž se Graph SLAM řadí mezi offline metody řešení.
 
 Formulace SLAM pomocí grafu byla poprvé představena v roce 1997, avšak kvůli vysoké výpočetní náročnosti trvalo ještě několik let, než se začala používat v reálných aplikacích. V dnešní době patří Graph SLAM k nejmodernějším technikám, co se rychlosti a přesnosti týče.
 
 \section{Definice}
-Pro správný chod graph SLAMu musí fungovat souhra mezi jeho dvěma částmi front-end a back-end. Front-end se obecně stará o sestrojení samotného grafu a back-end o jeho optimalizaci a tedy i optimalizaci mapy. Následující schéma znázorňuje průchod dat metodou Graph SLAM. Nezpracovaná data (pozorování, odometrie) nejdříve zpracuje front-end a vytvoří graf. Ten po daném okamžiku putuje do back-endu, kde se optimalizací získá nejlepší odhad mapy prostředí a poté předá opět do první části \cite{16-graph-slam}.
+Pro správný chod graph SLAMu musí fungovat souhra mezi jeho dvěma částmi front-end a back-end. Front-end se obecně stará o sestrojení samotného grafu a back-end o jeho optimalizaci a tedy i optimalizaci mapy. Schéma na obrázku \ref{3} znázorňuje průchod dat metodou Graph SLAM. Nezpracovaná data (pozorování, odometrie) nejdříve zpracuje front-end a vytvoří graf. Ten po daném okamžiku putuje do back-endu, kde se optimalizací získá nejlepší odhad mapy prostředí a poté předá opět do první části \cite{tutorialGraph}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=1.2]{img/Obr3.pdf}
 \caption{Schéma toku dat v Graph SLAM}
+\label{3}
 \end{figure}
 
 \subsection{Front-end}
@@ -231,11 +237,12 @@ První část vytváří graf, kterým reprezentuje mapu prostředí. Každý uz
 
 Využívá se scan matching, který porovnává dvě pozorování z uzlů $x_i$ a $x_j$ z různých časových okamžiků a v případě zjištění podobnosti je vypočítána relativní poloha uzlů $x_i$ a $x_j$. To je ve skutečnosti transformace pozorování z $x_i$ taková, aby se maximálně překrývalo s pozorováním uzlu $x_j$. Tuto transformaci nazýváme virtuálním pozorováním.
 
-Znázornění problému je v obrázku 4, kde $x_i$ je aktuální uzel, $x_j$ je uzel, ve kterém bylo provedeno podobné pozorování jako to aktuální, $\hat{z}_{ij}$ je predikce virtuálního měření reprezentující "jak uzel $i$ vidí uzel $j$", $z_{ij}$ je virtuální měření, $\Omega_{ij}$ je informační matice virtuálního měření a $e_{ij}(x_i, x_j)$ je funkce, která vyjadřuje rozdíl virtuálního a predikovaného měření.
+Znázornění problému je v obrázku \ref{4}, kde $x_i$ je aktuální uzel, $x_j$ je uzel, ve kterém bylo provedeno podobné pozorování jako to aktuální, $\hat{z}_{ij}$ je predikce virtuálního měření reprezentující "jak uzel $i$ vidí uzel $j$", $z_{ij}$ je virtuální měření, $\Omega_{ij}$ je informační matice virtuálního měření a $e_{ij}(x_i, x_j)$ je funkce, která vyjadřuje rozdíl virtuálního a predikovaného měření.
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.8]{img/Obr4_b}
 \caption{Znázornění virtuálního měření a jeho predikce \cite{tutorialGraph}.}
+\label{4}
 \end{figure}
 
 
@@ -324,21 +331,30 @@ Na druhou stranu nevýhodou je nemožnost získání informace o hloubce prostř
 Dále se bude práce zabývat pouze přímými metodami řešení úlohy vizuální lokalizace a mapování. Nejdůležitější z nich budou podrobněji popsány v této kapitole.
 
 \section{Semi-Dense Visual Odometry}
-Tato metoda je pouze vizuální odometrií a není tedy určená pro sestavování globální mapy prostředí, ale přišla s přístupem, na kterém staví některé následující metody, které již jsou plnohodnotnými SLAM algoritmy. Klíčovou myšlenkou je průběžně odhadovat polo-hustou inverzní hloubkovou mapu pro aktuální snímek, která se dále používá pro sledování pohybu kamery pomocí zarovnání obrazu. Polo-hustou se rozumí hloubková mapa, která neobsahuje hloubkovou informaci pro každý pixel, ale pouze pro podmnožinu pohybujících se pixelů (mají nezanedbatelný obrazový gradient). Tím se značně sníží výpočetní náročnost oproti použití husté hloubkové mapy. Každý odhad je reprezentován jako Gaussovo rozdělení pravděpodobnosti nad inverzní hloubkou. Tyto informace jsou navíc aktualizovány v průběhu času při příchodu nových snímků. Celý algoritmus běží v reálném čase na CPU.
+Jedná se o přístup řešící problém vizuální odometrie, která oproti SLAMu neřeší globální mapu prostředí, ale přišla s přístupem, na kterém staví některé následující metody, které již jsou plnohodnotnými SLAM algoritmy \cite{Semi-Dense_VO}. Klíčovou myšlenkou je průběžně odhadovat polo-hustou inverzní hloubkovou mapu pro aktuální snímek, která se dále používá pro sledování pohybu kamery pomocí zarovnání obrazu. Polo-hustou se rozumí hloubková mapa, která neobsahuje hloubkovou informaci pro každý pixel, ale pouze pro podmnožinu pohybujících se pixelů majících nezanedbatelný obrazový gradient. Ukázka rozdílu mezi hustou a polo-hustou hloubkovou mapou je znázorněna v obrázku \ref{5}. Tím se značně sníží výpočetní náročnost oproti použití husté hloubkové mapy. Každý odhad je reprezentován jako Gaussovo rozdělení pravděpodobnosti nad inverzní hloubkou. Tyto informace jsou navíc aktualizovány v průběhu času při příchodu nových snímků. Celý algoritmus běží v reálném čase na CPU.
 
 \subsection*{Odhad hloubkové mapy}
-Hlavní částí tohoto algoritmu je odhad polo-husté inverzní hloubkové mapy pro aktuální obraz, která může být použita pro odhad pozice kamery u následujícího snímku. Tato mapa se průběžně šíří ze snímku do snímku a zpřesňuje se novými hloubkovými měřeními. Ty získáváme porovnáním jednotlivých pixelů s použitím adaptivní základní čáry (tzv. baseline) u minimálně dvou prostorově posunutých snímků. To umožňuje přesně odhadnout hloubku blízkých i vzdálených částí obrazu. Je vhodné použití více délek baseline, neboť pomocí krátké baseline určíme jednu hodnotu hloubky, avšak ne příliš přesně. Při použití dlouhé baseline dostáváme více přesných hodnot. Jejich kombinací lze dosáhnout správné a přesné hodnoty hloubky pixelu.
+Hlavní částí tohoto algoritmu je odhad polo-husté inverzní hloubkové mapy pro aktuální obraz, která může být použita pro odhad pozice kamery u následujícího snímku. Tato mapa se průběžně šíří ze snímku do snímku a zpřesňuje se novými hloubkovými měřeními. Ty získáváme porovnáním jednotlivých pixelů s použitím adaptivní základní čáry (tzv. baseline) u minimálně dvou prostorově posunutých snímků. To umožňuje přesně odhadnout hloubku blízkých i vzdálených částí obrazu. Je vhodné použití více délek baseline, neboť pomocí krátké baseline určíme jednu hodnotu hloubky, avšak ne příliš přesně. Při použití dlouhé baseline dostáváme více přesných hodnot. Jejich kombinací lze dosáhnout správné a přesné hodnoty hloubky pixelu. Použití baseline demonstrují obrázky \ref{6} a \ref{6b}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{img/hloubkova_mapa.jpg}
 \caption{Ukázka polo-husté hloubkové mapy \cite{Semi-Dense_VO}.}
+\label{5}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{img/baseline.jpg}
 \caption{Ukázka pojmu baseline na reálných datech \cite{Semi-Dense_VO}.}
+\label{6}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{img/baseline2.png}
+\caption{Určování přesné hloubky pomocí různých délek baseline \cite{Semi-Dense_VO}.}
+\label{6b}
 \end{figure}
 
 \subsection*{Aktualizace hloubkové mapy}
@@ -353,7 +369,7 @@ Sledování a odhad hloubky běží na dvou samostatných vláknech. Jedno průb
 Je použita standardní metoda založená na klíčových bodech pro získání relativní pozice kamery mezi dvěma počátečními snímky, které se pak používají k inicializaci inverzní hloubkové mapy. Po proběhnutí této inicializace je metoda zcela samostatná. Ve většině případů je algoritmus dokonce schopen zotavit se z náhodných nebo extrémně nepřesných počátečních hloubkových map, což naznačuje, že inicializace založená na klíčových bodech by se mohla v budoucnu stát nadbytečnou.
 
 \section{LSD-SLAM}
-Metoda Large-Scale Direct monocular SLAM umožňuje vytvářet konzistentní rozsáhlé mapy prostředí. Používá přímé zpracování vstupního obrazu spolu s odhadem založeným na filtraci polo-hustých hloubkových map, které přinesla zmiňovaná metoda Semi-Dense Visual Odometry \cite{Semi-Dense_VO}. Globální mapa je reprezentována jako graf, jehož vrcholy představují vstupní obrazy a 3D transformace podobnosti znázorňují hrany umožňující detekci a opravu nahromaděné chyby. Metoda běží v reálném čase na CPU a jako odometrie i na smartphonu.
+Metoda Large-Scale Direct monocular SLAM umožňuje vytvářet konzistentní rozsáhlé mapy prostředí. Používá přímé zpracování vstupního obrazu spolu s odhadem založeným na filtraci polo-hustých hloubkových map, které přinesla zmiňovaná metoda Semi-Dense Visual Odometry \cite{Semi-Dense_VO}. Globální mapa je reprezentována jako graf, jehož vrcholy představují vstupní obrazy a 3D transformace pak znázorňují hrany mezi vrcholy grafu. Metoda běží v reálném čase na CPU a jako odometrie i na smartphonu.
 
 \subsection*{Přehled metody}
 Algoritmus se skládá ze tří hlavních částí:
@@ -387,34 +403,41 @@ Navržený model umožňuje některá pozorování použít vícekrát, zatímco
 \subsection*{Správa snímků}
 Metoda stále drží klouzavé okno maximálně \textit{N} aktivních snímků (standardně \textit{N} = 7). Každý nový snímek je zpočátku sledován s respektem k těmto referenčním snímkům.
 
-\paragraph*{1) Počátek sledování nových snímků.} Při inicializaci nového klíčového snímku jsou do něj promítnuty a mírně rozšířeny všechny aktivní body a tím vytvořena polo-hustá hloubková mapa. Nové snímky jsou sledovány s ohledem pouze na tento klíčový snímek. Obrázek 7 ukazuje některé příklady inicializace hloubkové mapy. Zároveň je zde dobře vidět používaná hustota hloubkové mapy, kde další zvyšování hustoty by vedlo pouze k minimálnímu zlepšení přesnosti a robustnosti, avšak by významně zpomalilo běh algoritmu. Za povšimnutí stojí rozložení stejného počtu hloubkových bodů. V hustě texturovaných prostředích (vlevo) jsou rozprostřené po celém snímku, zatímco při malé části texturovaného obrazu jsou rozloženy podobně jako v LSD SLAMu.
+\paragraph*{1) Počátek sledování nových snímků.} Při inicializaci nového klíčového snímku jsou do něj promítnuty a mírně rozšířeny všechny aktivní body a tím vytvořena polo-hustá hloubková mapa. Nové snímky jsou sledovány s ohledem pouze na tento klíčový snímek. Obrázek \ref{7} ukazuje některé příklady inicializace hloubkové mapy. Zároveň je zde dobře vidět používaná hustota hloubkové mapy, kde další zvyšování hustoty by vedlo pouze k minimálnímu zlepšení přesnosti a robustnosti, avšak by významně zpomalilo běh algoritmu. Za povšimnutí stojí rozložení stejného počtu hloubkových bodů. V hustě texturovaných prostředích (vlevo) jsou rozprostřené po celém snímku, zatímco při malé části texturovaného obrazu jsou rozloženy podobně jako v LSD SLAMu.
 
 Předpokládá se, že selhalo přímé zarovnání obrazu, pokud je střední kvadratická odchylka aktuálního snímku větší nebo rovna dvojnásobku odchylky předchozího snímku. Poté se metoda snaží obnovit novou inicializací provedením až 27 různými malými rotacemi v různých směrech. Každý takový pokus trvá přibližně 0,5ms, ale je potřeba jen velmi zřídka, a to v případech, kdy se kamera pohybuje velmi rychle nebo roztřeseně.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.64]{img/Obr5_b.png}
-\caption{Příklady hloubkových map. V horní řadě jsou originální snímky, v dolní snímky s promítnutými hloubkovými mapami.  \cite{Engel2018_DSO}.}
+\includegraphics[scale=0.60]{img/Obr5_b.png}
+\caption{Příklady hloubkových map. V horní řadě jsou originální snímky, v dolní snímky s promítnutými hloubkovými mapami \cite{Engel2018_DSO}.}
+\label{7}
 \end{figure}
 
 \paragraph*{2) Vytváření klíčových snímků.} Metoda zpočátku vytvoří několik klíčových snímků (přibližně 5-10 za vteřinu) a poté je vytřídí marginalizací nadbytečných snímků. Kombinují se zde 3 pravidla k rozhodnutí, zda je třeba vytvořit nový klíčový snímek:
 \begin{itemize}
 \item První pravidlo sleduje změnu zorného pole, kterou reprezentuje střední kvadratický optický tok z posledního klíčového snímku do posledního snímku
  
-\( f:=(\frac{1}{n}\sum_{i=1}^n||\textbf{p}-\textbf{p}'||^2)^\frac{1}{2} \), kde \textbf{p} je fotometrická chyba a \(\textbf{p}'\) je promítnutá pozice \textbf{p} s inverzní hloubkou.
+\( f:=(\frac{1}{n}\sum_{i=1}^n||\textbf{p}-\textbf{p}'||^2)^\frac{1}{2} \), kde \textbf{p} je fotometrická chyba a \(\textbf{p}'\) je promítnutá pozice \textbf{p} s inverzní hloubkou. Fotometrická chyba je rozdíl intenzity mezi pixely pozorující stejný bod ve dvou různých snímcích, schématické znázornění je na obrázku \ref{p_error}.
 
 \item Vyšší počet vytvořených klíčových snímků vyžaduje posun kamery, který je měřen středním optickým tokem bez rotace \( f:=(\frac{1}{n}\sum_{i=1}^n||\textbf{p}-\textbf{p}'_t||^2)^\frac{1}{2} \), kde \(\textbf{p}'_t\) je \(\textbf{p}'\) bez rotace.
 
 \item Nový klíčový snímek je vytvořen pokud se významně změní expoziční čas kamery, ten je měřen jako relativní jas mezi dvěma snímky \( a:=|\log(e^{a_j-a_i} t_j t_i^{-1})| \), kde \( e \) je afinní jasová transformační funkce \cite{Engel2018_DSO}.
 \end{itemize}
 
-
 \paragraph*{3) Marginalizace starých klíčových snímků.} Nechť \( I_1 \dots I_n \) je množina aktivních klíčových snímků seřazených od nejnovějšího po nejstarší.
 \begin{itemize}
-\item Dva nejnovější klíčové snímky \( I_1 \) a \( I_2 \) vždy ponecháváme.
+\item Dva nejnovější klíčové snímky \( I_1 \) a \( I_2 \) metoda vždy ponechává.
 \item Všechny snímky s méně než 5\% podílem bodů viditelných v \( I_1 \) jsou marginalizovány.
 \item Pokud je počet aktivních klíčových snímků větší než \( N_f \), marginalizujeme snímek s nejvyšší funkční hodnotou \( s(I_i) \). \( s(I_i)=\sqrt{d(i,1)} \sum_{j=3}^n (d(i,j)+\epsilon)^{-1}, j\neq i \), kde \( d(i,j) \) je eukleidovská vzdálenost mezi snímky \( I_i \) a \( I_j \) a \( \epsilon \) je  malá konstanta. Tato funkce je heuristicky vytvořená pro zachování správného rozdělení snímků v prostoru, s vyšším důrazem na snímky blízké aktuálnímu snímku.
 \end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{img/photometric_error.png}
+\caption{Znázornění fotometrické chyby \(p_i\) mezi pixely \(u_i\) a \(u'_i\) ze dvou různých snímků reprezentujících stejný bod v prostředí.}
+\label{p_error}
+\end{figure}
 
 \subsection*{Správa bodů}
 Většina přímých metod se snaží využívat co nejvíce dostupných obrazových dat, avšak k udržení běhu algoritmu v reálném čase jsou nuceny akumulovat nedokonalé odhady a aproximovat, nebo ignorovat, korelace mezi jednotlivými parametry. Namísto toho DSO využívá silně podvzorkovaná data, díky čemuž je lze v reálném čase řádně optimalizovat. Experimenty navíc dokazují, že obrazová data jsou silně redundantní a využití většího množství dat není zásadní výhodou. 
@@ -432,29 +455,37 @@ Abychom dosáhli stejného rozdělení bodů, rozdělíme obraz na \( d \times d
 \section{Direct Sparse Odometry with Loop Closure}
 Zkráceně LDSO je rozšířením popsaného Direct Sparse Odometry (DSO) o uzavírání smyček a optimalizaci pozic robota. Tím se z LDSO stává plnohodnotná SLAM metoda.
 
-Typický vizuální SLAM se skládá z frontend, starajícího se o sledování pohybu kamery a backend, který vytváří a spravuje mapu prostředí a zmenšuje nahromaděnou chybu pomocí uzavírání smyček a globální optimalizace. LDSO přišlo s nápadem přizpůsobit DSO k použití na frontend pro odhad vizuální odometrie a v backend části dělat korekci její chyby s využitím uzavírání smyček a optimalizace mapy. Přičemž samotný DSO se již skládá ze svého frontend a backend. Tento přístup je vhodný například pro vyčíslení fotometrické chyby, neboť za normálních okolností by musely být v paměti uchovány obrazy minulých klíčových snímků a při začlenění měření z těchto snímků do výpočtu je obtížné zajistit konzistenci odhadu, protože stejná obrazová informace je již použita v marginalizaci a neměla by být používána znovu. Navíc zakomponování uzavírání smyček díky minimalizaci chyb translace, rotace a měřítka otevírá možnosti použití algoritmu v rozsáhlejších prostředích.
+Typický vizuální SLAM se skládá z frontendu, starajícího se o sledování pohybu kamery a backendu, který vytváří a spravuje mapu prostředí a zmenšuje nahromaděnou chybu pomocí uzavírání smyček a globální optimalizace. LDSO přišlo s nápadem přizpů\-sobit DSO k použití na frontendu pro odhad vizuální odometrie a v backendové části dělat korekci její chyby s využitím uzavírání smyček a optimalizace mapy. Přičemž samotný DSO se již skládá ze svého frontendu a backendu. Tento přístup je vhodný například pro vyčíslení fotometrické chyby, neboť za normálních okolností by musely být v paměti uchovány obrazy minulých klíčových snímků a při začlenění měření z těchto snímků do výpočtu je obtížné zajistit konzistenci odhadu, protože stejná obrazová informace je již použita v marginalizaci a neměla by být používána znovu. Navíc zakomponování uzavírání smyček díky minimalizaci chyb translace, rotace a měřítka otevírá možnosti použití algoritmu v rozsáhlejších prostředích.
 
-Detekce smyček je v nepřímých vizuálních metodách nejčastěji založena na indexování významných částí obrazu (například metoda Bag of words, která části obrazu reprezentuje slovy a celý obraz histogramem těchto slov) a je snadno aplikovatelná na nepřímou vizuální odometrii opětovným použitím významných částí obrazu z fronted. V přímých metodách to však není tak jednoduché. Pokud budeme detekovat a porovnávat části obrazu nezávisle odděleně od fronted, nemusíme získat hloubkové odhady bodů potřebných pro efektivní výpočet pozičních omezení robota. Naopak při pokusu znovu použít body z fronted a vypočítat pro ně identifikátory, pravděpodobně nebudou odpovídat opakujícím se částem obrazu a vedou ke špatné detekci uzavření smyčky. Vizuální odometrie byly v minulosti rozšiřovány na SLAM buď za použití porovnání podobnosti klíčových snímků a následné vyhodnocení uzavření smyček, nebo výpočty důležitých částí obrazu odděleně od fronted. To vyžaduje dostupnost klíčových snímků po celou dobu běhu algoritmu. LDSO namísto toho navrhuje, aby výběr bodů směřoval k opakovatelně použitelným částem obrazu a použití geometrických funkcí k výpočtu pozičních omezení.
+Detekce smyček je v nepřímých vizuálních metodách nejčastěji založena na indexování významných částí obrazu (například metoda Bag of words, která části obrazu reprezentuje slovy a celý obraz histogramem těchto slov) a je snadno aplikovatelná na nepřímou vizuální odometrii opětovným použitím významných částí obrazu z frontedu. V přímých metodách to však není tak jednoduché. Pokud budeme detekovat a porovnávat části obrazu nezávisle a odděleně od frontedu, nemusíme získat hloubkové odhady bodů potřebných pro efektivní výpočet pozičních omezení robota. Naopak při pokusu znovu použít body z frontedu a vypočítat pro ně identifikátory, pravděpodobně nebudou odpovídat opakujícím se částem obrazu a vedou ke špatné detekci uzavření smyčky. Vizuální odometrie byly v minulosti rozšiřovány na SLAM buď za použití porovnání podobnosti klíčových snímků a následné vyhodnocení uzavření smyček, nebo výpočty důležitých částí obrazu odděleně od frontedu. To vyžaduje dostupnost klíčových snímků po celou dobu běhu algoritmu. LDSO namísto toho navrhuje, aby výběr bodů směřoval k opakovatelně použitelným částem obrazu a použití geometrických funkcí k výpočtu pozičních omezení.
 
 \paragraph*{Souhrn provedených vylepšení:}
 \begin{itemize}
-\item Strategii bodového výběru DSO přizpůsobujeme tak, aby byla zajištěna možnost opakovaného použití rohových klíčových bodů a zároveň zachována robustnost v slabě texturovaných prostředích. Vybrané rohové prvky jsou poté použity pro detekci uzavření smyčky s použitím Bag of words.
+\item LDSO přizpůsobuje strategii bodového výběru z DSO tak, aby byla zajištěna mož\-nost opakovaného použití rohových klíčových bodů a zároveň zachována robustnost v slabě texturovaných prostředích. Vybrané rohové prvky jsou poté použity pro detekci uzavření smyčky s použitím Bag of words.
 \item Využíváme hloubkových odhadů odpovídajících si klíčových bodů pro výpočet \newline pozičních omezení v kombinaci s poziční optimalizací, zarovnání mračna bodů a překrytím grafem relativních pozic získaných z optimalizovaného posuvného okna z DSO.
-\item Na veřejně dostupných souborech dat demonstrujeme, že bodový výběr zachovává přesnost i robustnost a optimalizace grafu pozic významně snižuje chybu odometrie a vede k výkonu srovnatelnýmu s nejlepšími nepřímými metodami i bez použití globální optimalizace.
+\item Na veřejně dostupných souborech dat demonstrujeme, že bodový výběr zachovává přesnost i robustnost a optimalizace grafu pozic významně snižuje chybu odometrie a vede k výkonu srovnatelnému s nejlepšími nepřímými metodami i bez použití globální optimalizace.
 \end{itemize}
 
-Na obrázku 8 lze vidět rozdíl po detekci a uzavření smyčky ve veřejně dostupných datech z Technické univerzity Mnichov. Černou barvou je trajektorie před uzavřením a bílou po uzavření smyčky. V přiblížených výřezech lze vidět vylepšení zarovnání mračna bodů.
+Na obrázku \ref{8} lze vidět rozdíl po detekci a uzavření smyčky ve veřejně dostupných datech z Technické univerzity Mnichov. Černou barvou je trajektorie před uzavřením a bílou po uzavření smyčky. V přiblížených výřezech lze vidět vylepšení zarovnání mračna bodů.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.75]{img/Obr6_b.png}
-\caption{Ilustrace jak LDSO zmenší nahromaděnou chybu po uzavření smyčky.\cite{LDSO}.}
+\caption{Ilustrace jak LDSO zmenší nahromaděnou chybu po uzavření smyčky \cite{LDSO}.}
+\label{8}
 \end{figure}
 
 \subsection*{Uzavírání smyček}
-Pro dlouhodobé uzavírání smyček v DSO je zapotřebí zavést globální optimalizační linku zajišťující vyhledávání a validaci smyček. Kvůli nutnosti ukládání všech obrazů a velkému množství bodů v 3D mapě bylo zavrženo použití globální fotometrické optimalizace a místo toho zvolena optimalizace grafu pozic. Vedle okna DSO přidáme globální poziční graf, abychom udrželi spojení mezi klíčovými snímky. Z posuvného okna DSO přebereme relativní 3D transformace pozic mezi klíčovými snímky. Pro detekci a validaci smyček spoléháme na metodu Bag of words. Pokud je kandidát smyčky schválen, je vypočtena jeho vazba s ohledem na aktuální klíčový snímek a přidána do globálního grafu pozic, který je poté optimalizován pro zpřesnění dlouhodobého odhadu pozice robota.
+Pro dlouhodobé uzavírání smyček v DSO je zapotřebí zavést globální optimalizační linku zajišťující vyhledávání a validaci smyček. Kvůli nutnosti ukládání všech obrazů a velkému množství bodů v 3D mapě bylo zavrženo použití globální fotometrické optimalizace a místo toho zvolena optimalizace grafu pozic. Vedle okna DSO přidáme globální poziční graf, abychom udrželi spojení mezi klíčovými snímky. Z posuvného okna DSO přebereme relativní 3D transformace pozic mezi klíčovými snímky. Pro detekci a validaci smyček spoléháme na metodu Bag of words. Pokud je kandidát smyčky schválen, je vypočtena jeho vazba s ohledem na aktuální klíčový snímek a přidána do globálního grafu pozic, který je poté optimalizován pro zpřesnění dlouhodobého odhadu pozice robota. Schématické znázornění tohoto rozvržení je v obrázku \ref{ldso_frame}.
 
-Přímé metody, na rozdíl od nepřímých, při výběru bodů nevyžadují jejich opakovatelné použití, které je ale vhodné pro hledání shody obrazu v problému uzavírání smyček. DSO používá dynamické vyhledávání v mřížce pro získání dostatečného počtu pixelů i ve slabě texturovaných prostředích. Tuto strategii v LDSO upravujeme tak, aby byla citlivější na rohové body při zachování potřebného počtu pixelů (standardně 2000). Vizuální odometrie v frontend používá jak rohové, tak nerohové pixely pro sledování pohybu kamery, čímž udržuje dodatečnou režii pro extrakci důležitých částí obrazu z vlákna pro uzavírání smyček na minimu.
+Přímé metody, na rozdíl od nepřímých, při výběru bodů nevyžadují jejich opakovatelné použití, které je ale vhodné pro hledání shody obrazu v problému uzavírání smyček. DSO používá dynamické vyhledávání v mřížce pro získání dostatečného počtu pixelů i ve slabě texturovaných prostředích. Tuto strategii v LDSO upravujeme tak, aby byla citlivější na rohové body při zachování potřebného počtu pixelů (standardně 2000). Vizuální odometrie ve frontendu používá jak rohové, tak nerohové pixely pro sledování pohybu kamery, čímž udržuje dodatečnou režii pro extrakci důležitých částí obrazu z vlákna pro uzavírání smyček na minimu.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{img/LDSO_frame.png}
+\caption{Schématické rozvržení uzavírání smyček v metodě LDSO.}
+\label{ldso_frame}
+\end{figure}
 
 \subsection*{Shrnutí}
 LDSO ukazuje možný přístup začlenění uzavírání smyček a globální mapovou optimalizaci do přímé vizuální odometrie. Výběr bodů z DSO je přizpůsoben tak, aby zahrnoval znovu použitelné části obrazu. Pro ty jsou následně vypočítány identifikátory a vytvořeny modely metodou Bag of words pro detekci smyček. Tyto změny zachovávají robustnost a přesnost původní odometrie, přičemž snižují globální chybu rotace, posuvu i měřítka \cite{LDSO}.
@@ -468,7 +499,7 @@ Mnoho metod pro lokalizaci a mapování je uzpůsobeno na provozování s pomoc�
 
 Základní prvek ROSu je uzel (\textit{node}), který představuje běžící proces. Takových uzlů může být mnoho, neboť je pravidlem, že každý vykonává pouze svou jedinou funkci (například ovládání motorů, poskytování grafického rozhraní, výpočet polohy apod.). Každý uzel je připojen na hlavní uzel \textit{Master}, přes který lze přistupovat ke všem funkcionalitám ROSu - zajišťuje vzájemnou komunikaci uzlů, funguje jako databáze jmen uzlů (uzly by o sobě jinak nevěděly) a musí být vždy spuštěný jako první. 
 
-Uzly mezi sebou mohou komunikovat přímo v rámci peer-to-peer sítě (Master pouze poskytuje jejich adresu). Zpráva (\textit{message}) je jednoduchá datová struktura obsahující typová pole, podporuje standardní primitivní typy (integer, float, boolean atd.), pole primitivních typů nebo vlastní deklarované datové typy (příjemce zprávy musí být s tímto typem obeznámen). Komunikace probíhá přes publish-subscribe model s využitím \textit{topics} pro zasílání zpráv. Pro každý topic může být několik publikovatelů a odběratelů, stejně tak každý uzel může odebírat i publikovat do několika topiců. Topic si lze představit jako datovou sběrnici, která má své jméno a každý uzel se k ní může připojit a posílat či odebírat zprávy, zatímco jednotlivé publikující nebo odebírající uzly o sobě nemají žádné informace. 
+Uzly mezi sebou mohou komunikovat přímo v rámci peer-to-peer sítě (Master pouze poskytuje jejich adresu). Zpráva (\textit{message}) je jednoduchá datová struktura obsahující typová pole, podporuje standardní primitivní typy (integer, float, boolean atd.), pole primitivních typů nebo vlastní deklarované datové typy (příjemce zprávy musí být s tímto typem obeznámen). Komunikace probíhá přes publish-subscribe model s využitím \textit{topics} pro zasílání zpráv. Každý topic může mít několik publikovatelů a odběratelů, stejně tak každý uzel může odebírat i publikovat do několika topiců. Topic si lze představit jako datovou sběrnici, která má své jméno a každý uzel se k ní může připojit a posílat či odebírat zprávy, zatímco jednotlivé publikující nebo odebírající uzly o sobě nemají žádné informace. 
 
 V případě, že uzel potřebuje dostat na zaslanou zprávu odpověď, místo topiců se požívají služby (\textit{services}). Ty jsou definovány jménem a párem zpráv - jedna pro žádost a druhá pro odpověď. Existuje uzel pro poskytování služby pod určitým názvem a klientský uzel tuto službu použije zasláním požadavku a čekáním na odpověď.
 
@@ -482,7 +513,7 @@ ROS funguje jen na Unixových operačních systémech, přičemž konkrétně je
 \section{Testovací data}
 Jako vhodná testovací data (tzv. \textit{datasets}) jsem vybral sekvence určené pro monokulární vizuální odometrii z Technické univerzity Mnichov (TUM). Jsou hojně používané pro testování vizuálních SLAMů, navíc tři ze čtyř testovaných metod byly publikované pod hlavičkou TUM, což zajišťuje lepší kompatibilitu oproti jiným datasetům (například z KITTI - Technologický institut v Karlsruhe). 
 
-Na webových stránkách TUM je volně k dispozici 50 sekvencí určených k vyhodnocení přesnosti sledování metod Vizuální odometrie a SLAM. Sekvence dohromady obsahují přes 100 minut videa (43GB) z různých druhů reálných prostředí počínaje úzkými chodbami v kancelářských budovách po rozlehlá venkovní prostranství. Všechny sekvence obsahují kamerové záznamy začínající i končící ve stejném bodě - to umožňuje porovnat startovní bod s závěrečným bodem obsahujícím akumulovanou chybu bez nutnosti vlastnit kompletní data o skutečné poloze robota v průběhu měření - tzv. ground-truth pro celou sekvenci a také otestovat funkčnost uzavírání smyček. Ground-truth data jsou  tedy v těchto datasetech pouze částečná.
+Na webových stránkách TUM\footnote{\url{https://vision.in.tum.de/data/datasets/mono-dataset}} je volně k dispozici 50 sekvencí určených k vyhodnocení přesnosti sledování metod Vizuální odometrie a SLAM. Sekvence dohromady obsahují přes 100 minut videa (43GB) z různých druhů reálných prostředí počínaje úzkými chodbami v kancelářských budovách po rozlehlá venkovní prostranství. Všechny sekvence obsahují kamerové záznamy začínající i končící ve stejném bodě - to umožňuje porovnat startovní bod s závěrečným bodem obsahujícím akumulovanou chybu bez nutnosti vlastnit kompletní data o skutečné poloze robota v průběhu měření - tzv. ground-truth pro celou sekvenci a také otestovat funkčnost uzavírání smyček. Ground-truth data jsou  tedy v těchto datasetech pouze částečná.
 
 Na rozdíl od většiny existujících datasetů, všechny poskytované sekvence z TUM jsou fotometricky kalibrovány, obsahují expoziční časy pro každý snímek, informace o použité kameře a činitel zeslabení čočky (vinětace) \cite{TUM_datasets}. Všechna data jsou stejně formátovaná, to značně usnadňuje následnou práci, neboť ground-truth jsou v TUM formátu ve tvaru:
 
@@ -498,60 +529,64 @@ a vypočítaná trajektorie získaná z některých metod je ve stejném formát
 \section{Porovnání a výpočet chyb}
 Porovnání výsledné trajektorie a dat z ground-truth není tak triviální, jak by se mohlo zdát. Data nejsou přesně zarovnána v čase a často ani v prostoru, je třeba provést aproximaci, abychom mohli porovnat data z mírně odlišných časových okamžiků. Zároveň posunout informace o poloze tak, aby začínaly ve stejném bodě a často také provést rotaci pro zarovnání porovnávaných trajektorií.
 
-K tomuto účelu používám dva vyhodnocovací algoritmy, prvním je balíček spustitelných Python sobourů a knihoven nazvaný \textit{evo}, který je přímo určený pro vyhodnocování kvality a porovnání trajektorií odometrií a SLAM systémů publikovaný pod licencí GNU GPL \cite{evo}. Z evo využívám zarovnání a vykreslení porovnávaných trajektorií a výpočet relativních chyb.
+K tomuto účelu jsou použity dva vyhodnocovací algoritmy, prvním je balíček spustitelných Python skriptů a knihoven nazvaný \textit{evo}\footnote{\url{https://michaelgrupp.github.io/evo/}}, který je přímo určený pro vyhodnocování kvality a porovnání trajektorií odometrií a SLAM systémů publikovaný pod licencí GNU GPL. Z \textit{evo} je využito zarovnání a vykreslení porovnávaných trajektorií a výpočet relativních chyb.
 
-Druhý algoritmus vytvořila Technická univerzita Mnichov, je to balíček skriptů v Matlabu, dokáže správně zarovnat porovnávanou trajektorii s ground-truth, vykreslit jejich průběh a vypočítat několik druhů statistických chyb \cite{tum_evo}. Skripty jsou zveřejněné na GitHub po licencí BSD.
+Druhý algoritmus vytvořila Technická univerzita Mnichov, je to balíček skriptů v Matlabu, dokáže správně zarovnat porovnávanou trajektorii s ground-truth, vykreslit jejich průběh a vypočítat několik druhů statistických chyb\footnote{\url{https://github.com/tum-vision/mono_dataset_code}}. Skripty jsou zveřejněné na GitHub po licencí BSD.
 
-Posledním používaným nástrojem je mnou napsaný skript v jazyce Python pro převod trajektorie získané odebíráním topicu v ROS do TUM formátu potřebném pro další použití ve vyhodnocovacích algoritmech. Skript, jakož i všechny získané trajektorie je dostupný online na \url{github.com/kratochviljakub/PRJ4/tree/master/Trajektorie_a_kody}.
+Posledním používaným nástrojem je mnou napsaný skript v jazyce Python pro převod trajektorie získané odebíráním topicu v ROS do TUM formátu potřebném pro další použití ve vyhodnocovacích algoritmech. Skript, jakož i všechny získané trajektorie jsou dostupné online\footnote{\url{github.com/kratochviljakub/PRJ4/tree/master/Trajektorie_a_kody}}.
 
 \section{Zprovoznění jednotlivých metod}
 Každá metoda vyžaduje zvláštní přístup, protože jsou rozdílné postupy pro spuštění, extrakci výsledných dat, upravení vstupních dat a řešení případných problémů. V této podkapitole budou popsány všechny postupy aplikované individuálně pro jednotlivé porovnávané metody.
 
 \subsection{SVO}
-Metodu Semi-direct Visual Odometry je možno nainstalovat i spouštět s využitím ROSu, případně zvolit druhou a nedoporučovanou možnost bez ROSu. S výhodami jsem dal na doporučení autorů, přičemž instalace samotného SVO i dalších knihoven potřebných pro správný běh proběhla bez problému i přesto, že byl vyvíjen a testován na starší verzi Ubuntu i ROS. Vzorový způsob spuštění přes launch file s ukázkovým datasetem fungoval správně a v programu RViz jsem mohl sledovat vstupní obrazová data, směr zaměření kamery a uraženou trajektorii. 
+Metodu Semi-direct Visual Odometry je možno nainstalovat i spouštět s využitím ROSu, případně zvolit druhou a nedoporučovanou možnost bez ROSu. S výhodami bylo dáno na doporučení autorů, přičemž instalace samotného SVO i dalších knihoven potřebných pro správný běh proběhla bez problému i přesto, že byl vyvíjen a testován na starší verzi Ubuntu i ROS. Vzorový způsob spuštění přes launch file s ukázkovým datasetem fungoval správně a v programu RViz bylo možné sledovat vstupní obrazová data, směr zaměření kamery a uraženou trajektorii. 
 
-Pro možnost porovnání s ostatními metodami bylo potřeba spustit SVO na datasetu z TUM. SVO však vyžaduje vstupní data v souboru typu bag, zatímco zvolený dataset je pouze složka se sekvencí snímků a inicializačními informacemi. Pro vytvoření bag souboru z TUM datasetu jsem využil BagFromImages, což je přídavný balíček do ROS, který sekvenci obrazů spolu s informací o frekvenci snímání dokáže do bag souboru převést \cite{BagFromImages}. BagFromImages však zahrnuje pouze obrazová data bez dalších informací, takže bylo nutné ručně vytvořit inicializační soubor podle informací z původního datasetu. I přes veškerou snahu, a postupování podle návodu pro tvorbu inicializačních souborů pro SVO, všechny pokusy o správnou inicializaci algoritmu selhaly a z metody jsem tak nedostal žádný použitelný výstup pro porovnání s dalšími metodami.
+Pro možnost porovnání s ostatními metodami bylo potřeba spustit SVO na datasetu z TUM. SVO však vyžaduje vstupní data v souboru typu bag, zatímco zvolený dataset je pouze složka se sekvencí snímků a inicializačními informacemi. Pro vytvoření bag souboru z TUM datasetu je využito BagFromImages\footnote{\url{https://github.com/raulmur/BagFromImages}}, což je přídavný balíček do ROS, který sekvenci obrazů spolu s informací o frekvenci snímání dokáže do bag souboru převést. BagFromImages však zahrnuje pouze obrazová data bez dalších informací, takže bylo nutné ručně vytvořit inicializační soubor podle informací z původního datasetu. I přes veškerou snahu, a postupování podle návodu pro tvorbu inicializačních souborů pro SVO, všechny pokusy o správnou inicializaci algoritmu selhaly a z metody tak nebylo možno dostat žádný použitelný výstup pro porovnání s dalšími metodami.
 
-Přesnost metody mohu porovnat pouze s informacemi z ground-truth ze vzorového datasetu. Vzhledem k tomu, že SVO je pouze odometrií a svojí trajektorii nijak dále neoptimalizuje, mohu výstupní trajektorii extrahovat z algoritmu za pomoci ROS. V novém terminálu spustím příkaz \texttt{rostopic list} pro výpis aktivních topiců. Zjistím, že SVO publikuje trajektorii do topicu \texttt{/svo/pose} a tento topic mohu příkazem 
+Přesnost metody lze porovnat pouze s informacemi z ground-truth ze vzorového datasetu\footnote{\url{rpg.ifi.uzh.ch/datasets/airground_rig_s3_2013-03-18_21-38-48.bag}}. Vzhledem k tomu, že SVO je pouze odometrií a svojí trajektorii nijak dále neoptimalizuje, lze výstupní trajektorii extrahovat z algoritmu za pomoci ROS. V novém terminálu je potřeba spustit příkaz \texttt{rostopic list} pro výpis aktivních topiců, z něj zjistit, že SVO publikuje trajektorii do topicu \texttt{/svo/pose} a tento topic poté příkazem 
 \begin{verbatim}
-rostpic echo /svo/pose > result_svo.txt
+rostopic echo /svo/pose > result_svo.txt
 \end{verbatim}
- odebírat a zároveň zapisovat do souboru \texttt{result\_svo.txt}. Takto získaná trajektorie se uloží za použití odlišného formátování než data z ground-truth a pro použití vyhodnocovacích skriptů je nutnost převést do formátu TUM. Pro tento účel využiji svůj dříve zmíněný skript pro převod dat do formátu vhodném pro další zpracování v \textit{evo}.
+ odebírat a zároveň zapisovat do souboru \texttt{result\_svo.txt}. Takto získaná trajektorie se uloží za použití odlišného formátování než data z ground-truth a pro použití vyhodnocovacích skriptů je nutnost převést do formátu TUM. Pro tento účel je využit můj dříve zmíněný skript pro převod dat do formátu vhodném pro další zpracování v \textit{evo}.
 
 \subsection*{Výsledky} 
-Na následujících dvou obrázcích je vizualizace běhu SVO zobrazená v RViz. V obrázku 9 je vidět uražená trajektorie robota jako tečkovaná křivka, jehlan znázorňuje výseč, kterou momentálně zabírá kamera a malé body v okolí by měly znázorňovat mapu prostředí pomocí mračna bodů, která se bohužel také netvoří jak by měla. Na obrázku 10 lze vidět vstupní snímek s bíle vyznačenými klíčovými body SVO.
+Na následujících dvou obrázcích je vizualizace běhu SVO zobrazená v RViz. V obrázku \ref{9} je vidět uražená trajektorie robota jako tečkovaná křivka, jehlan znázorňuje výseč, kterou momentálně zabírá kamera a malé body v okolí znázorňují mapu prostředí pomocí mračna bodů, která se bohužel také netvoří jak by měla. Na obrázku \ref{10} lze vidět vstupní snímek s bíle vyznačenými klíčovými body SVO.
  
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{img/SVO_rviz_1.png}
 \caption{Vizualizace průběhu SVO v RViz.}
+\label{9}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=1]{img/SVO_rviz_2.png}
 \caption{Vstupní obraz s klíčovými body SVO.}
+\label{10}
 \end{figure}
 
-Na obrázku 11 je vykreslení ground-truth z datasetu použitého u SVO, které na první pohled moc neodpovídá trajektorii. Na obrázku 12 se nám odlišnost potvrdí, neboť i přes zarovnání trajektorie a ground-truth jsou mezi nimi velké rozdíly, avšak patrné i jistá snaha trajektorie kopírovat tvar ground-truth.
+Na obrázku \ref{11} je vykreslení ground-truth z datasetu použitého u SVO, které na první pohled neodpovídá trajektorii. Na obrázku \ref{12} se nám odlišnost potvrdí, neboť i přes zarovnání trajektorie s ground-truth jsou mezi nimi velké rozdíly.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{img/xy_SVO_gt.png}
-\caption{Vykreslení grount-truth z datasetu pro SVO.}
+\caption{Vykreslení ground-truth z datasetu pro SVO.}
+\label{11}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{img/xyz_SVO.png}
 \caption{Porovnání trajektorie SVO a ground-truth}
+\label{12}
 \end{figure} 
 
 Špatné výsledky porovnání potvrzuje i absolutní střední kvadratická odchylka, která vyšla přibližně 0,58 a relativní střední kvadratická odchylka s hodnotou 0,16m.
 
 
 \subsection{LSD}
-Large-Scale Direct Monocular SLAM ke svému běhu i instalaci vyžaduje ROS, přestože jej využívá pouze pro vstup a výstup dat. Je testován na systémech Ubuntu 12.04 s ROS Fuerte a Ubuntu 14.04 s ROS Indigo. První problémy nastaly ihned při instalaci na mnou používaný Ubuntu 16.04 s ROS Kinetic, většinou se týkaly nekompatibility verzí OpenCV, protože LSD SLAM byl vytvořen pro OpenCV verze 2, zatímco ROS Kinetic standardně používá OpenCV verze 3. K vyřešení těchto problémů, kdy LSD SLAM nemohl najít správnou cestu k OpenCV bylo zapotřebí ve složce \texttt{lsd\_slam\_core} pozměnit soubor \texttt{CMakeLists.txt} přidáním řádky
+Large-Scale Direct Monocular SLAM ke svému běhu i instalaci vyžaduje ROS, přestože jej využívá pouze pro vstup a výstup dat. Je testován na systémech Ubuntu 12.04 s ROS Fuerte a Ubuntu 14.04 s ROS Indigo. První problémy se vyskytly ihned při instalaci na používaný Ubuntu 16.04 s ROS Kinetic, většinou se týkaly nekompatibility verzí OpenCV, protože LSD SLAM byl vytvořen pro OpenCV verze 2, zatímco ROS Kinetic standardně používá OpenCV verze 3. K vyřešení těchto problémů, kdy LSD SLAM nemohl najít správnou cestu k OpenCV bylo zapotřebí ve složce \texttt{lsd\_slam\_core} pozměnit soubor \texttt{CMakeLists.txt} přidáním řádky
 \begin{verbatim}
 find_package(OpenCV REQUIRED)
 \end{verbatim}
@@ -574,7 +609,14 @@ ${catkin_LIBRARIES} ${G2O_LIBRARIES} ${OpenCV_LIBS})
 
 Po vyřešení nekompatibility knihoven se objevila nová chyba neodpovídajících si \newline proměnných typů. Proto bylo nutné udělat změny ve zdrojovém souboru \newline \texttt{lsd\_slam\_viewer/src/PointCloudViewer.cpp} a přepsat typ proměnné na řádce 326 z \texttt{float x, y, z;} na tvar \texttt{qreal x, y, z;} a podobnou změnu udělat také v souboru \texttt{lsd\_slam\_viewer/src/PointCLoudViewer.h} a změnit řádku 135 z \texttt{float x, y, z;} na tvar \texttt{qreal x, y, z;}. Následovala již úspěšná instalace.
 
-Spouštění LSD SLAMu se ale také neobešlo bez problémů, neboť při vizualizaci běhu algoritmu se otevře \textit{viewer} a spolu s ním \textit{DebugWindow DEPTH}, který ale ihned po otevření přestane pracovat. Algoritmus však lze do jisté míry provozovat i bez tohoto okna, které slouží pro zobrazení informací o běhu programu, vizualizaci vstupních dat s promítnutými body z LSD a spouštění některých rychlých příkazů. Jako vizualizaci tak máme k dispozici pouze husté mračno bodů tvořící 3D mapu prostředí a uraženou trajektorii.
+Spouštění LSD SLAMu se ale také neobešlo bez problémů, neboť při vizualizaci běhu algoritmu se otevře \textit{viewer} a spolu s ním \textit{DebugWindow DEPTH}, který ale ihned po otevření přestane pracovat. Algoritmus však lze do jisté míry provozovat i bez tohoto okna, které slouží pro zobrazení informací o běhu programu, vizualizaci vstupních dat s promítnutými body z LSD a spouštění některých rychlých příkazů. Jako vizualizaci tak máme k dispozici pouze husté mračno bodů tvořící 3D mapu prostředí a uraženou trajektorii, jak je vidět na obrázku \ref{lsd_run}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{img/LSD_run.png}
+\caption{Vizualizace zobrazená při běhu LSD.}
+\label{lsd_run}
+\end{figure} 
 
 Standardně LSD SLAM očekává vstupní data v bag souboru, obsahujícím obrazové data a kalibrační informace. Pro použití TUM datasetu je nutné algoritmu zvlášť zadat cestu k sekvenci snímků, kalibračnímu souboru a zadat informaci o frekvenci vstupního videa.
 
@@ -587,95 +629,108 @@ rostopic echo /lsd_slam/pose > result_lsd.txt
 \subsection*{Výsledky}
 Ukázalo se, že LSD SLAM neimplementuje žádnou možnost získání globální trajektorie a způsob extrakce za pomocí ROS získává pouze relativní trajektorii se špatným měřítkem, která navíc ani neprošla optimalizací. Metoda tedy podle vizualizace funguje správně, ale výslednou trajektorii jsem nedokázal extrahovat ani při úpravách zdrojových souborů.
 
-Na obrázku 13 je porovnání trajektorií z LSD (s ručně upraveným měřítkem) a LDSO na stejném datasetu a lze pozorovat jistou podobnost i napříč relativními daty z LSD a absolutními daty z LDSO. Explicitně porovnat mezi sebou nebo oproti ground-truth je však nelze.
+Na obrázku \ref{13} je porovnání trajektorií z LSD (s ručně upraveným měřítkem) a LDSO na stejném datasetu a lze pozorovat jistou podobnost i napříč relativními daty z LSD a absolutními daty z LDSO. Explicitně porovnat mezi sebou nebo oproti ground-truth je však nelze.
 
-Obrázky 14 a 15 zobrazují LSD SLAMem sestavenou 3D mapu s odhadnutou trajektorií, zeleně jsou znázorněny relativní poziční omezení.
+Obrázky \ref{14} a \ref{15} zobrazují LSD SLAMem sestavenou 3D mapu s odhadnutou trajektorií, zeleně jsou znázorněny relativní poziční omezení.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.63]{img/porov_lsd_ldso.png}
 \caption{Porovnání trajektorie z LDSO a upravené trajektorie z LSD.}
+\label{13}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.455]{img/LSD_11_top.png}
 \caption{Sestavená 3D mapa z LSD a proběhlá trajektorie.}
+\label{14}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.31]{img/LSD_11_kancl.png}
 \caption{Ukázka vysoké hustoty 3D mapy s jasně rozeznatelnými částmi budovy a proběhlou trajektorií. Stejná část mapy je pro porovnání exportována i u DSO a LDSO.}
+\label{15}
 \end{figure} 
 
 \subsection{DSO}
 Direct Sparse Odometry nevyužívá ROS a při instalaci ani běhu nenastaly žádné potíže. Jelikož tato metoda pochází z Technické univerzity Mnichov, je plně kompatibilní s TUM datasety a dokonce poskytuje možnost exportu výsledné trajektorie do stejně formáto\-vaného souboru jako ground-truth.
 
 \subsection*{Výsledky}
-Následující obrázky zobrazují vždy vybranou část 3D mapy a půdorys ze třech různých TUM sekvencí. Stejné části jsou pro porovnání vybrány i u LDSO. V poměrně hustém mračnu bodů tvořících přesnou 3D mapu prostředí lze jasně rozeznat i malé části interiéru, zatímco pohyblivé části prostředí (např procházející lidé) se ve výsledné mapě neobjevují.
+Obrázky \ref{16}, \ref{18} a \ref{20} zobrazují vybranou část 3D mapy z každé ze třech různých TUM sekvencí. Obrázky \ref{17}, \ref{19} a \ref{21} zobrazují půdorysy z těchto sekvencí. Stejné části prostředí a půdorysy jsou pro porovnání vybrány i u LDSO. V poměrně hustém mračnu bodů tvořících přesnou 3D mapu prostředí lze jasně rozeznat i malé části interiéru, zatímco pohyblivé části prostředí (např procházející lidé) se ve výsledné mapě neobjevují.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{img/DSO_01_kolo.png}
 \caption{Sekvence 01 - kancelář s jízdním kolem.}
+\label{16}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{img/DSO_01_top_b.png}
 \caption{Sekvence 01 - půdorys s vyznačenou trajektorií.}
+\label{17}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{img/DSO_02_chodba.png}
 \caption{Sekvence 02 - část chodby.}
+\label{18}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{img/DSO_02_top_b.png}
 \caption{Sekvence 02 - půdorys s vyznačenou trajektorií.}
+\label{19}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{img/DSO_11_kancl_b.png}
 \caption{Sekvence 11 - kancelář. Stejná část k porovnání i u LSD a LDSO.}
+\label{20}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{img/DSO_11_top_b.png}
 \caption{Sekvence 11 - půdorys s vyznačenou trajektorií. Stejná část k porovnání i u metod LSD a LDSO.}
+\label{21}
 \end{figure} 
 
 \subsection*{Porovnání s ground-truth}
-Následují grafy vygenerované z vyhodnocovacího algoritmu v Matlabu. Trajektorie jsou vykresleny dvakrát, kdy je pokaždé použitý jiný zarovnávací algoritmus. Zeleně vyznačené data z ground-truth (GT) jsou u každé sekvence dostupné pouze na začátku a na konci. Vyčíslení konkrétních chyb bude provedeno v jedné z následujících sekcí.
+Na obrázcích \ref{22}, \ref{23}, \ref{24} a \ref{25} jsou grafy vygenerované z vyhodnocovacího algoritmu v Matlabu. Trajektorie jsou vykresleny dvakrát, první je zarovnána podle ground-truth (GT) ze začátku sekvence a druhá podle GT z konce sekvence, neboť zeleně vyznačené data z GT jsou u každé sekvence dostupné pouze na začátku a na konci. Z grafů lze jasně vidět nahromaděná chyba z průběhu DSO. Sekvence začíná i končí v naprosto stejném bodě, tedy i trajektorie by měla skončit na stejném místě. DSO nedokáže uzavírat smyčky a nahromaděnou chybu tak nelze bez apriorní znalosti trasy dopočítat ani eliminovat. To je důvod, proč se dvě vyobrazené trajektorie přesně nepřekrývají a jejich vzájemné počátky a konce jsou metodou vypočítány na rozdílná místa. Vyčíslení konkrétních chyb bude provedeno v sekcí \ref{porovnani}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.79\textwidth]{img/m_dso_01_2.png}
+\includegraphics[width=0.9\textwidth]{img/m_dso_01_2.png}
 \caption{Sekvence 01 - zarovnání trajektorií s GT - pohled shora.}
+\label{22}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{img/m_dso_02_2.png}
 \caption{Sekvence 02 - zarovnání trajektorií s GT - pohled shora.}
+\label{23}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{img/m_dso_11_1.png}
 \caption{Sekvence 02 - zarovnání trajektorií s GT - rozděleno po složkách x, y, z.}
+\label{24}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{img/m_dso_11_2.png}
+\includegraphics[width=0.85\textwidth]{img/m_dso_11_2.png}
 \caption{Sekvence 11 - zarovnání trajektorií s GT - pohled shora.}
+\label{25}
 \end{figure}
 
 
@@ -685,60 +740,92 @@ Direct Sparse Odometry with Loop Closure vychází z DSO a proto instalace i zp�
 Při spouštění se objevil podobný problém nekompatibility verzí OpenCV jako v LSD SLAM. Zjištění příčiny a oprava byla o to horší, že běh algoritmu se přerušoval v různých časových okamžicích v průběhu mapování. Ukázalo se, že problém nastává v souboru \texttt{src/frontend/Loopclosing.cc}, který se volá při pokusu o uzavření smyčky. Jako opravu bylo nutné přepsat parametry v řádku 203 na tvar \texttt{cv::solvePnPRansac(p3d, p2d, K, cv::Mat(), R, t, false, 100, 8.0, 0.99, inliers);}. Po kompilaci již metoda pracovala naprosto bezchybně a spolehlivě.
 
 \subsection*{Výsledky}
-Následují ukázky vybraných částí 3D mapy a půdorysy ze třech různých TUM sekvencí. Pro možnost porovnání jsou vybrané části stejné jako u DSO. Vzhledem k tomu, že LDSO téměř nemění způsob mapování oproti DSO by výsledné mapy neměly být příliš odlišné. Černě je vyznačená trajektorie s relativními polohovými omezeními.
+Obrázky \ref{26}, \ref{28} a \ref{30} obsahují ukázky vybraných částí 3D mapy a obrázky \ref{27}, \ref{29} a \ref{31} zobrazují půdorysy ze třech různých TUM sekvencí. Pro možnost porovnání jsou vybrané části stejné jako u DSO. Vzhledem k tomu, že LDSO téměř nemění způsob mapování oproti DSO by výsledné mapy neměly být příliš odlišné. Černě je vyznačená trajektorie s relativními polohovými omezeními.
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{img/LDSO_01_kolo.png}
 \caption{Sekvence 01 - kancelář s jízdním kolem.}
+\label{26}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{img/LDSO_01_top_b.png}
 \caption{Sekvence 01 - půdorys s vyznačenou trajektorií.}
+\label{27}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{img/LDSO_02_chodba.png}
 \caption{Sekvence 02 - část chodby.}
+\label{28}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{img/LDSO_02_top_b.png}
 \caption{Sekvence 02 - půdorys s vyznačenou trajektorií.}
+\label{29}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{img/LDSO_kancl_b.png}
 \caption{Sekvence 11 - kancelář. Stejná část k porovnání i u LSD a DSO.}
+\label{30}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{img/LDSO_11_top_b.png}
 \caption{Sekvence 11 - půdorys s vyznačenou trajektorií. Stejná část k porovnání i u LSD a DSO.}
+\label{31}
 \end{figure}
 
-\newpage
 \subsection*{Porovnání s ground-truth}
-Pro porovnání trajektorie s ground-truth jsem na ukázku vybral nejvíce odlišný graf oproti zarovnáním s DSO. Všechny získané trajektorie přibližně odpovídají  GT, grafy tak nejsou dostatečně vypovídající o přesnosti metody. Konkrétní vyčíslení chyb bude rozebráno v následující sekci.
+Na obrázku \ref{32} je pro porovnání trajektorie s ground-truth na ukázku vybrán nejvíce odlišný graf oproti zarovnáním s DSO. Trajektorie je vykreslena dvakrát, první je zarovnána podle ground-truth z počátku sekvence, podruhé z jejího konce. Všechny získané trajektorie přibližně odpovídají  GT, grafy tak nejsou dostatečně vypovídající o nepřesnosti metody, avšak nastiňují pravděpodobnou vyšší přesnost než mělo DSO. Na rozdíl od DSO se počátky a konce trajektorií téměř shodují, to vypovídá o funkčnosti uzavírání smyček u LDSO, které po nalezení smyčky provedlo globální optimalizaci mapy. Rozdíl v průběhu trajektorie je způsoben nahromaděnou chybou, kterou se nepovedlo zcela eliminovat. Přesto jsou výsledky znatelně lepší než u DSO. Konkrétní vyčíslení chyb bude rozebráno v sekci \ref{porovnani}.
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{img/m_ldso_02_2.png}
 \caption{Sekvence 02 - zarovnání trajektorií s GT - pohled shora.}
+\label{32}
 \end{figure}
 
-\section{Porovnání}
-Z porovnávacího skriptu v Matlabu jsem získal konkrétní hodnoty chyb. V první tabulce porovnávám chyby pro jednu konkrétní sekvenci a menší hodnota chyby je znázorněna tučně. V druhé tabulce jsou střední hodnoty chyb ze třech různých sekvencí, přičemž lepší hodnoty jsou znovu tučně zvýrazněny. Hodnoty chyb jsou ovlivněny skutečností, že ground-truth data jsou dostupná pouze pro počáteční a konečnou část trajektorie. Chyby jsou tedy vypočítané pouze z přibližně 10\% výsledných dat. 
+\section{Porovnání} \label{porovnani}
+Z porovnávacího skriptu v Matlabu jsou získány přesné hodnoty chyb. V první tabulce jsou porovnány chyby pro jednu konkrétní sekvenci, přičemž menší hodnota chyby je znázorněna tučně. V druhé tabulce jsou střední hodnoty chyb ze třech různých sekvencí, lepší hodnoty jsou znovu tučně zvýrazněny. Hodnoty chyb jsou ovlivněny skutečností, že ground-truth data jsou dostupná pouze pro počáteční a konečnou část trajektorie a jsou tedy vypočítané pouze z přibližně 10\% výsledných dat. Avšak toto ovlivnění by nemělo být nijak zásadní, neboť chyby v průběhu mapování mají menši vypovídající hodnotu, než chyby na začátku a na konci, kde již jsou dostupná GT data. 
 
-Z těchto výsledků se nedá říci, že by DSO nebo LDSO fungovalo s menší chybou, neboť rozdíly chyb nejsou dostatečné a ani jedna metoda svou přesností výrazně nepřevyšuje druhou.
+Hodnoty jednotlivých chyb jsou vypočteny podle následujících rovnic uvedených v \cite{benchmark}:
+Nejprve je třeba zarovnat získanou trajektorii se startovní i koncovou částí ground-truth nezávisle na sobě. Tím dostáváme dvě relativní transformace
+
+\begin{eqnarray*}
+T^{gt}_s := \argmin_{T \in Sim(3)} \sum_{i \in S} (Tp_i- \hat{p_i})^2 \\
+T^{gt}_e := \argmin_{T \in Sim(3)} \sum_{i \in E} (Tp_i- \hat{p_i})^2
+\end{eqnarray*}
+kde \(T\) \(p_i \in \mathbb{R}^3, i=1 \dots n \) odpovídá pozicím sledovaných snímků \(1 \dots n\), \(S \subset [1;n]\) a \(E \subset [1;n]\) jsou indexy snímků startovní a koncové části trajektorie, pro kterou existují pozice \(\hat{p} \in \mathbb{R}^3\) z ground-truth. \(Sim(3)\) se rozumí 3D podobnostní transformace, ta zahrnuje 7 stupňů volnosti - tři posuny ve směru souřadnicových os, tři rotace podle souřadnicových os jednu změnu měřítka. Nutností je, aby \textit{E} i \textit{S} obsahovaly dostatečné množství pozic a dobře tak vyrovnaly počáteční \uv{zmatený} kalibrační pohyb kamery. Nahromaděnou chybu nyní lze vypočítat jako 
+\begin{eqnarray*} 
+T_{\text{drift}}=T^{gt}_e(T^{gt}_s)^{-1} \in \text{Sim(3)},
+\end{eqnarray*}
+z čehož je možné přímo získat chybu měřítka \(e_s\), chybu rotace \(e_r\) a chybu posunu \(e_t\) použitou pro výpočet střední kvadratické odchylky \(e_{\text{rmse}}\).
+\begin{gather}
+e_s:=\text{scale}(T_{\text{drift}}) \label{es} \\
+e_r:=\text{rotation}(T_{\text{drift}}) \label{er}\\
+e_t:=||\text{translation}(T_{\text{drift}})|| \nonumber \\
+e_{\text{rmse}}:=\sqrt{\min_{T \in Sim(3)} \frac{1}{|S \cup E|} \sum_{i \in S \cup E} (Tp_i-\hat{p_i})^2} \label{ermse}
+\end{gather}
+Jelikož \(T_{\text{drift}} \in \text{Sim(3)}\), obsahuje zmiňovaných 7 parametrů a funkce \textit{scale, rotation} a \textit{translation} pouze extrahují potřebná data.
+
+Navíc je počítána chyba zarovnání, která zahrnuje chybu měřítka, rotace a translace v rámci celé trajektorie a celkovou přesnost metody vyjadřuje lépe než střední kvadratická odchylka.
+
+\begin{eqnarray}
+e_{\text{align}}:=\sqrt{\frac{1}{n} \sum_{i=1}^n ||T^{gt}_s p_i - T^{gt}_e p_i||^2_2}
+\label{ealign}
+\end{eqnarray}
+
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|l|l|}
@@ -747,13 +834,14 @@ Z těchto výsledků se nedá říci, že by DSO nebo LDSO fungovalo s menší c
 \hline
  & DSO & LDSO \\
 \hline
-Střední kvadratická odchylka & \textbf{0.431941} & 0.467910 \\
-Chyba zarovnání trajektorií & \textbf{0.657937} & 0.717888 \\
-Chyba rotace & \textbf{0.879922} & 1.237425 \\
-Chyba měřítka & 0.947550 & \textbf{0.942661} \\
+Střední kvadratická odchylka \eqref{ermse} & \textbf{0.431941} m & 0.467910 m \\
+Chyba zarovnání trajektorií \eqref{ealign} & \textbf{0.657937} & 0.717888 \\
+Chyba rotace \eqref{er} & \textbf{0.879922}\textdegree & 1.237425\textdegree \\
+Chyba měřítka \eqref{es} & 0.947550 & \textbf{0.942661} \\
 \hline
 \end{tabular}
 \caption{Chyby implementací v 11. sekvenci}
+\label{tab1}
 \end{table}
 
 
@@ -766,20 +854,28 @@ Chyba měřítka & 0.947550 & \textbf{0.942661} \\
 \hline
  & DSO & LDSO \\
 \hline
-Střední kvadratická odchylka & \textbf{0.343958} & 0.384410 \\
-Chyba zarovnání trajektorií & \textbf{0.524797} & 0.617730 \\
-Chyba rotace & 1.001115 & \textbf{0.946257} \\
-Chyba měřítka & 0.960064 & \textbf{0.940674} \\
+Střední kvadratická odchylka \eqref{ermse} & \textbf{0.343958} m & 0.384410 m \\
+Chyba zarovnání trajektorií \eqref{ealign} & \textbf{0.524797} & 0.617730 \\
+Chyba rotace \eqref{er} & 1.001115\textdegree & \textbf{0.946257}\textdegree \\
+Chyba měřítka \eqref{es} & 0.960064 & \textbf{0.940674} \\
 \hline
 \end{tabular}
 \caption{Střední hodnoty chyb implementací ze třech sekvencí}
+\label{tab2}
 \end{table}
 
+Výsledky z tabulek \ref{tab1} a \ref{tab2} nepotvrzují, že by uzavírání smyček přineslo zřetelnou výhodu. Hodnoty chyb jsou velmi podobné a ani jedna metoda svou přesností výrazně nepřevyšuje druhou. Nejvyšší vypovídající hodnotu by měla mít chyba zarovnání trajektorií, ve které dokonce vykazuje mírně lepší výsledky DSO. Naproti tomu z grafického porovnání trajektorií a ground-truth vyšlo najevo, že DSO kvůli nahromaděné chybě nedokáže přesně určit koncovou pozici. LDSO tedy musí většinu své chyby získat v průběhu trajektorie, z čehož lze usuzovat, že při nasazení v rozlehlejším prostředí by (za předpokladu uzavření smyčky) mělo svou chybu eliminovat a v průměru dosahovat lepších výsledků oproti DSO.
+
+Z pohledu mapování dosahovalo nejhorších výsledků SVO, což ale může být způsobeno pouze nekompatibilitou s novějším softwarem. Zbylé tři metody v testování obstály a při porovnání grafických výstupů lze prohlásit, že mapování zvládají na vysoké úrovni, jelikož LSD, DSO i LDSO vytváří přesné a husté 3D mapy. DSO se spíše hodí pro použití v menších prostředích, případně na trasy, kde se robot nedostane znovu na startovní pozici. Pro rozlehlejší prostředí s možností uzavírání smyček je žádoucí použít plnohodnotný SLAM, přičemž LDSO by díky jednoduchosti použití a modernímu přístupu bylo ze čtyř testovaných metod nejvhodnějším kandidátem.
 
 \chapter{Závěr}
 Cílem práce byla zejména rešerše v oblasti vizuální odometrie a vizuálního SLAMu. Byla popsána historie problému SLAM a důležité způsoby řešení, konkrétně pravděpodobností přístup a Graph-based SLAM, na jejichž základech staví vizuální SLAM. Ten byl následně důkladně popsán spolu s jeho základními principy a odlišnostmi od jiných přístupů. Poté byly vybrány čtyři známé vizuální metody, u kterých byly vysvětleny konkrétní přístupy k řešení a nové vylepšení, které tyto metody přinesly.
 
 V rámci praktické části práce byla popsána implementace čtyř metod, včetně popisu a konkrétního postupu řešení problémů, které se při zprovoznění objevily. Charakterizované jsou všechny použité softwarové nástroje k instalaci, běhu i vyhodnocení provedených experimentů. Přiloženo je několik snímků vytvořených 3D map ze všech metod včetně uražených trajektorií. Následně jsou do algoritmů nahrány datasety, vyexportovány vypočítané trajektorie a pomocí vyhodnocovacích skriptů v Pythonu a Matlabu je porovnána jejich přesnost a vypočteny hodnoty chyb.
+
+Porovnávány byly metody Semi-direct Visual Odometry, Large-Scale Direct Monocular SLAM, Direct Sparse Odometry a Direct Sparse Odometry with Loop Closure. Všechny se povedlo spustit, ale ne všechny fungovaly správně s testovacími daty. SVO bylo testováno na jiných datech a nevykázalo uspokojivé výsledky. Do LSD se podařilo dostat správná data, avšak výslednou trajektorii se vyexportovat nepodařilo a tak jediný výstup byla bohatá grafická data v podobě 3D mapy a v ní znázorněné trajektorie. Z tvaru výsledných trajektorií i podoby a přesnosti map lze usuzovat více než uspokojivou funkčnost metody a možnost jejího použití v reálných podmínkách. Zbývající dva algoritmy se podařilo porovnat i v řeči čísel, neboť nebyl problém získat výsledné trajektorie. Z hodnot vyčíslených chyb vychází mírně lépe metoda DSO, přestože vykonává pouze vizuální odometrii. Naopak z grafického porovnání trajektorií a ground-truth se lepšími výsledky pyšní metoda LDSO, která dokázala správně určit koncový bod trasy na stejném místě jako počáteční. LSD, DSO a především LDSO tedy lze doporučit pro použití v reálných podmínkách.
+
+Nadstavbou této práce by mohlo být přímé porovnání mračen bodů, reprezentující 3D mapy prostředí, bez nutnosti znát vypočtenou trajektorii a porovnat tak i metody, které neposkytují informace o uražené trase. Zároveň je možnost dopočítat jiné druhy chyb, které by mohly upřednostňovat začátek a konec trasy a primárně tak cílily na plnohodnotné SLAM algoritmy. Porovnat by se daly i další aspekty metod, jako je hardwarová náročnost nebo robustnost. Budoucnost SLAMu jako celku by mohla být v použití hlubokých neuronových sítí jako součást algoritmu, tato myšlenka, jakož i obecné použití neuronových sítí, je nyní ve vizuálním zpracování obrazu hojně diskutována a možná bude pro toto odvětví velkým přínosem.
 
 
 \newpage
